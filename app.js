@@ -24,6 +24,10 @@ app.get('/store',(req,res)=>{
   res.render('store');
 });
 
+app.get('/checkout',(req,res)=>{
+  res.render('checkout');
+});
+
 const PORT=3000;
 app.listen(PORT,()=>{
   console.log(`Listing at port ${PORT}!`);

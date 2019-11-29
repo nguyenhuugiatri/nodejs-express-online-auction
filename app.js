@@ -32,6 +32,9 @@ app.get('/blank',(req,res)=>{
   res.render('blank');
 });
 
+app.get('/signup',(req,res)=>{
+  res.render('signup');
+});
 const PORT=3000;
 app.listen(PORT,()=>{
   console.log(`Listing at port ${PORT}!`);

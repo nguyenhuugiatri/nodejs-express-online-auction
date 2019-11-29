@@ -12,12 +12,22 @@
   font-size: 1px;
   margin: 0;
 }
-.wrapper input, .wrapper textarea, .wrapper select, .wrapper button {
+.wrapper input,
+.wrapper textarea,
+.wrapper select,
+.wrapper button {
   font-family: "Montserrat";
   color: #333;
   font-size: 15px;
 }
-.wrapper p, .wrapper h1, .wrapper h2, .wrapper h3, .wrapper h4, .wrapper h5, .wrapper h6, .wrapper ul {
+.wrapper p,
+.wrapper h1,
+.wrapper h2,
+.wrapper h3,
+.wrapper h4,
+.wrapper h5,
+.wrapper h6,
+.wrapper ul {
   margin: 0;
 }
 .wrapper img {
@@ -67,12 +77,20 @@
   text-align: center;
   margin-bottom: 28px;
 }
+
 .wrapper .form-group {
   display: flex;
 }
+
 .wrapper .form-group input {
   width: 50%;
+  box-shadow: none;
 }
+
+.wrapper .form-wrapper input {
+  box-shadow: none;
+}
+
 .wrapper .form-group input:first-child {
   margin-right: 25px;
 }
@@ -148,7 +166,9 @@
   -webkit-transform: translateZ(0);
   transform: translateZ(0);
 }
-.wrapper button:hover i, .wrapper button:focus i, .wrapper button:active i {
+.wrapper button:hover i,
+.wrapper button:focus i,
+.wrapper button:active i {
   -webkit-animation-name: hvr-icon-wobble-horizontal;
   animation-name: hvr-icon-wobble-horizontal;
   -webkit-animation-duration: 1s;

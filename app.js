@@ -28,6 +28,10 @@ app.get('/checkout',(req,res)=>{
   res.render('checkout');
 });
 
+app.get('/blank',(req,res)=>{
+  res.render('blank');
+});
+
 const PORT=3000;
 app.listen(PORT,()=>{
   console.log(`Listing at port ${PORT}!`);

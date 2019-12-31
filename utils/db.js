@@ -6,7 +6,8 @@ const pool = mysql.createPool(config.mysql);
 const mysql_query = util.promisify(pool.query).bind(pool);
 
 module.exports = {
-  load: sql => mysql_query(sql)
+  load: sql => mysql_query(sql),
+  add: (tableName, entity) => mysql_query(`insert into ${tableName} set ?`, entity)
   // add: (tableName, entity) =>
   //   mysql_query(`insert into ${tableName} set ?`, entity),
   // del: (tableName, condition) =>

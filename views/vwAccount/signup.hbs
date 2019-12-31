@@ -1,0 +1,64 @@
+<link rel="stylesheet" href="/css/sign-in-sign-up.css">
+<!-- BREADCRUMB -->
+<div id="breadcrumb" class="section">
+	<!-- container -->
+	<div class="container">
+		<!-- row -->
+		<div class="row">
+			<div class="col-md-12">
+				<h3 class="breadcrumb-header">Sign Up Page</h3>
+				<ul class="breadcrumb-tree">
+					<li><a href="#">Account</a></li>
+					<li class="active">Sign Up</li>
+				</ul>
+			</div>
+		</div>
+		<!-- /row -->
+	</div>
+	<!-- /container -->
+</div>
+<!-- /BREADCRUMB -->
+
+<div class="wrapper">
+	<div class="inner">
+		<div class="image-holder">
+			<img src="/img/registration-form-1.jpg" alt="">
+		</div>
+		<form action="" method="POST" onsubmit="return validate()" >
+			<h3>SIGN UP</h3>
+			<div class="form-group">
+				<input type="text" placeholder="First Name" name="firstName" id="firstName" class="form-control">
+				<input type="text" placeholder="Last Name" name="lastName" id="lastName" class="form-control">
+			</div>
+			<div class="form-wrapper">
+				<input type="text" placeholder="Username" name="username" id="username" class="form-control">
+				<i class="zmdi zmdi-account"></i>
+			</div>
+			<div class="form-wrapper">
+				<input type="text" placeholder="Email Address" name="email" id="email" class="form-control">
+				<i class="zmdi zmdi-email"></i>
+			</div>
+			<div class="form-wrapper">
+				<select id="gender" name="gender" class="form-control">
+					<option value="" disabled selected>Gender</option>
+					<option value="1">Male</option>
+					<option value="0">Female</option>
+				</select>
+				<i class="zmdi zmdi-caret-down" style="font-size: 17px"></i>
+			</div>
+			<div class="form-wrapper">
+				<input type="password" placeholder="Password" id="password" name="password" class="form-control">
+				<i class="zmdi zmdi-lock"></i>
+			</div>
+			<div class="form-wrapper">
+				<input type="password" placeholder="Confirm Password" id="repassword" name="repassword" class="form-control">
+				<i class="zmdi zmdi-lock"></i>
+			</div>
+			<div>
+				<span id="msg"></span>
+			</div>
+			<button type="submit">Sign Up</button>
+		</form>
+	</div>
+</div>
+<script src="/js/signup.js"></script>

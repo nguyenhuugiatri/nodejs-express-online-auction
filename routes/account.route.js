@@ -11,7 +11,7 @@ router.get("/signin", (req, res) => {
 });
 
 router.post("/signin", async (req, res) => {
-  const user = await userModel.singleByUsername(req.body.username);
+  const user = await userModel.singleByUsername( e);
   if (user === null) throw new Error("Invalid username or password.");
   // const rs = bcrypt.compareSync(req.body.password, user.f_Password);
   // if (rs === false)
@@ -27,6 +27,27 @@ router.post("/signin", async (req, res) => {
   // req.session.authUser = user;
   const url = req.query.retUrl || "/";
   res.redirect(url);
+});
+
+
+
+
+router.get('/signup', async (req, res) => {
+  res.render('vwAccount/signup');
+});
+
+router.post('/signup', async (req, res) => {
+
+  const entity = req.body;
+  entity.fullname = entity.firstName + " " +entity.lastName;
+  delete entity.repassword;
+  delete entity.lastName;
+  delete entity.firstName;
+  
+  
+
+  const result = await userModel.add(entity);
+  res.render('vwAccount/signin');
 });
 
 module.exports = router;

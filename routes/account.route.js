@@ -7,6 +7,7 @@ const userModel = require("../models/user.model");
 const router = express.Router();
 
 router.get("/signin", (req, res) => {
+  console.log(process.env.HOST);
   res.render("vwAccount/signin");
 });
 

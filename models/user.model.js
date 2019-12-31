@@ -6,7 +6,7 @@ module.exports = {
   // single: id => db.load(`select * from users where id = ${id}`),
   singleByUsername: async username => {
     const rows = await db.load(
-      `select * from user where usename = '${username}'`
+      `select * from user where username = '${username}'`
     );
     if (rows.length === 0) return null;
 

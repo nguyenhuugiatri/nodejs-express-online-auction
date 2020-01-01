@@ -8,7 +8,6 @@ const restrict = require("../middlewares/auth.mdw");
 const router = express.Router();
 
 router.get("/signin", (req, res) => {
-
   res.render("vwAccount/signin", {
     layout: false
   });
@@ -24,8 +23,8 @@ router.post("/signin", async (req, res) => {
   "text": "Invalid username or password"}`
     });
 
-const rs = bcrypt.compareSync(req.body.password, user.password);
-if(!rs)
+  const rs = bcrypt.compareSync(req.body.password, user.password);
+  if (!rs)
     return res.render("vwAccount/signin", {
       layout: false,
       err_message: `{"icon": "error",
@@ -42,16 +41,13 @@ if(!rs)
 });
 
 
-
-
 router.get('/signup', async (req, res) => {
   res.render('vwAccount/signup',{layout:false});
 });
 
-
 router.post("/signup", async (req, res) => {
-    const N = 10;
-    const hash = bcrypt.hashSync(req.body.password, N);
+  const N = 10;
+  const hash = bcrypt.hashSync(req.body.password, N);
 
   const entity = req.body;
   entity.password = hash;
@@ -59,7 +55,6 @@ router.post("/signup", async (req, res) => {
   delete entity.repassword;
   delete entity.lastName;
   delete entity.firstName;
-  
 
   const result = await userModel.add(entity);
   const url = "/account/signin";

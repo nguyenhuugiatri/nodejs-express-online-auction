@@ -184,6 +184,16 @@
   -webkit-animation-iteration-count: 1;
   animation-iteration-count: 1;
 }
+
+#msg {
+  display: none;
+  color: red;
+}
+
+#msg::after {
+  content: " !";
+}
+
 @-webkit-keyframes hvr-icon-wobble-horizontal {
   16.65% {
     -webkit-transform: translateX(6px);

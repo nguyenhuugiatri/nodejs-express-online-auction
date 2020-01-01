@@ -1,4 +1,11 @@
-<!-- Google font -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Sign Up</title>
+		<!-- Google font -->
 <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
 
 <!-- Bootstrap -->
@@ -14,13 +21,14 @@
 <!-- Font Awesome Icon -->
 <link rel="stylesheet" href="/css/font-awesome.min.css">
 <link rel="stylesheet" href="/css/sign-in-sign-up.css">
-
+</head>
+<body>
 <div class="wrapper">
 	<div class="inner">
 		<div class="image-holder">
 			<img src="/img/registration-form-1.jpg" alt="">
 		</div>
-		<form action="" method="POST" onsubmit="return validate()">
+		<form id="formSignUp" action="" method="POST">
 			<h3>SIGN UP</h3>
 			<div class="form-group">
 				<input type="text" placeholder="First Name" name="firstName" id="firstName" class="form-control">
@@ -57,4 +65,9 @@
 		</form>
 	</div>
 </div>
+<script src="https://code.jquery.com/jquery-3.4.1.slim.js"
+		integrity="sha256-BTlTdQO9/fascB1drekrDVkaKd9PkwBymMlHOiG+qLI=" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <script src="/js/signup.js"></script>
+</body>
+</html>

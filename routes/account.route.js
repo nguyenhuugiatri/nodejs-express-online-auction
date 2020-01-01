@@ -45,7 +45,7 @@ if(!rs)
 
 
 router.get('/signup', async (req, res) => {
-  res.render('vwAccount/signup');
+  res.render('vwAccount/signup',{layout:false});
 });
 
 

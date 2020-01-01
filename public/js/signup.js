@@ -1,4 +1,13 @@
+const formSignUp=$('#formSignUp');
+formSignUp.submit(function(){
+    if (validate())
+        return true;
+      else
+        return false;
+});
+
 function validate() {
+    console.log("ddddddddddddddddddddddddddddddddddddddddddddddddddddddddd");
     const nameFirst = $('#firstName').val().trim();
     const nameLast = $('#lastName').val().trim();
     const userName = $('#username').val().trim();

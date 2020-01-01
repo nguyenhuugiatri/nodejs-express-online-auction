@@ -40,9 +40,9 @@ app.get("/product", (req, res) => {
   res.render("product");
 });
 
-app.get("/store", (req, res) => {
-  res.render("store");
-});
+// app.get("/store", (req, res) => {
+//   res.render("store");
+// });
 
 app.get("/checkout", (req, res) => {
   res.render("checkout");

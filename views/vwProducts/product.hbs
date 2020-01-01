@@ -73,7 +73,7 @@
       <!-- Product details -->
       <div class="col-md-5">
         <div class="product-details">
-          <h2 class="product-name">{{{this.product.details}}}</h2>
+          <h2 class="product-name">{{{this.product.name}}}</h2>
           <h2 class="product-available">{{{this.product.startDate}}} left</h2>
           <div>
             <div class="product-rating">
@@ -96,7 +96,7 @@
               </div>
               <div class="product-price-item--vertical">
                 <h2 class="product-price-title">CURRENT WINNER</h2>
-                <h3 class="product-price">{{{this.product.id_bidder}}}</h3>
+                <h3 class="product-price">{{{this.product.fullname}}}</h3>
               </div>
             </div>
             <div class="product-price-now">
@@ -238,7 +238,7 @@
                     </tr>
                     <tr>
                       <th>Người đăng bán</th>
-                      <td>{{{this.product.id_seller}}}</td>
+                      <td>{{{this.sellerName.fullname}}}</td>
                     </tr>
                     <tr>
                       <th>Gửi từ</th>
@@ -248,15 +248,7 @@
 
                   <h4 class="info-product-detail">MÔ TẢ SẢN PHẨM</h4>
                   <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing
-                    elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis
-                    nostrud exercitation ullamco laboris nisi ut aliquip ex
-                    ea commodo consequat. Duis aute irure dolor in
-                    reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur. Excepteur sint occaecat cupidatat
-                    non proident, sunt in culpa qui officia deserunt mollit
-                    anim id est laborum.
+                    {{{this.product.details}}}
                   </p>
                 </div>
               </div>

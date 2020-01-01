@@ -10,7 +10,8 @@ module.exports = {
 //   },
 //   pageByCat: (catId, offset) => db.load(`select * from products where CatID = ${catId} limit ${config.paginate.limit} offset ${offset}`),
 
-  getProductByID: id => db.load(`select * from product where id = '${id}'`)
+  getProductByID: id => db.load(`select p.name as name , p.startDate ,p.endDate , p.currentPrice , u.fullname , p.buynowPrice, p.details from product as p,user as u , image i where u.id = p.id_bidder and p.id = i.id_product and p.id ='${id}'`),
+  getSellerProductByID: id => db.load(`select  u.fullname from product as p,user as u , image i where u.id = p.id_seller and p.id = i.id_product and p.id = '${id}'`)
 //   add: entity => db.add('products', entity),
 //   del: id => db.del('products', { ProID: id }),
 //   patch: entity => {

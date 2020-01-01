@@ -1,4 +1,4 @@
-// const restrict = require('../middlewares/auth.mdw');
+const restrict = require('../middlewares/auth.mdw');
 
 module.exports = function(app) {
   // app.use('/demo', require('../routes/demo.route'));

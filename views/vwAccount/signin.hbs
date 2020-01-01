@@ -1,38 +1,57 @@
-<!-- Google font -->
-<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
+<!DOCTYPE html>
+<html lang="en">
 
-<!-- Bootstrap -->
-<link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" />
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Sign In</title>
+	<!-- Google font -->
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
 
-<!-- Slick -->
-<link type="text/css" rel="stylesheet" href="/css/slick.css" />
-<link type="text/css" rel="stylesheet" href="/css/slick-theme.css" />
+	<!-- Bootstrap -->
+	<link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" />
 
-<!-- nouislider -->
-<link type="text/css" rel="stylesheet" href="/css/nouislider.min.css" />
+	<!-- Slick -->
+	<link type="text/css" rel="stylesheet" href="/css/slick.css" />
+	<link type="text/css" rel="stylesheet" href="/css/slick-theme.css" />
 
-<!-- Font Awesome Icon -->
-<link rel="stylesheet" href="/css/font-awesome.min.css">
-<link rel="stylesheet" href="/css/sign-in-sign-up.css">
+	<!-- nouislider -->
+	<link type="text/css" rel="stylesheet" href="/css/nouislider.min.css" />
 
-<div class="wrapper">
-	<div class="inner">
-		<div class="image-holder">
-			<img src="/img/registration-form-1.jpg" alt="">
+	<!-- Font Awesome Icon -->
+	<link rel="stylesheet" href="/css/font-awesome.min.css">
+
+	<link rel="stylesheet" href="/css/sign-in-sign-up.css">
+</head>
+
+<body>
+	<div class="wrapper">
+		<div class="inner">
+			<div class="image-holder">
+				<img src="/img/registration-form-1.jpg" alt="">
+			</div>
+			<form method="POST">
+				<h3>SIGN IN</h3>
+				<div class="form-wrapper">
+					<input type="text" placeholder="Username" class="form-control" name="username">
+					<i class="zmdi zmdi-account"></i>
+				</div>
+				<div class="form-wrapper">
+					<input type="password" placeholder="Password" class="form-control" name="password">
+					<i class="zmdi zmdi-lock"></i>
+				</div>
+				<button type="submit">Sign In
+					<i class="zmdi zmdi-arrow-right"></i>
+				</button>
+			</form>
 		</div>
-		<form method="POST">
-			<h3>SIGN IN</h3>
-			<div class="form-wrapper">
-				<input type="text" placeholder="Username" class="form-control" name="username">
-				<i class="zmdi zmdi-account"></i>
-			</div>
-			<div class="form-wrapper">
-				<input type="password" placeholder="Password" class="form-control" name="password">
-				<i class="zmdi zmdi-lock"></i>
-			</div>
-			<button type="submit">Sign In
-				<i class="zmdi zmdi-arrow-right"></i>
-			</button>
-		</form>
+		<input type="text" value="{{err_message}}" id="err_message" hidden>
 	</div>
-</div>
+	<script src="https://code.jquery.com/jquery-3.4.1.slim.js"
+		integrity="sha256-BTlTdQO9/fascB1drekrDVkaKd9PkwBymMlHOiG+qLI=" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+	<script src="/js/signin.js"></script>
+</body>
+
+</html>

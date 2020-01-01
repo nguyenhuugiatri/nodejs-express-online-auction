@@ -6,9 +6,13 @@ const router = express.Router();
 
 router.get('/', async (req, res) => {
   const proId = req.params.id;
-  const rows = await productModel.getProductPriceDESC(proId);
+  const rowsPrice = await productModel.getProductPriceDESC(proId);
+  const rowsEndate = await productModel.getProductEndateDESC(proId);
+  const rowsBidd = await productModel.getProductBiddDESC(proId);
   res.render('home', {
-    listProductDESC: rows
+    listProductPriceDESC: rowsPrice,
+    listProductEndateDESC: rowsEndate,
+    listProductBiddDESC: rowsBidd
   });
 })
 

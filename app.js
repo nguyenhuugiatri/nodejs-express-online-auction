@@ -7,6 +7,15 @@ const numeral = require("numeral");
 require("express-async-errors");
 
 const app = express();
+
+app.use(
+  session({
+    secret: "keyboard cat",
+    resave: false,
+    saveUninitialized: true
+  })
+);
+
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(
@@ -30,6 +39,7 @@ app.engine(
 );
 app.set("view engine", "hbs");
 
+// require("./middlewares/locals.mdw")(app);
 require("./middlewares/routes.mdw")(app);
 
 app.get("/", (req, res) => {

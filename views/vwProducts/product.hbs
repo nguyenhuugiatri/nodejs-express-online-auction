@@ -30,19 +30,19 @@
       <div class="col-md-5 col-md-push-2">
         <div id="product-main-img">
           <div class="product-preview">
-            <img src="./img/product01.png" alt="" />
+            <img src="/img/product01.png" alt="" />
           </div>
 
           <div class="product-preview">
-            <img src="./img/product03.png" alt="" />
+            <img src="/img/product03.png" alt="" />
           </div>
 
           <div class="product-preview">
-            <img src="./img/product06.png" alt="" />
+            <img src="/img/product06.png" alt="" />
           </div>
 
           <div class="product-preview">
-            <img src="./img/product08.png" alt="" />
+            <img src="/img/product08.png" alt="" />
           </div>
         </div>
       </div>
@@ -52,19 +52,19 @@
       <div class="col-md-2  col-md-pull-5">
         <div id="product-imgs">
           <div class="product-preview">
-            <img src="./img/product01.png" alt="" />
+            <img src="/img/product01.png" alt="" />
           </div>
 
           <div class="product-preview">
-            <img src="./img/product03.png" alt="" />
+            <img src="/img/product03.png" alt="" />
           </div>
 
           <div class="product-preview">
-            <img src="./img/product06.png" alt="" />
+            <img src="/img/product06.png" alt="" />
           </div>
 
           <div class="product-preview">
-            <img src="./img/product08.png" alt="" />
+            <img src="/img/product08.png" alt="" />
           </div>
         </div>
       </div>
@@ -73,8 +73,8 @@
       <!-- Product details -->
       <div class="col-md-5">
         <div class="product-details">
-          <h2 class="product-name">product name goes here</h2>
-          <h2 class="product-available">12:06:00 left</h2>
+          <h2 class="product-name">{{{this.product.details}}}</h2>
+          <h2 class="product-available">{{{this.product.startDate}}} left</h2>
           <div>
             <div class="product-rating">
               <i class="fa fa-star"></i>
@@ -92,23 +92,20 @@
             <div class="product-price-item">
               <div class="product-price-item--vertical">
                 <h2 class="product-price-title">CURRENT BID</h2>
-                <h3 class="product-price">$980.00</h3>
+                <h3 class="product-price">${{{this.product.currentPrice}}}</h3>
               </div>
               <div class="product-price-item--vertical">
                 <h2 class="product-price-title">CURRENT WINNER</h2>
-                <h3 class="product-price">lemlem</h3>
+                <h3 class="product-price">{{{this.product.id_bidder}}}</h3>
               </div>
             </div>
             <div class="product-price-now">
               <h2 class="product-price-title">BUY-NOW PRICE :</h2>
-              <h3 class="product-price">$980.00</h3>
+              <h3 class="product-price">${{{this.product.buynowPrice}}}</h3>
             </div>
           </div>
           <p class="product-intro">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-            enim ad minim veniam, quis nostrud exercitation ullamco laboris
-            nisi ut aliquip ex ea commodo consequat.
+            {{{this.product.details}}}
           </p>
 
           <!-- <div class="product-options">
@@ -229,19 +226,19 @@
                   <table class="info-product-table">
                     <tr>
                       <th>Tên sản phẩm</th>
-                      <td>Laptop Asus</td>
+                      <td>{{{this.product.details}}}</td>
                     </tr>
                     <tr>
                       <th>Ngày đăng bán</th>
-                      <td>12/06/2019</td>
+                      <td>{{{this.product.startDate}}}</td>
                     </tr>
                     <tr>
                       <th>Ngày hết hạn</th>
-                      <td>12/07/2019</td>
+                      <td>{{{this.product.endDate}}}</td>
                     </tr>
                     <tr>
                       <th>Người đăng bán</th>
-                      <td>Nguyễn Hữu Gia Anh</td>
+                      <td>{{{this.product.id_seller}}}</td>
                     </tr>
                     <tr>
                       <th>Gửi từ</th>
@@ -520,7 +517,7 @@
       <div class="col-md-3 col-xs-6">
         <div class="product">
           <div class="product-img">
-            <img src="./img/product01.png" alt="" />
+            <img src="/img/product01.png" alt="" />
             <div class="product-label">
               <span class="sale">-30%</span>
             </div>
@@ -562,7 +559,7 @@
       <div class="col-md-3 col-xs-6">
         <div class="product">
           <div class="product-img">
-            <img src="./img/product02.png" alt="" />
+            <img src="/img/product02.png" alt="" />
             <div class="product-label">
               <span class="new">NEW</span>
             </div>
@@ -612,7 +609,7 @@
       <div class="col-md-3 col-xs-6">
         <div class="product">
           <div class="product-img">
-            <img src="./img/product03.png" alt="" />
+            <img src="/img/product03.png" alt="" />
           </div>
           <div class="product-body">
             <p class="product-category">Category</p>
@@ -657,7 +654,7 @@
       <div class="col-md-3 col-xs-6">
         <div class="product">
           <div class="product-img">
-            <img src="./img/product04.png" alt="" />
+            <img src="/img/product04.png" alt="" />
           </div>
           <div class="product-body">
             <p class="product-category">Category</p>

@@ -9,10 +9,12 @@ router.get('/', async (req, res) => {
   const rowsPrice = await productModel.getProductPriceDESC(proId);
   const rowsEndate = await productModel.getProductEndateDESC(proId);
   const rowsBidd = await productModel.getProductBiddDESC(proId);
+  const rowsBuy = await productModel.getProductPriceBuyDESC(proId);
   res.render('home', {
     listProductPriceDESC: rowsPrice,
     listProductEndateDESC: rowsEndate,
-    listProductBiddDESC: rowsBidd
+    listProductBiddDESC: rowsBidd,
+    listProductBuyNowDESC: rowsBuy
   });
 })
 

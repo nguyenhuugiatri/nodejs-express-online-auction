@@ -12,7 +12,8 @@ module.exports = {
 
   getProductPriceDESC: id => db.load(`SELECT * FROM product ORDER BY currentPrice DESC LIMIT 5`),
   getProductEndateDESC: id => db.load(`SELECT * FROM product ORDER BY endDate DESC LIMIT 5`),
-  getProductBiddDESC: id => db.load(`SELECT * FROM product ORDER BY bidStep DESC LIMIT 5`)
+  getProductBiddDESC: id => db.load(`SELECT * FROM product ORDER BY bidStep DESC LIMIT 5`),
+  getProductPriceBuyDESC: id => db.load(`SELECT * FROM product ORDER BY buynowPrice DESC LIMIT 5`)
 //   add: entity => db.add('products', entity),
 //   del: id => db.del('products', { ProID: id }),
 //   patch: entity => {

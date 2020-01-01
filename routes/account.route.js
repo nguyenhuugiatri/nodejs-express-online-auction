@@ -7,7 +7,7 @@ const userModel = require("../models/user.model");
 const router = express.Router();
 
 router.get("/signin", (req, res) => {
-  res.render("vwAccount/signin", { layout: false });
+  res.render("vwAccount/signin");
 });
 
 router.post("/signin", async (req, res) => {
@@ -29,16 +29,22 @@ router.post("/signin", async (req, res) => {
   res.redirect(url);
 });
 
-router.get("/signup", async (req, res) => {
-  res.render("vwAccount/signup", { layout: false });
+
+
+
+router.get('/signup', async (req, res) => {
+  res.render('vwAccount/signup');
 });
 
-router.post("/signup", async (req, res) => {
+router.post('/signup', async (req, res) => {
+
   const entity = req.body;
-  entity.fullname = entity.firstName + " " + entity.lastName;
+  entity.fullname = entity.firstName + " " +entity.lastName;
   delete entity.repassword;
   delete entity.lastName;
   delete entity.firstName;
+  
+  
 
   const result = await userModel.add(entity);
   const url = req.query.retUrl || "/account/signin";

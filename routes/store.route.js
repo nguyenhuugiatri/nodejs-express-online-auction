@@ -6,8 +6,9 @@ const router = express.Router();
 
 router.get("/", async (req, res) => {
   const rows = await storeModel.all();
+
   res.render("store", {
-    products: rows,///////////////////////////////////////////////////////////
+    products: rows, ///////////////////////////////////////////////////////////
     empty: rows.length === 0
   });
 });

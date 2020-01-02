@@ -5,7 +5,6 @@
 }
 
 .wrapper {
-  height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -58,7 +57,7 @@
 .wrapper .inner {
   padding: 10px;
   background: #fff;
-  min-width: 850px;
+  min-width: 80%;
   margin: auto;
   display: flex;
   justify-content: center;
@@ -70,7 +69,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width: 100%;
+    width: 850px;
   padding-top: 36px;
   padding-left: 45px;
   padding-right: 45px;
@@ -86,7 +85,7 @@
 
 .wrapper .form-group {
   display: flex;
-  margin-bottom:0;
+  margin-bottom: 0;
 }
 
 .wrapper .form-group input {
@@ -194,6 +193,37 @@
 #msg::after {
   content: " !";
 }
+
+.wrapper .form-group .currency {
+  width: 20% ;
+}
+
+.wrapper .form-group .price {
+  width: 80% ;
+}
+
+.wrapper .form-wrapper #endDate::before {
+  content: "End Date:";
+  margin-right:5px;
+}
+
+  .wrapper .title{
+    margin-top:50px;
+  }
+
+#timepicker:before {
+  content:'Time:';
+  margin-right:.6em;
+  color:#9d9d9d;
+  }
+
+  #demo .file_upload{
+    padding:0;
+  }
+
+  #demo .file_upload i{
+    right:8px;
+  }
 
 @-webkit-keyframes hvr-icon-wobble-horizontal {
   16.65% {

@@ -52,10 +52,11 @@ router.post("/signup", async (req, res) => {
   const entity = req.body;
   entity.password = hash;
   entity.fullname = entity.firstName + " " + entity.lastName;
+  entity.gender=parseInt(entity.gender);
+
   delete entity.repassword;
   delete entity.lastName;
   delete entity.firstName;
-  console.log(entity);
   const result = await userModel.add(entity);
   const url = "/account/signin";
   res.redirect(url);

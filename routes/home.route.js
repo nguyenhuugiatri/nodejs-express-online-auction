@@ -1,20 +1,21 @@
 const express = require('express');
-const productModel = require('../models/home.model');
+const homeModel = require('../models/home.model');
 
 const router = express.Router();
 
 
 router.get('/', async (req, res) => {
-  const proId = req.params.id;
-  const rowsPrice = await productModel.getProductPriceDESC(proId);
-  const rowsEndate = await productModel.getProductEndateDESC(proId);
-  const rowsBidd = await productModel.getProductBiddDESC(proId);
-  const rowsBuy = await productModel.getProductPriceBuyDESC(proId);
+  const rowsPrice = await homeModel.getProductPriceDESC();
+  const rowsEndate = await homeModel.getProductEndateDESC();
+  const rowsBidd = await homeModel.getProductBiddDESC();
+  const rowsBuy = await homeModel.getProductPriceBuyDESC();
+  const category = await homeModel.getCategories()
   res.render('home', {
     listProductPriceDESC: rowsPrice,
     listProductEndateDESC: rowsEndate,
     listProductBiddDESC: rowsBidd,
-    listProductBuyNowDESC: rowsBuy
+    listProductBuyNowDESC: rowsBuy,
+    allCategories : category
   });
 })
 

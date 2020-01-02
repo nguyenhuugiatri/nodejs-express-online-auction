@@ -3,7 +3,8 @@ function SendRequestClickCheckBoxs()
     var checkboxes = document.getElementsByName("boxes"); 
     var urlSend = "/store/search?searchInput=";
     var inputSearch=sessionStorage.getItem('draft');
-    urlSend+=inputSearch;
+    if (inputSearch)
+        urlSend+=inputSearch;
     for(let i = 0; i < checkboxes.length; i++)  
     {  
         if (checkboxes[i].checked==true)

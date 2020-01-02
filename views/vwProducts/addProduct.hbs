@@ -6,8 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Add Product</title>
-  <link rel="stylesheet"
-  <link rel="stylesheet" href="/css/addProduct.css">
+  <link rel="stylesheet" <link rel="stylesheet" href="/css/addProduct.css">
 </head>
 
 <body>
@@ -27,8 +26,8 @@
           </select>
         </div>
         <div class="form-wrapper form-group">
-          <input type="number" placeholder="Starting Price" id="startPrice" name="currentPrice" class="price form-control"
-            required>
+          <input type="number" placeholder="Starting Price" id="startPrice" name="currentPrice"
+            class="price form-control" required>
           <select class="currency form-control">
             <option value="VND" selected>VND</option>
           </select>
@@ -50,7 +49,8 @@
           <i class="zmdi zmdi-lock"></i>
         </div>
         <div class="form-wrapper">
-          <input type="datetime-local" placeholder="Product Name" name="endDate" id="endDate" class="form-control" required>
+          <input type="datetime-local" placeholder="Product Name" name="endDate" id="endDate" class="form-control"
+            required>
         </div>
         <h3 class="title">IMAGE UPLOAD</h3>
         <div class="form-wrapper">
@@ -67,23 +67,18 @@
             </div>
           </div>
         </div>
-
-        <div>
-          <span id="msg"></span>
-        </div>
-
-
-        <h3 class="title">IMAGE UPLOAD</h3>
-
-        <button type="submit">Add Product</button>
+        <h3 class="title">DETAIL</h3>
+        <textarea id="tinyEditor" name="details"></textarea>
+        <button id="btnSubmit" type="submit">Add Product</button>
       </form>
-
+      <span id="msg"></span>
     </div>
   </div>
   <script src="https://code.jquery.com/jquery-3.4.1.slim.js"
     integrity="sha256-BTlTdQO9/fascB1drekrDVkaKd9PkwBymMlHOiG+qLI=" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
   <script src="/vendor/spartan-multi-image-picker-min.js"></script>
+  <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
   <script src="/js/addProduct.js"></script>
 </body>
 

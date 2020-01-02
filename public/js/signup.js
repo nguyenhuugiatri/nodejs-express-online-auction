@@ -8,7 +8,6 @@ formSignUp.submit(function(){
 });
 
 function validate() {
-    console.log("ddddddddddddddddddddddddddddddddddddddddddddddddddddddddd");
     const nameFirst = $('#firstName').val().trim();
     const nameLast = $('#lastName').val().trim();
     const userName = $('#username').val().trim();

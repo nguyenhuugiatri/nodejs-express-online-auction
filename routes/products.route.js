@@ -6,7 +6,7 @@ const multer = require("multer");
 const moment = require("moment");
 const fs = require("fs");
 const router = express.Router();
-const homeModel = require('../models/home.model');
+const homeModel = require("../models/home.model");
 
 const id_seller = 1;
 let imageArr = [];
@@ -21,7 +21,7 @@ const storage = multer.diskStorage({
   },
   //Tên file
   filename: async (req, file, cb) => {
-    const filename = `${moment().format("YYYY-MM-DD-commihh-mm-ss")}-${
+    const filename = `${moment().format("YYYY-MM-DD-hh-mm-ss")}-${
       file.originalname
     }`;
     imageArr.push(filename);
@@ -74,10 +74,10 @@ router.get("/detail/:id", async (req, res) => {
   const rows = await productModel.getProductByID(proId);
   const nameSeller = await productModel.getSellerProductByID(proId);
   const category = await homeModel.getCategories();
-  res.render('vwProducts/product', {
+  res.render("vwProducts/product", {
     product: rows[0],
-    sellerName : nameSeller[0],
-    allCategories : category
+    sellerName: nameSeller[0],
+    allCategories: category
   });
 });
 

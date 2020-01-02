@@ -170,12 +170,12 @@
 				<ul class="main-nav nav navbar-nav">
 					<li class="active"><a href="#">Home</a></li>
 					{{!-- <li><a href="#">Categories</a></li> --}}
-					<li class="dropdown ">
-						<a href="#" class="dropdown-toggle" type="button" id="dropdownMenu1"
-							data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+					<li class="dropdown" id="Categories-dropdown">
+						<a href="#" class="dropdown-toggle" id="dropdownMenu1"
+							data-toggle="dropdown">
 							Categories
 						</a>
-						<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+						<ul class="dropdown-menu">
 							{{#each this.allCategories}}			
 							<li><a href="/store/search?searchInput=&{{id}}=true">{{name}}</a></li>
 							{{/each}}
@@ -302,6 +302,13 @@
 	<script src="/vendor/jquery.zoom.min.js"></script>
 	<script src="/vendor/common.js"></script>
 	<script src="/js/search.js"></script>
+<<<<<<< HEAD
+
+    {{{_sections.js}}}
+    {{{_sections.css}}}
+
+=======
+>>>>>>> 9123419f28da792727048fe8b8451cfe530d416e
 </body>
 
 </html>

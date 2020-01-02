@@ -16,6 +16,7 @@ module.exports = {
   add: entity => db.add('user', entity),
   del: id => db.del('user', { f_ID: id }),
 
+  update: (entity, userId) => db.load(`update user  set fullname = '${entity.fullName}', email = '${entity.email}', phone = '${entity.phone}'  where id = ${userId}`),
 
   single: id => db.load(`select * from user where id = ${id}`),
 

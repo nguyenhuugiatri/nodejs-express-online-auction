@@ -77,4 +77,14 @@ router.get('/profile/:id/edit', async (req, res) => {
   });
 });
 
+router.post("/profile/:id/edit", async (req, res) => {
+  const userId = req.params.id;
+
+  const entity = req.body;
+  console.log(entity);
+  const result = await userModel.update(entity, userId);
+  const url = "/account/profile/" + userId;
+  res.redirect(url);
+});
+
 module.exports = router;

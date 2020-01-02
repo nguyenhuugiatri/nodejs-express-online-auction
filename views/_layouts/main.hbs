@@ -76,7 +76,8 @@
 					<div class="col-md-6">
 						<div class="header-search">
 							<form method="get" action="/store/search">
-								<input type="text" class="input" placeholder="Search here" id = "searchInput" name="searchInput">
+								<input type="text" class="input" placeholder="Search here" id="searchInput"
+									name="searchInput">
 								<button type="submit" class="search-btn">Search</button>
 							</form>
 						</div>
@@ -168,12 +169,18 @@
 				<!-- NAV -->
 				<ul class="main-nav nav navbar-nav">
 					<li class="active"><a href="#">Home</a></li>
-					<li><a href="#">Hot Deals</a></li>
-					<li><a href="./store.html">Categories</a></li>
-					<li><a href="./store.html">Laptops</a></li>
-					<li><a href="./store.html">Smartphones</a></li>
-					<!-- <li><a href="./store.html">Cameras</a></li> -->
-					<li><a href="./store.html">Accessories</a></li>
+					{{!-- <li><a href="#">Categories</a></li> --}}
+					<li class="dropdown" id="Categories-dropdown">
+						<a href="#" class="dropdown-toggle" id="dropdownMenu1"
+							data-toggle="dropdown">
+							Categories
+						</a>
+						<ul class="dropdown-menu">
+							{{#each this.allCategories}}			
+							<li><a href="/store/search?searchInput=&{{id}}=true">{{name}}</a></li>
+							{{/each}}
+						</ul>
+					</li>
 				</ul>
 				<!-- /NAV -->
 			</div>
@@ -295,6 +302,13 @@
 	<script src="/vendor/jquery.zoom.min.js"></script>
 	<script src="/vendor/common.js"></script>
 	<script src="/js/search.js"></script>
+<<<<<<< HEAD
+
+    {{{_sections.js}}}
+    {{{_sections.css}}}
+
+=======
+>>>>>>> 9123419f28da792727048fe8b8451cfe530d416e
 </body>
 
 </html>

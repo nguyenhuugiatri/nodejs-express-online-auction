@@ -6,6 +6,7 @@ const multer = require("multer");
 const moment = require("moment");
 const fs = require("fs");
 const router = express.Router();
+const homeModel = require('../models/home.model');
 
 const id_seller = 1;
 let imageArr = [];
@@ -72,9 +73,11 @@ router.get("/detail/:id", async (req, res) => {
   const proId = req.params.id;
   const rows = await productModel.getProductByID(proId);
   const nameSeller = await productModel.getSellerProductByID(proId);
-  res.render("vwProducts/product", {
+  const category = await homeModel.getCategories();
+  res.render('vwProducts/product', {
     product: rows[0],
-    sellerName: nameSeller[0]
+    sellerName : nameSeller[0],
+    allCategories : category
   });
 });
 

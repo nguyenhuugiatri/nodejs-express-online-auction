@@ -3,19 +3,14 @@ var storeModel = require("../models/store.model");
 const config = require("../config/default.json");
 var moment = require('moment');
 const db = require("./../utils/db");
+const homeModel = require('../models/home.model');
 
 const router = express.Router();
-
-
-function getJsonFromUrl(url) {
-  var json = {};
-  json = JSON.parse('{"' + decodeURI(url.replace(/&/g, "\",\"").replace(/=/g,"\":\"")) + '"}')
-  return json;
-}
 
 router.get("/", async (req, res) => {
   const rows = await storeModel.all();
   var today = moment();
+  const category = await homeModel.getCategories();
   for (let i=0;i<rows.length;i++)
   {
     var timeStart = moment(rows[i].startDate);
@@ -28,7 +23,8 @@ router.get("/", async (req, res) => {
   rows.reverse(); 
   res.render("store", {
     products: rows,
-    empty: rows.length === 0
+    empty: rows.length === 0,
+    allCategories : category
   });
 });
 
@@ -52,13 +48,13 @@ router.get("/search", async(req,res)=>{
         sql += ` name like '%${jsonGet[key]}%'`;
       }
       else{
-        sql += ` and name like '%${jsonGet[key]}%'`;
+        sql += `) and name like '%${jsonGet[key]}%'`;
       }
     }
     else {
       if (flag===0)
       {
-        sql += ` category = ${key}`;
+        sql += `(category = ${key}`;
         flag=1;
       }
       else
@@ -68,14 +64,15 @@ router.get("/search", async(req,res)=>{
     }
   
   }
-  
+  const category = await homeModel.getCategories();
   const rows = await storeModel.searchbyNameCategory(sql);
   console.log(sql);
   res.render("store",{
     products: rows,
     categories: rowsCategory,
     empty:rows.length===0,
-    input:searchInput
+    input:searchInput,
+    allCategories : category
   });
 });
 

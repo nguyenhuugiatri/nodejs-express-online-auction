@@ -9,29 +9,6 @@
 </head>
 
 <body>
-    <!-- BREADCRUMB -->
-    <div id="breadcrumb" class="section">
-        <!-- container -->
-        <div class="container">
-            <!-- row -->
-            <div class="row">
-                <div class="col-md-12">
-                    <ul class="breadcrumb-tree">
-                        <li><a href="#">Home</a></li>
-                        <li><a href="#">All Categories</a></li>
-                        <li><a href="#">Accessories</a></li>
-                        <li class="active">Headphones (227,490 Results)</li>
-                    </ul>
-                </div>
-            </div>
-            <!-- /row -->
-        </div>
-        <!-- /container -->
-    </div>
-    <!-- /BREADCRUMB -->
-
-
-
 
     <!-- SECTION -->
     <div class="section">
@@ -47,7 +24,8 @@
                         <div class="checkbox-filter">
                             {{#each this.categories}}
                             <div class="input-checkbox">
-                                <input type="checkbox" name="boxes" id="{{id}}"  onclick="return SendRequestClickCheckBoxs()">
+                                <input type="checkbox" name="boxes" id="{{id}}"
+                                    onclick="return SendRequestClickCheckBoxs()">
                                 <label for="{{id}}">
                                     <span></span>
                                     {{name}}
@@ -149,9 +127,14 @@
                     <!-- /store top filter -->
 
                     <!-- store products -->
+                    {{#if this.empty}}
+                    <div class="card-body">
+                        <p class="card-text">
+                            Không có dữ liệu.
+                        </p>
+                    </div>
+                    {{else}}
                     <div class="row">
-
-
                         {{#each this.products}}
 
                         <!-- product -->
@@ -196,7 +179,7 @@
                         </div>
                         <!-- /product -->
                         {{/each}}
-
+                        {{/if}}
 
 
                     </div>
@@ -225,7 +208,7 @@
     <script src="https://code.jquery.com/jquery-3.4.1.slim.js"
         integrity="sha256-BTlTdQO9/fascB1drekrDVkaKd9PkwBymMlHOiG+qLI=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
-    
+
 </body>
 
 </html>

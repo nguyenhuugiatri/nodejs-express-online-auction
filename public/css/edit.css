@@ -1,0 +1,38 @@
+#responsive-nav ul li a {
+  color: black;
+}
+
+#responsive-nav ul li a:hover {
+  color: #d10024;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+#newsletter ul li a {
+  color: black;
+}
+
+#newsletter ul li a:hover {
+  color: #d10024;
+}
+
+#breadcrumb .breadcrumb-header {
+  font-weight: 700;
+  font-size: 24px;
+}
+
+#responsive-nav ul {
+  display: inline;
+}
+
+body {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+}
+
+#Categories-dropdown{
+  display: none;
+}

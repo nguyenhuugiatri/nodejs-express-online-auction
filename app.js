@@ -31,6 +31,7 @@ app.engine(
   exphbs({
     defaultLayout: "main.hbs",
     layoutsDir: "views/_layouts",
+    partialsDir: 'views/partials',
     helpers: {
       section: hbs_sections(),
       format: val => numeral(val).format("0,0")

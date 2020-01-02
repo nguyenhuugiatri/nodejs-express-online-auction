@@ -61,4 +61,13 @@ router.post("/signup", async (req, res) => {
   res.redirect(url);
 });
 
+router.get('/profile/:id', async (req, res) => {
+  const userId = req.params.id;
+  const row_user = await userModel.single(userId);
+  res.render("vwAccount/profile", {
+    profile: row_user
+  });
+});
+
+
 module.exports = router;

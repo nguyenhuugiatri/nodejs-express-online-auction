@@ -17,7 +17,7 @@ module.exports = {
   del: id => db.del('user', { f_ID: id }),
 
 
-
+  single: id => db.load(`select * from user where id = ${id}`),
 
 
 

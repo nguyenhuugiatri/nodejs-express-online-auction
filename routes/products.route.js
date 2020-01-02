@@ -20,7 +20,7 @@ const storage = multer.diskStorage({
   },
   //Tên file
   filename: async (req, file, cb) => {
-    const filename = `${moment().format("YYYY-MM-DD hh:mm:ss")}-${
+    const filename = `${moment().format("YYYY-MM-DD-commihh-mm-ss")}-${
       file.originalname
     }`;
     imageArr.push(filename);

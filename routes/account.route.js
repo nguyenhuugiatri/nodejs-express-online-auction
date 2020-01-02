@@ -55,7 +55,7 @@ router.post("/signup", async (req, res) => {
   delete entity.repassword;
   delete entity.lastName;
   delete entity.firstName;
-
+  console.log(entity);
   const result = await userModel.add(entity);
   const url = "/account/signin";
   res.redirect(url);

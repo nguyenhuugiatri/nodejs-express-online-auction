@@ -7,6 +7,7 @@ const moment = require("moment");
 const fs = require("fs");
 const router = express.Router();
 const homeModel = require("../models/home.model");
+const requireLogin = require("./../middlewares/auth.mdw");
 
 const id_seller = 1;
 let imageArr = [];
@@ -42,14 +43,14 @@ const uploadImage = multer({
   }
 });
 
-router.get("/add", async (req, res) => {
+router.get("/add",requireLogin, async (req, res) => {
   const catList = await categoryModel.all();
   res.render("vwProducts/addProduct", {
     catList
   });
 });
 
-router.post("/add", uploadImage.array("file", 3), async (req, res, next) => {
+router.post("/add",requireLogin, uploadImage.array("file", 3), async (req, res, next) => {
   const entity = req.body;
   entity.id_seller = id_seller;
   entity.startDate = moment().format("YYYY-MM-DD hh:mm:ss");

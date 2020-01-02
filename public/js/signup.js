@@ -1,21 +1,29 @@
-
-const formSignUp=$('#formSignUp');
-formSignUp.submit(function(){
-    if (validate())
-        return true;
-      else
-        return false;
+const formSignUp = $("#formSignUp");
+formSignUp.submit(function() {
+  if (validate()) return true;
+  else return false;
 });
 
 function validate() {
-    const nameFirst = $('#firstName').val().trim();
-    const nameLast = $('#lastName').val().trim();
-    const userName = $('#username').val().trim();
-    const email = $('#email').val().trim();
-    const pass = $('#password').val().trim();
-    const repass = $('#repassword').val().trim();
-    const gender = $('#gender').val();
-
+  const nameFirst = $("#firstName")
+    .val()
+    .trim();
+  const nameLast = $("#lastName")
+    .val()
+    .trim();
+  const userName = $("#username")
+    .val()
+    .trim();
+  const email = $("#email")
+    .val()
+    .trim();
+  const pass = $("#password")
+    .val()
+    .trim();
+  const repass = $("#repassword")
+    .val()
+    .trim();
+  const gender = $("#gender").val();
 
   const msg = $("#msg");
 
@@ -77,4 +85,17 @@ function validate() {
 function validEmail(email) {
   var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   return re.test(email);
+}
+
+const message = $("#message").val();
+if (message === "success") {
+  Swal.fire({
+    position: "mid-mid",
+    icon: "success",
+    title: "Sign up success",
+    showConfirmButton: false,
+    timer: 1500
+  }).then(result => {
+    window.location.replace("/account/signin");
+  });
 }

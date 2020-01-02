@@ -1,73 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<title>Sign Up</title>
-		<!-- Google font -->
-<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
+	<!-- Google font -->
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
 
-<!-- Bootstrap -->
-<link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" />
+	<!-- Bootstrap -->
+	<link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" />
 
-<!-- Slick -->
-<link type="text/css" rel="stylesheet" href="/css/slick.css" />
-<link type="text/css" rel="stylesheet" href="/css/slick-theme.css" />
+	<!-- Slick -->
+	<link type="text/css" rel="stylesheet" href="/css/slick.css" />
+	<link type="text/css" rel="stylesheet" href="/css/slick-theme.css" />
 
-<!-- nouislider -->
-<link type="text/css" rel="stylesheet" href="/css/nouislider.min.css" />
+	<!-- nouislider -->
+	<link type="text/css" rel="stylesheet" href="/css/nouislider.min.css" />
 
-<!-- Font Awesome Icon -->
-<link rel="stylesheet" href="/css/font-awesome.min.css">
-<link rel="stylesheet" href="/css/sign-in-sign-up.css">
+	<!-- Font Awesome Icon -->
+	<link rel="stylesheet" href="/css/font-awesome.min.css">
+	<link rel="stylesheet" href="/css/sign-in-sign-up.css">
 </head>
+
 <body>
-<div class="wrapper">
-	<div class="inner">
-		<div class="image-holder">
-			<img src="/img/registration-form-1.jpg" alt="">
+	<div class="wrapper">
+		<div class="inner">
+			<div class="image-holder">
+				<img src="/img/registration-form-1.jpg" alt="">
+			</div>
+			<form id="formSignUp" action="" method="POST">
+				<h3>SIGN UP</h3>
+				<div class="form-group">
+					<input type="text" placeholder="First Name" name="firstName" id="firstName" class="form-control">
+					<input type="text" placeholder="Last Name" name="lastName" id="lastName" class="form-control">
+				</div>
+				<div class="form-wrapper">
+					<input type="text" placeholder="Username" name="username" id="username" class="form-control">
+					<i class="zmdi zmdi-account"></i>
+				</div>
+				<div class="form-wrapper">
+					<input type="text" placeholder="Email Address" name="email" id="email" class="form-control">
+					<i class="zmdi zmdi-email"></i>
+				</div>
+				<div class="form-wrapper">
+					<select id="gender" name="gender" class="form-control">
+						<option value="" disabled selected>Gender</option>
+						<option value="1">Male</option>
+						<option value="0">Female</option>
+					</select>
+					<i class="zmdi zmdi-caret-down" style="font-size: 17px"></i>
+				</div>
+				<div class="form-wrapper">
+					<input type="password" placeholder="Password" id="password" name="password" class="form-control">
+					<i class="zmdi zmdi-lock"></i>
+				</div>
+				<div class="form-wrapper">
+					<input type="password" placeholder="Confirm Password" id="repassword" name="repassword" class="form-control">
+					<i class="zmdi zmdi-lock"></i>
+				</div>
+				<button type="submit">Sign Up</button>
+				<input type="text" value="{{message}}" id="message" hidden>
+			</form>
 		</div>
-		<form id="formSignUp" action="" method="POST">
-			<h3>SIGN UP</h3>
-			<div class="form-group">
-				<input type="text" placeholder="First Name" name="firstName" id="firstName" class="form-control">
-				<input type="text" placeholder="Last Name" name="lastName" id="lastName" class="form-control">
-			</div>
-			<div class="form-wrapper">
-				<input type="text" placeholder="Username" name="username" id="username" class="form-control">
-				<i class="zmdi zmdi-account"></i>
-			</div>
-			<div class="form-wrapper">
-				<input type="text" placeholder="Email Address" name="email" id="email" class="form-control">
-				<i class="zmdi zmdi-email"></i>
-			</div>
-			<div class="form-wrapper">
-				<select id="gender" name="gender" class="form-control">
-					<option value="" disabled selected>Gender</option>
-					<option value="1">Male</option>
-					<option value="0">Female</option>
-				</select>
-				<i class="zmdi zmdi-caret-down" style="font-size: 17px"></i>
-			</div>
-			<div class="form-wrapper">
-				<input type="password" placeholder="Password" id="password" name="password" class="form-control">
-				<i class="zmdi zmdi-lock"></i>
-			</div>
-			<div class="form-wrapper">
-				<input type="password" placeholder="Confirm Password" id="repassword" name="repassword" class="form-control">
-				<i class="zmdi zmdi-lock"></i>
-			</div>
-			<div>
-				<span id="msg"></span>
-			</div>
-			<button type="submit">Sign Up</button>
-		</form>
 	</div>
-</div>
-<script src="https://code.jquery.com/jquery-3.4.1.slim.js"
+	<script src="https://code.jquery.com/jquery-3.4.1.slim.js"
 		integrity="sha256-BTlTdQO9/fascB1drekrDVkaKd9PkwBymMlHOiG+qLI=" crossorigin="anonymous"></script>
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
-<script src="/js/signup.js"></script>
+	<script src="/js/signup.js"></script>
 </body>
+
 </html>

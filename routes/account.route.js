@@ -4,7 +4,7 @@ const moment = require("moment");
 const userModel = require("../models/user.model");
 const Swal = require("sweetalert2");
 const restrict = require("../middlewares/auth.mdw");
-
+const requireLogin = require("./../middlewares/auth.mdw");
 const router = express.Router();
 
 router.get("/signin", (req, res) => {
@@ -18,31 +18,26 @@ router.post("/signin", async (req, res) => {
   if (user === null)
     return res.render("vwAccount/signin", {
       layout: false,
-      err_message: `{"icon": "info",
-  "title": "Error",
-  "text": "Invalid username or password"}`
+      message: 'notfound'
     });
 
   const rs = bcrypt.compareSync(req.body.password, user.password);
   if (!rs)
     return res.render("vwAccount/signin", {
       layout: false,
-      err_message: `{"icon": "error",
-  "title": "Error",
-  "text": "Login failed"}`
+      message: 'fail'
     });
 
   delete user.password;
-  req.session.isAuthenticated = true;
-  req.session.authUser = user;
+  // req.session.isAuthenticated = true;
+  req.session.user = user;
 
   const url = req.query.retUrl || "/";
   res.redirect(url);
 });
 
-
-router.get('/signup', async (req, res) => {
-  res.render('vwAccount/signup',{layout:false});
+router.get("/signup", async (req, res) => {
+  res.render("vwAccount/signup", { layout: false });
 });
 
 router.post("/signup", async (req, res) => {
@@ -52,17 +47,20 @@ router.post("/signup", async (req, res) => {
   const entity = req.body;
   entity.password = hash;
   entity.fullname = entity.firstName + " " + entity.lastName;
-  entity.gender=parseInt(entity.gender);
+  entity.gender = parseInt(entity.gender);
 
   delete entity.repassword;
   delete entity.lastName;
   delete entity.firstName;
   const result = await userModel.add(entity);
-  const url = "/account/signin";
-  res.redirect(url);
+
+  return res.render("vwAccount/signup", {
+    layout: false,
+    message: "success"
+  });
 });
 
-router.get('/profile/:id', async (req, res) => {
+router.get("/profile/:id", async (req, res) => {
   const userId = req.params.id;
   const row_user = await userModel.single(userId);
   res.render("vwAccount/profile", {
@@ -70,8 +68,14 @@ router.get('/profile/:id', async (req, res) => {
   });
 });
 
-router.get('/profile/:id/edit', async (req, res) => {
+router.get("/profile/:id/edit", requireLogin,async (req, res) => {
   const userId = req.params.id;
+  console.log(userId,req.session.user.id)
+  if(req.session.user.id!=userId){
+    return res.render('blank',{
+      message:'non permission'
+    })
+  }
   const row_user = await userModel.single(userId);
   res.render("vwAccount/edit", {
     editProfile: row_user

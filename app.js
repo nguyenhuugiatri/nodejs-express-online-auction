@@ -43,7 +43,7 @@ app.set("view engine", "hbs");
 // require("./middlewares/locals.mdw")(app);
 require("./middlewares/routes.mdw")(app);
 
-app.get("/", (req, res) => {
+app.get("/",(req, res) => {
   res.render("home");
 });
 
@@ -73,5 +73,5 @@ app.get("/signup", (req, res) => {
 
 const PORT = 3000;
 app.listen(PORT, () => {
-  console.log(`Listing at port ${PORT}!`);
+  console.log(`Listening at port ${PORT}!`);
 });

@@ -1,4 +1,4 @@
 $("#imagePicker").spartanMultiImagePicker({
-  fieldName: "fileUpload[]",
-  allowedExt: 'png|jpg|jpeg|gif'
+  fieldName: "file",
+  allowedExt: "png|jpg|jpeg|gif"
 });

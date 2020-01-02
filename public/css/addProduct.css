@@ -203,8 +203,8 @@
 }
 
 .wrapper .form-wrapper #endDate::before {
-  content: "End Date:";
-  margin-right:5px;
+  content: "End Time";
+  margin-right:4px;
 }
 
   .wrapper .title{

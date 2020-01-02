@@ -16,6 +16,11 @@ app.use(
   })
 );
 
+app.use(function(req, res, next) {
+  res.locals.session = req.session;
+  next();
+});
+
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(

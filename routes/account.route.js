@@ -18,14 +18,14 @@ router.post("/signin", async (req, res) => {
   if (user === null)
     return res.render("vwAccount/signin", {
       layout: false,
-      message: 'notfound'
+      message: "notfound"
     });
 
   const rs = bcrypt.compareSync(req.body.password, user.password);
   if (!rs)
     return res.render("vwAccount/signin", {
       layout: false,
-      message: 'fail'
+      message: "fail"
     });
 
   delete user.password;
@@ -34,6 +34,18 @@ router.post("/signin", async (req, res) => {
 
   const url = req.query.retUrl || "/";
   res.redirect(url);
+});
+
+router.get("/logout", function(req, res, next) {
+  if (req.session) {
+    req.session.destroy(function(err) {
+      if (err) {
+        return next(err);
+      } else {
+        return res.redirect("/");
+      }
+    });
+  }
 });
 
 router.get("/signup", async (req, res) => {
@@ -60,6 +72,10 @@ router.post("/signup", async (req, res) => {
   });
 });
 
+router.get("/profile", requireLogin, async (req, res) => {
+  return res.redirect(`/account/profile/${req.session.user.id}`);
+});
+
 router.get("/profile/:id", async (req, res) => {
   const userId = req.params.id;
   const row_user = await userModel.single(userId);
@@ -68,13 +84,12 @@ router.get("/profile/:id", async (req, res) => {
   });
 });
 
-router.get("/profile/:id/edit", requireLogin,async (req, res) => {
+router.get("/profile/:id/edit", requireLogin, async (req, res) => {
   const userId = req.params.id;
-  console.log(userId,req.session.user.id)
-  if(req.session.user.id!=userId){
-    return res.render('blank',{
-      message:'non permission'
-    })
+  if (req.session.user.id != userId) {
+    return res.render("notFound", {
+      message: "non permission"
+    });
   }
   const row_user = await userModel.single(userId);
   res.render("vwAccount/edit", {

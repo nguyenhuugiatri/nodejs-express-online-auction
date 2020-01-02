@@ -1,20 +1,27 @@
 <!-- HEADER -->
-<header>
-    <!-- TOP HEADER -->
-    <div id="top-header">
-        <div class="container">
-            <ul class="header-links pull-left">
-                <li><a href="#"><i class="fa fa-phone"></i> +021-95-51-84</a></li>
-                <li><a href="#"><i class="fa fa-envelope-o"></i> email@email.com</a></li>
-                <li><a href="#"><i class="fa fa-map-marker"></i> 1734 Stonecoal Road</a></li>
-            </ul>
-            <ul class="header-links pull-right">
-                <li><a href="#"><i class="fa fa-dollar"></i> USD</a></li>
-                <li><a href="#"><i class="fa fa-user-o"></i> My Account</a></li>
-            </ul>
-        </div>
-    </div>
-    <!-- /TOP HEADER -->
+	<header>
+		<!-- TOP HEADER -->
+		<div id="top-header">
+			<div class="container">
+				<ul class="header-links pull-left">
+					<li><a href="#"><i class="fa fa-phone"></i> 0964351101</a></li>
+					<li><a href="#"><i class="fa fa-envelope-o"></i> anhem1nha@gmail.com</a></li>
+					<li><a href="#"><i class="fa fa-map-marker"></i> 1 Ta Quang Buu</a></li>
+				</ul>
+				<ul class="header-links pull-right">
+					
+					{{#if session.user}}
+					<li><a href="/account/profile"><i class="fa fa-user-o"></i> {{session.user.username}}</a></li>
+					{{else}}
+					<li><a href="/account/signin"><i class="fa fa-user-o"></i> Sign In</a></li>
+					{{/if}}
+					{{#if session.user}}
+					<li><a href="/account/logout"><i class="fa fa-sign-out"></i> Sign Out</a></li>
+					{{/if}}
+				</ul>
+			</div>
+		</div>
+		<!-- /TOP HEADER -->
 
     <!-- MAIN HEADER -->
     <div id="header">
@@ -25,7 +32,7 @@
                 <!-- LOGO -->
                 <div class="col-md-3">
                     <div class="header-logo">
-                        <a href="#" class="logo">
+                        <a href="/" class="logo">
                             <img src="/img/logo.png" alt="">
                         </a>
                     </div>
@@ -132,7 +139,7 @@
         <div id="responsive-nav">
             <!-- NAV -->
             <ul class="main-nav nav navbar-nav">
-                <li class="active"><a href="#">Home</a></li>
+                <li class="active"><a href="/">Home</a></li>
                 <li><a href="#">Hot Deals</a></li>
                 <li><a href="./store.html">Categories</a></li>
                 <li><a href="./store.html">Laptops</a></li>

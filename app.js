@@ -31,7 +31,7 @@ app.engine(
   exphbs({
     defaultLayout: "main.hbs",
     layoutsDir: "views/_layouts",
-    partialsDir: 'views/partials',
+    partialsDir: "views/partials",
     helpers: {
       section: hbs_sections(),
       format: val => numeral(val).format("0,0")
@@ -43,7 +43,7 @@ app.set("view engine", "hbs");
 // require("./middlewares/locals.mdw")(app);
 require("./middlewares/routes.mdw")(app);
 
-app.get("/",(req, res) => {
+app.get("/", (req, res) => {
   res.render("home");
 });
 
@@ -67,9 +67,13 @@ app.get("/signup", (req, res) => {
   res.render("signup");
 });
 
-// app.get('/signin',(req,res)=>{
-//   res.render('signin');
-// });
+app.use(function(req, res, next) {
+  res.status(404);
+  if (req.accepts("html")) {
+    res.render("notFound", { url: req.url });
+    return;
+  }
+});
 
 const PORT = 3000;
 app.listen(PORT, () => {

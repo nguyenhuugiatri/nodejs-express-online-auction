@@ -1,0 +1,24 @@
+#responsive-nav ul li a {
+  color: black;
+}
+
+#responsive-nav ul li a:hover {
+  color: red;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+#newsletter ul li a {
+  color: black;
+}
+
+#newsletter ul li a:hover {
+  color: red;
+}
+
+#breadcrumb .breadcrumb-header {
+  font-weight: 700;
+  font-size: 24px;
+}

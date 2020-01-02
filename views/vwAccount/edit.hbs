@@ -1,0 +1,195 @@
+{{#section 'css'}}
+<!-- For template -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+
+<link rel="stylesheet" href="/css/edit.css">
+{{/section}}
+
+
+<!-- BREADCRUMB -->
+<div id="breadcrumb" class="section">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
+            <div class="col-md-12">
+                <h3 class="breadcrumb-header">Edit Profile Page</h3>
+                <ul class="breadcrumb-tree">
+                    <li><a href="#">Home</a></li>
+                    <li class="active">Account</li>
+                    <li class="active">Edit</li>
+                </ul>
+            </div>
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container -->
+</div>
+<!-- /BREADCRUMB -->
+
+<!-- SECTION -->
+<div class="section">
+    <!-- container -->
+
+    <div class="container">
+        <div class="row flex-lg-nowrap">
+
+
+            <div class="col">
+                <div class="row">
+                    <div class="col mb-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="e-profile">
+                                    <div class="row">
+                                        <div class="col-12 col-sm-auto mb-3">
+                                            <div class="mx-auto" style="width: 140px;">
+                                               <img src="/img/DealerAvt.png"
+                                                id="user_logo_image" class="" width="165" height="165">
+                                            </div>
+                                        </div>
+                                        <div class="col d-flex flex-column flex-sm-row justify-content-between mb-3">
+                                            <div class="text-center text-sm-left mb-2 mb-sm-0">
+                                                <h1 class="pt-sm-2 pb-1 mb-0 text-nowrap"><b>John Smith</b></h1>
+                                                <p class="mb-0">@johnny.s</p>
+                                                <div class="text-muted"><small>Last seen 2 hours ago</small></div>
+                                                <div class="mt-2">
+                                                    <button class="btn btn-dark" type="button">
+                                                        <i class="fa fa-fw fa-camera"></i>
+                                                        <span>Change Photo</span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="text-center text-sm-right">
+                                                <span class="badge badge-warning">seller</span>
+                                                <div class="text-muted"><small>Joined 09 Dec 2017</small></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <ul class="nav nav-tabs">
+                                        <li class="nav-item"><a href="" class="active nav-link">Settings</a></li>
+                                    </ul>
+                                    <div class="tab-content pt-3">
+                                        <div class="tab-pane active">
+                                            <form class="form" novalidate="">
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <div class="row">
+                                                            <div class="col">
+                                                                <div class="form-group">
+                                                                    <label>Full Name</label>
+                                                                    <input class="form-control" type="text" name="name"
+                                                                        placeholder="John Smith" value="John Smith">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col">
+                                                                <div class="form-group">
+                                                                    <label>Username</label>
+                                                                    <input class="form-control" type="text"
+                                                                        name="username" placeholder="johnny.s"
+                                                                        value="johnny.s">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col">
+                                                                <div class="form-group">
+                                                                    <label>Email</label>
+                                                                    <input class="form-control" type="text"
+                                                                        placeholder="user@example.com">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col">
+                                                                <div class="form-group">
+                                                                    <label>Phone number</label>
+                                                                    <input class="form-control" type="text"
+                                                                        placeholder="0123456789">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col mb-3">
+                                                                <div class="form-group">
+                                                                    <label>About</label>
+                                                                    <textarea class="form-control" rows="5"
+                                                                        placeholder="My Bio"></textarea>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-12 col-sm-6 mb-3">
+                                                        <div class="mb-2"><h2>Change Password</h2></div>
+                                                        <div class="row">
+                                                            <div class="col">
+                                                                <div class="form-group">
+                                                                    <label>Current Password</label>
+                                                                    <input class="form-control" type="password"
+                                                                        placeholder="••••••">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col">
+                                                                <div class="form-group">
+                                                                    <label>New Password</label>
+                                                                    <input class="form-control" type="password"
+                                                                        placeholder="••••••">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col">
+                                                                <div class="form-group">
+                                                                    <label>Confirm <span
+                                                                            class="d-none d-xl-inline">Password</span></label>
+                                                                    <input class="form-control" type="password"
+                                                                        placeholder="••••••"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12 col-sm-5 offset-sm-1 mb-3">
+
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col d-flex justify-content-end">
+                                                        <button class="btn btn-dark" type="submit">Save Changes</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-3 mb-3 ">
+                        <div class="card mb-3 mt-5 ">
+                            <div class="card-body ">
+                                <div class="px-xl-3">
+                                    <button class="btn btn-block btn-danger">
+                                        <i class="fa fa-sign-out"></i>
+                                        <span>Logout</span>
+
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- /container -->
+</div>
+<!-- /SECTION -->

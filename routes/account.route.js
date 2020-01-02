@@ -69,5 +69,12 @@ router.get('/profile/:id', async (req, res) => {
   });
 });
 
+router.get('/edit/:id', async (req, res) => {
+  const userId = req.params.id;
+  const row_user = await userModel.single(userId);
+  res.render("vwAccount/edit", {
+    editProfile: row_user
+  });
+});
 
 module.exports = router;

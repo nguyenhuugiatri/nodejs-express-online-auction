@@ -8,5 +8,7 @@ module.exports = {
 
     //single: id => db.load(`select * from products where ProID = ${id}`)
     all: () => db.load('select * from product'),
-
+    searchbyName: name => db.load(`SELECT * FROM product where name like '%${name}%'`),
+    categoryOfSearchName: name => db.load(`select c.id,count(p.id) as count , c.name from product as p, category as c  where  c.id = category and p.name LIKE '%${name}%' group by category`),
+    searchbyNameCategory: sql => db.load(`${sql}`) 
 };

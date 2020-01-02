@@ -75,7 +75,7 @@
 					<!-- SEARCH BAR -->
 					<div class="col-md-6">
 						<div class="header-search">
-							<form method="get" action="/store/search">
+							<form method="get" action="/store/search" onsubmit="return clearBoxes()">
 								<input type="text" class="input" placeholder="Search here" id="searchInput"
 									name="searchInput">
 								<button type="submit" class="search-btn">Search</button>
@@ -177,7 +177,7 @@
 						</a>
 						<ul class="dropdown-menu">
 							{{#each this.allCategories}}			
-							<li><a href="/store/search?searchInput=&{{id}}=true">{{name}}</a></li>
+							<li><a href="/store/search?searchInput=&{{id}}=true" onclick="clearBoxes()">{{name}}</a></li>
 							{{/each}}
 						</ul>
 					</li>

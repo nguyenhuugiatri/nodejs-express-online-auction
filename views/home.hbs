@@ -12,7 +12,7 @@
 					</div>
 					<div class="shop-body">
 						<h3>Laptop<br>Collection</h3>
-						<a href="#" class="cta-btn">Auction now <i class="fa fa-arrow-circle-right"></i></a>
+						<a href="/store/search?searchInput=&1=true" class="cta-btn">Auction now <i class="fa fa-arrow-circle-right"></i></a>
 					</div>
 				</div>
 			</div>
@@ -26,7 +26,7 @@
 					</div>
 					<div class="shop-body">
 						<h3>Smartphone<br>Collection</h3>
-						<a href="#" class="cta-btn">Auction now <i class="fa fa-arrow-circle-right"></i></a>
+						<a href="/store/search?searchInput=&2=true" class="cta-btn">Auction now <i class="fa fa-arrow-circle-right"></i></a>
 					</div>
 				</div>
 			</div>
@@ -39,8 +39,8 @@
 						<img src="./img/shop02.png" alt="">
 					</div>
 					<div class="shop-body">
-						<h3>Accessories<br>Collection</h3>
-						<a href="#" class="cta-btn">Auction now <i class="fa fa-arrow-circle-right"></i></a>
+						<h3>Tablet<br>Collection</h3>
+						<a href="/store/search?searchInput=&3=true" class="cta-btn">Auction now <i class="fa fa-arrow-circle-right"></i></a>
 					</div>
 				</div>
 			</div>
@@ -94,7 +94,7 @@
 									</div>
 									<div class="product-body">
 										<p class="product-time-left">{{endDate}}</p>
-										<h3 class="product-name"><a href="#">{{name}}</a></h3>
+										<h3 class="product-name"><a href="/products/detail/{{id}}">{{name}}</a></h3>
 										<h4 class="product-price">{{currentPrice}} <del class="product-old-price">{{buynowPrice}}</del></h4>
 										<div class="product-rating">
 											<i class="fa fa-star"></i>
@@ -110,7 +110,7 @@
 										</div>
 									</div>
 									<div class="add-to-cart">
-										<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i>auction now</button>
+										<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i><a href="/products/detail/{{id}}">auction now</a></button>
 									</div>
 								</div>
 								<!-- /product -->
@@ -219,7 +219,7 @@
 									</div>
 									<div class="product-body">
 										<p class="product-time-left">{{endDate}}</p>
-										<h3 class="product-name"><a href="#">{{name}}</a></h3>
+										<h3 class="product-name"><a href="/products/detail/{{id}}">{{name}}</a></h3>
 										<h4 class="product-price">{{currentPrice}} <del class="product-old-price">{{buynowPrice}}</del></h4>
 										<div class="product-rating">
 											<i class="fa fa-star"></i>
@@ -235,7 +235,7 @@
 										</div>
 									</div>
 									<div class="add-to-cart">
-										<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i>auction now</button>
+										<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i><a href="/products/detail/{{id}}">auction now</a></button>
 									</div>
 								</div>
 								<!-- /product -->
@@ -298,7 +298,7 @@
 									</div>
 									<div class="product-body">
 										<p class="product-time-left">{{startDate}}</p>
-										<h3 class="product-name"><a href="#">{{name}}</a></h3>
+										<h3 class="product-name"><a href="/products/detail/{{id}}">{{name}}</a></h3>
 										<h4 class="product-price">{{currentPrice}} <del class="product-old-price">{{buynowPrice}}</del></h4>
 										<div class="product-rating">
 											<i class="fa fa-star"></i>
@@ -314,7 +314,7 @@
 										</div>
 									</div>
 									<div class="add-to-cart">
-										<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i>auction now</button>
+										<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i><a href="/products/detail/{{id}}">auction now</a></button>
 									</div>
 								</div>
 								<!-- /product -->
@@ -369,4 +369,9 @@
 	</div>
 	<!-- /container -->
 </div>
+<button id="buttontemp">AAAAA</button>
 <!-- /NEWSLETTER -->
+<script src="https://code.jquery.com/jquery-3.4.1.slim.js"
+		integrity="sha256-BTlTdQO9/fascB1drekrDVkaKd9PkwBymMlHOiG+qLI=" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+<script src="/js/wishList.js"></script>

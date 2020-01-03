@@ -85,7 +85,7 @@
 							<form method="get" action="/store/search" onsubmit="return clearBoxes()">
 								<input type="text" class="input" placeholder="Search here" id="searchInput"
 									name="searchInput">
-								<button type="submit" class="search-btn">Search</button>
+								<button type="submit" class="search-btn" onclick="searchChange()">Search</button>
 							</form>
 						</div>
 					</div>
@@ -300,7 +300,7 @@
 		<!-- /bottom footer -->
 	</footer>
 	<!-- /FOOTER -->
-
+<input type="text" value="{{session.user.id}}" id="userID" hidden>
 	<!-- jQuery Plugins -->
 	<script src="/vendor/jquery.min.js"></script>
 	<script src="/vendor/bootstrap.min.js"></script>
@@ -309,6 +309,7 @@
 	<script src="/vendor/jquery.zoom.min.js"></script>
 	<script src="/vendor/common.js"></script>
 	<script src="/js/search.js"></script>
+	<script src="/js/wishList.js"></script>
 
     {{{_sections.js}}}
     {{{_sections.css}}}

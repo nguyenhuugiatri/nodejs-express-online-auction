@@ -19,6 +19,9 @@ module.exports = {
   update: (entity, userId) => db.load(`update user  set fullname = '${entity.fullName}', email = '${entity.email}', phone = '${entity.phone}'  where id = ${userId}`),
 
   single: id => db.load(`select * from user where id = ${id}`),
+  checkWishList: (idUser,idProduct) => db.load(`select * from watchlist where id_user=${idUser} and id_product=${idProduct}`),
+  addWishList: (idUser,idProduct) => db.load(`insert into watchlist values(${idUser},${idProduct})`),
+  deleteWishList: (idUser,idProduct) => db.load(`delete from watchlist where id_user=${idUser} and id_product=${idProduct}`)
 
 
 

@@ -106,5 +106,28 @@ router.post("/profile/:id/edit", async (req, res) => {
   const url = "/account/profile/" + userId;
   res.redirect(url);
 });
+router.get("/addWishList",async (req,res)=>{
+  var jsonGet = {};
+  jsonGet = req.query;
+  var idUser,idProduct;
+  for (const key in jsonGet) {
+    if (key==="userid")
+      idUser = jsonGet[key];
+    if (key==="idproduct")
+      idProduct = jsonGet[key];
+  }
+  const checkExist = await userModel.checkWishList(idUser, idProduct);
+  if (checkExist.length===0)
+  {
+     await userModel.addWishList(idUser, idProduct);
+    return res.send("Add Success");
+  }
+  else
+  {
+    await userModel.deleteWishList(idUser, idProduct);
+    return res.send("Delete Success");
+  }
+});
+
 
 module.exports = router;

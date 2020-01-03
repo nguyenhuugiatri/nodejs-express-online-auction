@@ -4,11 +4,10 @@ import Users from "./Users";
 import Modal from "./Modal";
 import { connect } from "react-redux";
 
-class Home extends Component {
+class UserTable extends Component {
   render() {
     return (
-      <div className="container-fluid">
-        <h1 className="display-4 text-center my-3">User Management</h1>
+      <div>
         <div className="row align-items-center mb-3 mx-5">
           <div className="col-10">
             <Search />
@@ -45,4 +44,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(null, mapDispatchToProps)(Home);
+export default connect(null, mapDispatchToProps)(UserTable);

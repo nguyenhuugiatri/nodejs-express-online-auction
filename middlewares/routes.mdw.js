@@ -8,4 +8,5 @@ module.exports = function(app) {
   // app.use('/categories', require('../routes/category.route'));
   app.use('/products', require('../routes/products.route'));
   // app.use('/admin/categories', restrict, require('../routes/admin/category.route'));
+    app.use('/admin', require('../routes/admin.route'));
 };

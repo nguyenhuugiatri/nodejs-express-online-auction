@@ -2,7 +2,6 @@ const express = require("express");
 const bcrypt = require("bcryptjs");
 const moment = require("moment");
 const userModel = require("../models/user.model");
-const Swal = require("sweetalert2");
 const restrict = require("../middlewares/auth.mdw");
 const requireLogin = require("./../middlewares/auth.mdw");
 const router = express.Router();

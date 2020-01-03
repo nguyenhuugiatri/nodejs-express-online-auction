@@ -41,7 +41,7 @@ export const actOnListUserAPI = () => {
     axios({
       method: "GET",
       url:
-        "http://localhost:3000/account/list"
+        "http://localhost:3000/admin/user/list"
     })
       .then(result => {
         console.log(result);

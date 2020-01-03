@@ -20,6 +20,10 @@
 
             <div class="col">
                 <div class="row">
+
+                    <div class="col-12 col-md-1 mb-3 ">
+                    </div>
+
                     <div class="col mb-3">
                         <div class="card">
                             <div class="card-body">
@@ -44,7 +48,14 @@
                                                 </div>
                                             </div>
                                             <div class="text-center text-sm-right">
-                                                <span class="badge badge-warning">seller(code cứng)</span>
+                                                <span class="label label-warning" id="roleBadge">seller (code
+                                                    cứng)</span>
+                                                <script>
+                                                    var roleBadge = document.getElementById("roleBadge");
+                                                    if ({{ permission }} === 1) { roleBadge.innerHTML = "seller"; }
+                                                    else if ({{ permission }} === 0) { roleBadge.innerHTML = "bidder"; }
+                                                    else { roleBadge.innerHTML = "anonymous"; }
+                                                </script>
                                                 <div class="text-muted"><small>Joined 01 Jan 2020</small></div>
                                             </div>
                                         </div>
@@ -63,7 +74,8 @@
                                                                     <label>Full Name</label>
                                                                     <input class="form-control" type="text"
                                                                         name="fullName" id="fullName"
-                                                                        placeholder="Full name" value={{fullname}} required>
+                                                                        placeholder="Full name" value={{fullname}}
+                                                                        required>
                                                                 </div>
                                                             </div>
                                                             <div class="col">
@@ -151,7 +163,7 @@
                                                 </div>
                                                 <div class="row">
                                                     <div class="col d-flex justify-content-end">
-                                                        <button class="btn btn-dark" type="submit">Save Changes</button>
+                                                        <button class="btn btn-dark" type="submit" style="font-size: initial;">Save Changes</button>
                                                     </div>
                                                 </div>
                                             </form>
@@ -163,19 +175,7 @@
                         </div>
                     </div>
 
-                    <div class="col-12 col-md-3 mb-3 ">
-                        <div class="card mb-3 mt-5 ">
-                            <div class="card-body ">
-                                <div class="px-xl-3">
-                                    <button class="btn btn-block btn-danger">
-                                        <i class="fa fa-sign-out"></i>
-                                        <span>Logout</span>
-
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-
+                    <div class="col-12 col-md-1 mb-3 ">
                     </div>
                 </div>
 

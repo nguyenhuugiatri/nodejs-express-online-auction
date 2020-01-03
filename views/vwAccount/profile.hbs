@@ -1013,13 +1013,24 @@
                             <div class="row">
                                 <!-- store logo block -->
                                 <div class="col-md-2 col-lg-2 col-sm-2 col-xs-12 wk-seller-logo mp-pad-15">
-                                    <div class="mp-store-logo mp-mrgn-btm-12 wk-parent-logo">
+                                    <div class="mp-store-logo mp-mrgn-btm-12 wk-parent-logo text-center">
                                         <div class="wk-child-logo">
                                             <img src="/img/DealerAvt.png" id="user_logo_image" class="" width="165"
                                                 height="165">
                                         </div>
-                                    </div>
+                                        {{#when ../session.user.id 'eq' id}}
+                                        <!-- EDIT PROFILE DOAỌ BSJFSD JK-->
+                                        <span>
+                                            <button class="btn button-primary" style="margin-top: 7px;">
+                                                <a href="/account/profile/{{../session.user.id}}/edit">
+                                                    <i class="fa fa-edit"></i>Edit profile</a>
+                                            </button>
+                                        </span>
+                                        <!-- END    EDIT PROFILE DOAỌ BSJFSD JK-->
+                                        {{/when}}
 
+
+                                    </div>
 
                                 </div>
                                 <!-- store logo block end -->
@@ -1030,7 +1041,15 @@
                                         <div class="mp-store-name mp-mrgn-btm-5">
                                             <span class="fullName">{{fullname}} </span>
                                             <span class="userName">( {{username}} )</span>
+                                            <span class="label label-warning" id="roleBadge">seller (code cứng)</span>
+                                            <script>
+                                                var roleBadge = document.getElementById("roleBadge");
+                                                if ({{ permission }} === 1) { roleBadge.innerHTML = "seller"; }
+                                                    else if ({{ permission }} === 0) { roleBadge.innerHTML = "bidder"; }
+                                                    else { roleBadge.innerHTML = "anonymous"; }
+                                            </script>
                                         </div>
+
                                         <div class="star-rating mp-mrgn-btm-5">
                                             {{!-- <link rel="stylesheet"
                                                 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> --}}

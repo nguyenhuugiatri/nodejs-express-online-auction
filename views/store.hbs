@@ -147,17 +147,12 @@
                                         <i class="fa fa-star"></i>
                                     </div>
                                     <div class="product-btns">
-                                        <button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span
+                                        <button onclick="addWistList({{id}})" id="{{id}}" class="add-to-wishlist"><i style= "color:#ddd"id="{{id}}-heart" class="fa fa-heart" aria-hidden="true"></i><span
                                                 class="tooltipp">add to wishlist</span></button>
-                                        <button class="add-to-compare"><i class="fa fa-exchange"></i><span
-                                                class="tooltipp">add to compare</span></button>
-                                        <button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick
-                                                view</span></button>
                                     </div>
                                 </div>
                                 <div class="add-to-cart">
-                                    <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to
-                                        cart</button>
+                                    <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> Auction</button>
                                 </div>
                             </div>
                         </div>
@@ -193,6 +188,7 @@
         integrity="sha256-BTlTdQO9/fascB1drekrDVkaKd9PkwBymMlHOiG+qLI=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 
+    <script src="/js/wishList.js"></script>
 </body>
 
 </html>

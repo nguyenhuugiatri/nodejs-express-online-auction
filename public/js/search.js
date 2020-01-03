@@ -54,10 +54,15 @@ if (loadSelect) document.getElementById("mySelect").value=loadSelect;
 
 
 if (urlCurrent.indexOf("/search") !== -1)
-  searchInput.value = sessionStorage.getItem("draft");
+{
+  if (sessionStorage.getItem("draft"))
+    searchInput.value = sessionStorage.getItem("draft");
+}
 else {
   sessionStorage.clear();
 }
-searchInput.addEventListener("change", function() {
+function searchChange()
+{
+  var searchInput = document.getElementById("searchInput");
   sessionStorage.setItem("draft", searchInput.value);
-});
+}

@@ -5,9 +5,11 @@ const session = require("express-session");
 const morgan = require("morgan");
 const numeral = require("numeral");
 require("express-async-errors");
+var cors = require('cors')
 
 const app = express();
 
+app.use(cors())
 app.use(
   session({
     secret: "keyboard cat",

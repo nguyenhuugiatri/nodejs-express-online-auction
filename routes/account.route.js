@@ -107,4 +107,45 @@ router.post("/profile/:id/edit", async (req, res) => {
   res.redirect(url);
 });
 
+router.get("/list", async (req, res) => {
+  return res.send([
+    {
+      id: 1,
+      username: "thaianh",
+      password: "thaianhvip",
+      fullname: "0944026115",
+      gender: "1",
+      email: "thainh@gmail.com",
+      phone: "01232131",
+      dob: "2020-01-08 22:01:03",
+      permission: "1",
+      active:"0"
+    },
+    {
+      id: 1,
+      username: "thaianh",
+      password: "thaianhvip",
+      fullname: "0944026115",
+      gender: "1",
+      email: "thainh@gmail.com",
+      phone: "01232131",
+      dob: "2020-01-08 22:01:03",
+      permission: "1",
+      active:"1"
+    },
+    {
+      id: 1,
+      username: "thaianh",
+      password: "thaianhvip",
+      fullname: "0944026115",
+      gender: "1",
+      email: "thainh@gmail.com",
+      phone: "01232131",
+      dob: "2020-01-08 22:01:03",
+      permission: "1",
+      active:"0"
+    }
+  ]);
+});
+
 module.exports = router;

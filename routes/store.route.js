@@ -10,8 +10,8 @@ const router = express.Router();
 
 router.get("/", async (req, res) => {
   const rows = await storeModel.all();
-  const today = moment();
   const category = await homeModel.getCategories();
+  
   var idUser = -1;
    if (req.session.user)
    {
@@ -19,6 +19,7 @@ router.get("/", async (req, res) => {
    }
   const wishList = await storeModel.getWishListbyId(idUser);
   // console.log(helper(2,wishList));
+  const today = moment();
   for (let i = 0; i < rows.length; i++) {
     var timeStart = moment(rows[i].startDate);
     var s = today.diff(timeStart, "seconds");
@@ -84,7 +85,28 @@ router.get("/search", async (req, res) => {
   console.log(sql);
   const category = await homeModel.getCategories();
   const rows = await storeModel.searchbyNameCategory(sql);
-
+  const today = moment();
+  var idUser = -1;
+  if (req.session.user)
+  {
+    idUser = req.session.user.id;
+  }
+ const wishList = await storeModel.getWishListbyId(idUser);
+ // console.log(helper(2,wishList));
+ for (let i = 0; i < rows.length; i++) {
+   var timeStart = moment(rows[i].startDate);
+   var s = today.diff(timeStart, "seconds");
+   if (s <= 600) {
+     rows[i].new = true;
+   }
+   for (let j = 0; j < wishList.length; j++) {
+     if (helper.check(rows[i].id, wishList)) 
+          { 
+            rows[i].like = true;
+          }
+   }
+   
+ }
   res.render("store", {
     products: rows,
     categories: rowsCategory,

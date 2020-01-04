@@ -83,7 +83,7 @@ router.get("/profile", requireLogin, async (req, res) => {
 
 router.get("/profile/:id", async (req, res) => {
   const userId = req.params.id;
-  const row_user = await userModel.single(userId);
+  const row_user = await userModel.singleByID(userId);
   res.render("vwAccount/profile", {
     profile: row_user
   });
@@ -96,18 +96,58 @@ router.get("/profile/:id/edit", requireLogin, async (req, res) => {
       message: "non permission"
     });
   }
-  const row_user = await userModel.single(userId);
+  const row_user = await userModel.singleByID(userId);
   res.render("vwAccount/edit", {
     editProfile: row_user
   });
 });
 
-router.post("/profile/:id/edit", async (req, res) => {
-  const userId = req.params.id;
+router.post("/profile/:id/edit", requireLogin, async (req, res) => {
+  const userId = req.session.user.id;
 
   const entity = req.body;
-  console.log(entity);
   const result = await userModel.update(entity, userId);
+  const url = "/account/profile/" + userId;
+  res.redirect(url);
+});
+
+router.get("/profile/:id/edit/changePassword", requireLogin, async (req, res) => {
+  const userId = req.params.id;
+  if (req.session.user.id != userId) {
+    return res.render("notFound", {
+      message: "non permission"
+    });
+  }
+  const row_user = await userModel.singleByID(userId);
+  res.render("vwAccount/changePassword", {
+    changePassword: row_user
+  });
+});
+
+router.post("/profile/:id/edit/changePassword", requireLogin, async (req, res) => {
+  const userId = req.session.user.id;
+
+  const password = req.body.password;
+  const newPassword = req.body.newPassword;
+  const rePassword = req.body.rePassword;
+  // xử lý mật khẩu hợp lệ (validate)
+  // kiểm tra password đúng
+
+  const user = await userModel.singleRowByID(userId);
+
+  const rs = bcrypt.compareSync(password, user.password);
+  if (!rs){
+    req.flash('error', 'wrong password');
+    res.redirect(req.get('referer'));
+  }
+
+  // kiểm tra rePassword khớp với newPassword (xử lý trong changePassword.js)
+
+  // mã hóa newPassword đưa vào database
+  const N = 10;
+  const hashedPassword = bcrypt.hashSync(newPassword, N);
+
+  const result = await userModel.changePass(hashedPassword, userId);
   const url = "/account/profile/" + userId;
   res.redirect(url);
 });

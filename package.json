@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon app",
-    "dashboard":"cd dashboard/ && npm start",
-    "dev":"npm start & npm run dashboard "
+    "dashboard": "cd dashboard/ && npm start",
+    "dev": "npm start & npm run dashboard "
   },
   "author": "",
   "license": "ISC",

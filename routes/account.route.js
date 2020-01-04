@@ -92,7 +92,10 @@ router.get("/profile/:id", async (req, res) => {
   const row_user = await userModel.singleByID(userId);
   const rows = await userModel.getWishListbyID(userId);
   const category = await homeModel.getCategories();
-  const auctioningProducts = await productsModel.getAuctioningProductsBySellerID(userId);
+  const listSeller = await userModel.getListProductOfSeller(userId);
+  const listBidding = await userModel.getListProductOfBidding(userId);
+  const listWon = await userModel.getListProductOfWon(userId);
+  const listAuctioned  = await userModel.getListProductAuctioned(userId);
 
   // lấy điểm review từ database
   const number_of_reviews = (await userModel.getNumberOfReviews(userId)).number_of_reviews;
@@ -111,41 +114,17 @@ router.get("/profile/:id", async (req, res) => {
     profile: row_user,
     ratingPoint: ratingPoint,
     ratingDescription: ratingDescription,
-
-    products: rows,
-    empty: rows.length === 0,
-    allCategories: category,
-    idUSer: userId,
-    auctioningProducts: auctioningProducts
-  });
-});
-
-router.get("/profile/:id/search", async (req, res) => {
-  const userId = req.params.id;
-  console.log(req.query);
-  const row_user = await userModel.singleByID(userId);
-  const rows = await userModel.getWishListbyID_Name(userId,req.query.nameproduct);
-  const category = await homeModel.getCategories();
-    // lấy điểm review từ database
-    const number_of_reviews = (await userModel.getNumberOfReviews(userId)).number_of_reviews;
-    const positive_reviews = (await userModel.getNumberOfPositiveReviews(userId)).positive_reviews;
-    var ratingPoint = 0;
-    var ratingDescription = positive_reviews+ "/" + number_of_reviews + " reviews";
-     if (number_of_reviews === 0){
-      ratingPoint = 0;
-      ratingDescription = "There are no reviews yet";
-     } 
-     else ratingPoint = (positive_reviews / number_of_reviews) * 100;
-  res.render("vwAccount/profile", {
-    profile: row_user,
-    ratingPoint: ratingPoint,
-    ratingDescription: ratingDescription,
+    productSeller:listSeller,
+    productBidding:listBidding,
+    productWon:listWon,
+    productAutioned: listAuctioned,
     products: rows,
     empty: rows.length === 0,
     allCategories: category,
     idUSer: userId
   });
 });
+
 
 router.get("/profile/:id/edit", requireLogin, async (req, res) => {
   const userId = req.params.id;
@@ -236,8 +215,41 @@ router.get("/addWishList", async (req, res) => {
   }
 });
 
-
-
+router.get("/profile/:id/search", async (req, res) => {
+  const userId = req.params.id;
+  console.log(req.query);
+  const row_user = await userModel.singleByID(userId);
+  const rows = await userModel.getWishListbyID_Name(userId,req.query.nameproduct);
+  const listSeller = await userModel.getListProductOfSeller(userId);
+  const listBidding = await userModel.getListProductOfBidding(userId);
+  const listWon = await userModel.getListProductOfWon(userId);
+  const category = await homeModel.getCategories();
+    // lấy điểm review từ database
+    const number_of_reviews = (await userModel.getNumberOfReviews(userId)).number_of_reviews;
+    const positive_reviews = (await userModel.getNumberOfPositiveReviews(userId)).positive_reviews;
+    var ratingPoint = 0;
+    var ratingDescription = positive_reviews+ "/" + number_of_reviews + " reviews";
+    // console.log("number_of_reviews" + number_of_reviews);////////
+    // console.log("positive_reviews" + positive_reviews);////////
+     if (number_of_reviews === 0){
+      ratingPoint = 0;
+      ratingDescription = "There are no reviews yet";
+     } 
+     else ratingPoint = (positive_reviews / number_of_reviews) * 100;
+  //console.log(ratingPoint);/////////////////////////////////////////////////////////////
+  res.render("vwAccount/profile", {
+    profile: row_user,
+    ratingPoint: ratingPoint,
+    ratingDescription: ratingDescription,
+    products: rows,
+    productSeller:listSeller,
+    productBidding:listBidding,
+    productWon:listWon,
+    empty: rows.length === 0,
+    allCategories: category,
+    idUSer: userId
+  });
+});
 
 
 module.exports = router;

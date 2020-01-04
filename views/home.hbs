@@ -89,7 +89,9 @@
 									<div class="product-img">
 										<img src="./img/product02.png" alt="">
 										<div class="product-label">
-											<span class="new">NEW</span>
+											{{#if this.new}}
+                                        <span class="new">New</span>
+                                        {{/if}}
 										</div>
 									</div>
 									<div class="product-body">
@@ -214,7 +216,9 @@
 										<img src="./img/product06.png" alt="">
 										<div class="product-label">
 											<span class="sale">-30%</span>
-											<span class="new">NEW</span>
+											{{#if this.new}}
+                                        <span class="new">New</span>
+                                        {{/if}}
 										</div>
 									</div>
 									<div class="product-body">
@@ -292,7 +296,9 @@
 										<img src="./img/product06.png" alt="">
 										<div class="product-label">
 											<span class="sale">-30%</span>
-											<span class="new">NEW</span>
+											{{#if this.new}}
+                                        <span class="new">New</span>
+                                        {{/if}}
 										</div>
 									</div>
 									<div class="product-body">

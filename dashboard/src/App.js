@@ -1,5 +1,5 @@
 import React from "react";
-import { Router, Redirect } from "@reach/router";
+import { Router } from "@reach/router";
 
 import Sidebar from "./components/Sidebar/index";
 import Navbar from "./components/Navbar/index";
@@ -8,8 +8,8 @@ import Home from "./components/Home/index";
 import Login from "./components/Login/index";
 
 function App() {
-  const isAuth = false;
-  if (isAuth)
+  const user = sessionStorage.getItem("user");
+  if (user)
     return (
       <div className="d-flex" id="wrapper">
         <Sidebar />

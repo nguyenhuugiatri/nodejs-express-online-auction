@@ -136,7 +136,7 @@
                                 <div class="product-body">
                                     <!-- <p class="product-category">Category</p> -->
                                     <p class="product-time-left">{{startDate}}</p>
-                                    <h3 class="product-name"><a href="#">{{name}}</a></h3>
+                                    <h3 class="product-name"><a href="/products/detail/{{id}}">{{name}}</a></h3>
                                     <h4 class="product-price">{{currentPrice}} <del
                                             class="product-old-price">{{buynowPrice}}</del></h4>
                                     <div class="product-rating">
@@ -152,7 +152,7 @@
                                     </div>
                                 </div>
                                 <div class="add-to-cart">
-                                    <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> Auction</button>
+                                    <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i><a href="/products/detail/{{id}}">BID NOW</a></button>
                                 </div>
                             </div>
                         </div>

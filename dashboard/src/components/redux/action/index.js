@@ -1,5 +1,7 @@
 import * as ActionType from "./../constants/ActionType";
 import axios from "axios";
+import Swal from "sweetalert2";
+import { navigate } from "@reach/router";
 
 export const actOnDelete = id => {
   return {
@@ -38,10 +40,13 @@ const actOnListUser = userList => {
 
 export const actOnListUserAPI = () => {
   return dispatch => {
+    let token = JSON.parse(sessionStorage.getItem("user")).token;
     axios({
+      headers: {
+        Authorization: `Bearer ${token}`
+      },
       method: "GET",
-      url:
-        "http://localhost:3000/admin/user/list"
+      url: "http://localhost:3000/admin/user/list"
     })
       .then(result => {
         console.log(result);
@@ -49,6 +54,32 @@ export const actOnListUserAPI = () => {
       })
       .catch(err => {
         console.log(err);
+      });
+  };
+};
+
+export const actLogin = user => {
+  return dispatch => {
+    axios({
+      method: "POST",
+      url: "http://localhost:3000/admin/login",
+      data: user
+    })
+      .then(result => {
+        if (result.data.user) {
+          sessionStorage.setItem("user", JSON.stringify(result.data));
+          navigate("/", { replace: true });
+          window.location.reload();
+        }
+      })
+      .catch(err => {
+        Swal.fire({
+          title: "Error",
+          text: "Invalid account or password",
+          icon: "error",
+          confirmButtonText: "OK"
+        });
+        console.log(err.message);
       });
   };
 };

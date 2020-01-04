@@ -10,5 +10,6 @@ module.exports = {
     all: () => db.load('select * from product'),
     searchbyName: name => db.load(`SELECT * FROM product where name like '%${name}%'`),
     categoryOfSearchName: name => db.load(`select c.id,count(p.id) as count , c.name from product as p, category as c  where  c.id = category and p.name LIKE '%${name}%' group by category`),
-    searchbyNameCategory: sql => db.load(`${sql}`) 
+    searchbyNameCategory: sql => db.load(`${sql}`) ,
+    getWishListbyId: idUser => db.load(`SELECT * FROM watchlist where id_user = ${idUser} `)
 };

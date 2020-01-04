@@ -20,13 +20,14 @@
 				$nav = $this.attr('data-nav');
 
 		$this.slick({
-			slidesToShow: 4,
+			slidesToShow: 5,
 			slidesToScroll: 1,
-			autoplay: true,
+			draggable:false,
+			autoplay: false,
 			infinite: true,
-			speed: 300,
+			speed: 200,
 			dots: false,
-			arrows: true,
+			arrows: false,
 			appendArrows: $nav ? $nav : false,
 			responsive: [{
 	        breakpoint: 991,

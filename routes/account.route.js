@@ -2,6 +2,8 @@ const express = require("express");
 const bcrypt = require("bcryptjs");
 const moment = require("moment");
 const userModel = require("../models/user.model");
+var storeModel = require("../models/store.model");
+const homeModel = require("../models/home.model");
 const restrict = require("../middlewares/auth.mdw");
 const requireLogin = require("./../middlewares/auth.mdw");
 const router = express.Router();
@@ -78,8 +80,14 @@ router.get("/profile", requireLogin, async (req, res) => {
 router.get("/profile/:id", async (req, res) => {
   const userId = req.params.id;
   const row_user = await userModel.single(userId);
+  const rows = await userModel.getWishListbyID(userId);
+  const category = await homeModel.getCategories();
+  console.log(rows);
   res.render("vwAccount/profile", {
-    profile: row_user
+    profile: row_user,
+    products: rows,
+    empty: rows.length === 0,
+    allCategories: category
   });
 });
 

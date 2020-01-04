@@ -49,7 +49,23 @@ module.exports = {
   deleteWishList: (idUser, idProduct) =>
     db.load(
       `delete from watchlist where id_user=${idUser} and id_product=${idProduct}`
-    )
+    ),
+
+  getNumberOfReviews: async idUser => {
+    const rows = await db.load(
+      `select count(*) as "number_of_reviews" from review where id_user=${idUser};`
+    );
+    if (rows.length === 0) return null;
+    return rows[0];
+  },
+
+  getNumberOfPositiveReviews: async idUser => {
+    const rows = await db.load(
+      `select count(*) as "positive_reviews" from review where id_user=${idUser} and marks = 1;`
+    );
+    if (rows.length === 0) return null;
+    return rows[0];
+  }
 
   // add: entity => db.add("users", entity),
   // del: id => db.del("users", { f_ID: id })

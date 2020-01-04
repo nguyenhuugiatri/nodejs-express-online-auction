@@ -5,7 +5,8 @@ const session = require("express-session");
 const morgan = require("morgan");
 const numeral = require("numeral");
 require("express-async-errors");
-var cors = require('cors')
+const cors = require('cors');
+var flash = require('express-flash');
 
 const app = express();
 
@@ -14,7 +15,11 @@ app.use(
   session({
     secret: "keyboard cat",
     resave: false,
-    saveUninitialized: true
+    saveUninitialized: true,
+    cookie: {
+    httpOnly: true,
+    maxAge: 1000 * 60 * 15
+  }
   })
 );
 
@@ -61,6 +66,7 @@ app.engine(
   })
 );
 app.set("view engine", "hbs");
+app.use(flash());
 
 // require("./middlewares/locals.mdw")(app);
 require("./middlewares/routes.mdw")(app);
@@ -73,20 +79,8 @@ app.get("/product", (req, res) => {
   res.render("product");
 });
 
-// app.get("/store", (req, res) => {
-//   res.render("store");
-// });
-
 app.get("/checkout", (req, res) => {
   res.render("checkout");
-});
-
-app.get("/blank", (req, res) => {
-  res.render("blank");
-});
-
-app.get("/signup", (req, res) => {
-  res.render("signup");
 });
 
 app.use(function(req, res, next) {

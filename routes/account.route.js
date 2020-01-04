@@ -30,7 +30,6 @@ router.post("/signin", async (req, res) => {
     });
 
   delete user.password;
-  // req.session.isAuthenticated = true;
   req.session.user = user;
 
   const url = req.query.retUrl || "/";
@@ -54,9 +53,16 @@ router.get("/signup", async (req, res) => {
 });
 
 router.post("/signup", async (req, res) => {
+  checkExist = await userModel.singleByEmailUsername(req.body.username,req.body.email);
+  if(checkExist!==null){
+    return res.render("vwAccount/signup", {
+    layout: false,
+    message: "account exist"
+  });
+  }
+
   const N = 10;
   const hash = bcrypt.hashSync(req.body.password, N);
-
   const entity = req.body;
   entity.password = hash;
   entity.fullname = entity.firstName + " " + entity.lastName;
@@ -79,10 +85,11 @@ router.get("/profile", requireLogin, async (req, res) => {
 
 router.get("/profile/:id", async (req, res) => {
   const userId = req.params.id;
-  const row_user = await userModel.single(userId);
+  const row_user = await userModel.singleByID(userId);
   const rows = await userModel.getWishListbyID(userId);
   const category = await homeModel.getCategories();
   console.log(rows);
+
   res.render("vwAccount/profile", {
     profile: row_user,
     products: rows,
@@ -99,39 +106,75 @@ router.get("/profile/:id/edit", requireLogin, async (req, res) => {
       message: "non permission"
     });
   }
-  const row_user = await userModel.single(userId);
+  const row_user = await userModel.singleByID(userId);
   res.render("vwAccount/edit", {
     editProfile: row_user
   });
 });
 
-router.post("/profile/:id/edit", async (req, res) => {
-  const userId = req.params.id;
+router.post("/profile/:id/edit", requireLogin, async (req, res) => {
+  const userId = req.session.user.id;
 
   const entity = req.body;
-  console.log(entity);
   const result = await userModel.update(entity, userId);
   const url = "/account/profile/" + userId;
   res.redirect(url);
 });
-router.get("/addWishList",async (req,res)=>{
+
+router.get("/profile/:id/edit/changePassword", requireLogin, async (req, res) => {
+  const userId = req.params.id;
+  if (req.session.user.id != userId) {
+    return res.render("notFound", {
+      message: "non permission"
+    });
+  }
+  const row_user = await userModel.singleByID(userId);
+  res.render("vwAccount/changePassword", {
+    changePassword: row_user
+  });
+});
+
+router.post("/profile/:id/edit/changePassword", requireLogin, async (req, res) => {
+  const userId = req.session.user.id;
+
+  const password = req.body.password;
+  const newPassword = req.body.newPassword;
+  const rePassword = req.body.rePassword;
+  // xử lý mật khẩu hợp lệ (validate)
+  // kiểm tra password đúng
+
+  const user = await userModel.singleRowByID(userId);
+
+  const rs = bcrypt.compareSync(password, user.password);
+  if (!rs){
+    req.flash('error', 'wrong password');
+    res.redirect(req.get('referer'));
+  }
+
+  // kiểm tra rePassword khớp với newPassword (xử lý trong changePassword.js)
+
+  // mã hóa newPassword đưa vào database
+  const N = 10;
+  const hashedPassword = bcrypt.hashSync(newPassword, N);
+
+  const result = await userModel.changePass(hashedPassword, userId);
+  const url = "/account/profile/" + userId;
+  res.redirect(url);
+});
+
+router.get("/addWishList", async (req, res) => {
   var jsonGet = {};
   jsonGet = req.query;
-  var idUser,idProduct;
+  var idUser, idProduct;
   for (const key in jsonGet) {
-    if (key==="userid")
-      idUser = jsonGet[key];
-    if (key==="idproduct")
-      idProduct = jsonGet[key];
+    if (key === "userid") idUser = jsonGet[key];
+    if (key === "idproduct") idProduct = jsonGet[key];
   }
   const checkExist = await userModel.checkWishList(idUser, idProduct);
-  if (checkExist.length===0)
-  {
-     await userModel.addWishList(idUser, idProduct);
+  if (checkExist.length === 0) {
+    await userModel.addWishList(idUser, idProduct);
     return res.send("Add Success");
-  }
-  else
-  {
+  } else {
     await userModel.deleteWishList(idUser, idProduct);
     return res.send("Delete Success");
   }
@@ -140,7 +183,7 @@ router.get("/addWishList",async (req,res)=>{
 router.get("/profile/:id/search", async (req, res) => {
   const userId = req.params.id;
   console.log(req.query);
-  const row_user = await userModel.single(userId);
+  const row_user = await userModel.singleByID(userId);
   const rows = await userModel.getWishListbyID_Name(userId,req.query.nameproduct);
   const category = await homeModel.getCategories();
   res.render("vwAccount/profile", {
@@ -152,45 +195,6 @@ router.get("/profile/:id/search", async (req, res) => {
   });
 });
 
-router.get("/list", async (req, res) => {
-  return res.send([
-    {
-      id: 1,
-      username: "thaianh",
-      password: "thaianhvip",
-      fullname: "0944026115",
-      gender: "1",
-      email: "thainh@gmail.com",
-      phone: "01232131",
-      dob: "2020-01-08 22:01:03",
-      permission: "1",
-      active:"0"
-    },
-    {
-      id: 1,
-      username: "thaianh",
-      password: "thaianhvip",
-      fullname: "0944026115",
-      gender: "1",
-      email: "thainh@gmail.com",
-      phone: "01232131",
-      dob: "2020-01-08 22:01:03",
-      permission: "1",
-      active:"1"
-    },
-    {
-      id: 1,
-      username: "thaianh",
-      password: "thaianhvip",
-      fullname: "0944026115",
-      gender: "1",
-      email: "thainh@gmail.com",
-      phone: "01232131",
-      dob: "2020-01-08 22:01:03",
-      permission: "1",
-      active:"0"
-    }
-  ]);
-});
+
 
 module.exports = router;

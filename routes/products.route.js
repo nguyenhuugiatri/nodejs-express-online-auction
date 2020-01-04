@@ -43,32 +43,38 @@ const uploadImage = multer({
   }
 });
 
-router.get("/add",requireLogin, async (req, res) => {
+router.get("/add", requireLogin, async (req, res) => {
   const catList = await categoryModel.all();
   res.render("vwProducts/addProduct", {
     catList
   });
 });
 
-router.post("/add",requireLogin, uploadImage.array("file", 3), async (req, res, next) => {
-  const entity = req.body;
-  entity.id_seller = id_seller;
-  entity.startDate = moment().format("YYYY-MM-DD hh:mm:ss");
-  entity.endDate = moment(entity.endDate).format("YYYY-MM-DD hh:mm:ss");
-  try {
-    await productModel.add(entity);
-    const currentProductId = await productModel.getCurrentProductId();
-    imageArr.map(async image => {
-      await imageModel.add({
-        id_product: currentProductId[0]["max(id)"],
-        src: `/uploads/${id_seller}/${image}`
+router.post(
+  "/add",
+  requireLogin,
+  uploadImage.array("file"),
+  async (req, res, next) => {
+    const entity = req.body;
+    entity.id_seller = id_seller;
+    entity.startDate = moment().format("YYYY-MM-DD hh:mm:ss");
+    entity.endDate = moment(entity.endDate).format("YYYY-MM-DD hh:mm:ss");
+    try {
+      await productModel.add(entity);
+      const currentProductId = await productModel.getCurrentProductId();
+      imageArr.map(async image => {
+        await imageModel.add({
+          id_product: currentProductId[0]["max(id)"],
+          src: `/uploads/${id_seller}/${image}`
+        });
       });
-    });
-    res.redirect("/products/detail/1");
-  } catch (err) {
-    console.log(err);
+      imageArr = [];
+      res.redirect("/products/detail/1");
+    } catch (err) {
+      console.log(err);
+    }
   }
-});
+);
 
 router.get("/detail/:id", async (req, res) => {
   const proId = req.params.id;

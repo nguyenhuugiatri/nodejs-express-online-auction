@@ -229,6 +229,10 @@
     margin:60px;
   }
 
+  .wrapper .form-wrapper i {
+    right:9px;
+  }
+
 @-webkit-keyframes hvr-icon-wobble-horizontal {
   16.65% {
     -webkit-transform: translateX(6px);

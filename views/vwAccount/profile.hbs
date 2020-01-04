@@ -1116,8 +1116,9 @@
                                             </li>
 
                                             <li><a href="#customer_feedback_tab" data-toggle="tab">Feedback</a></li>
+                                            <li><a href="#auction_won" data-toggle="tab">Auction won</a></li>
                                             <li><a href="#user_wishlist_tab" data-toggle="tab">Wishlist</a></li>
-                                            <li><a href="#seller_description" data-toggle="tab">Description</a></li>
+
 
                                         </ul>
                                         <div class="tab-content mp-tab-content mp-mrgm-btm-12">
@@ -1212,13 +1213,34 @@
                                                     <div class="seller_product_grid">
                                                         <div
                                                             class="col-md-12 col-lg-12 col-sm-12 col-xs-12 text-center">
-                                                            Hehehehêhehehehehehehehe FEEDBACK
+                                                            <h3>Auctioned products from this seller</h3>
+                                                            <hr>
+                                                            {{!-- Đổ dữ liệu các sản phẩm mà <user> đã thắng từ chủ profile --}}
+                                                            <hr>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                             <!-- End Feedback tabbbbbbbbbbbb  -->
 
+                                            <!-- Auction won tabbbbbbbbbbbb  -->
+                                            <a href="auction_won" class="accordion-link">Auction won</a>
+                                            <div class="tab-pane" id="auction_won">
+                                                <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                                                    <div class="" id="tag-div" style="padding:10px 15px;">
+                                                    </div>
+                                                    <div class="seller_product_grid">
+                                                        <div
+                                                            class="col-md-12 col-lg-12 col-sm-12 col-xs-12 text-center">
+                                                            <h3>Won auctions</h3>
+                                                            <hr>
+                                                            {{!-- Đổ dữ liệu các sản phẩm mà <user> đã thắng từ chủ profile --}}
+                                                            <hr>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- End Auction won tabbbbbbbbbbbb  -->
 
                                             <!-- Wishlist tabbbbbbbbbbbb  -->
                                             <a href="user_wishlist_tab" class="accordion-link">Wishlist</a>
@@ -1265,27 +1287,14 @@
                                             </div>
                                             <!-- End Wishlist tabbbbbbbbbbbb  -->
 
-                                            <!-- Description tabbbbbbbbbbbb  -->
-                                            <a href="seller_description" class="accordion-link">Description</a>
-                                            <div class="tab-pane" id="seller_description">
-                                                <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
-                                                    <div class="" id="tag-div" style="padding:10px 15px;">
-                                                    </div>
-                                                    <div class="seller_product_grid">
-                                                        <div
-                                                            class="col-md-12 col-lg-12 col-sm-12 col-xs-12 text-center">
-                                                            Hehehehêhehehehehehehehe DESCRIPTONN
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- End Description tabbbbbbbbbbbb  -->
 
 
                                             <div class="mp-loader" style="display: none;">
                                                 <div class="mp-spinner"></div>
                                                 <div class="title-text">Please Wait...</div>
                                             </div>
+                                            {{!-- <script type="text/javascript"
+                                                src="https://sp-seller.webkul.com/js/vc_seller_profile.min.js"></script> --}}
                                         </div>
                                     </div>
                                 </div>

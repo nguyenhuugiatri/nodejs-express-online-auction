@@ -11,7 +11,7 @@
  Target Server Version : 80018
  File Encoding         : 65001
 
- Date: 03/01/2020 16:25:41
+ Date: 05/01/2020 02:10:23
 */
 
 SET NAMES utf8mb4;
@@ -182,7 +182,7 @@ CREATE TABLE `parameter`  (
   `sell_product_cost` int(11) NULL DEFAULT NULL,
   `id` int(11) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for product
@@ -279,19 +279,28 @@ CREATE TABLE `review`  (
   `id_user` int(11) NOT NULL,
   `review` varchar(1000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `status` int(11) NULL DEFAULT NULL,
-  `time` datetime(0) NOT NULL,
+  `time` datetime(0) NULL DEFAULT NULL,
   `reviewer` int(11) NOT NULL,
+  `id_product` int(11) NOT NULL,
   `marks` int(1) NULL DEFAULT NULL,
-  PRIMARY KEY (`id_user`, `reviewer`, `time`) USING BTREE,
+  PRIMARY KEY (`id_user`, `reviewer`, `id_product`) USING BTREE,
   INDEX `fk_review_reviewer_idx`(`reviewer`) USING BTREE,
+  INDEX `fk_review_product`(`id_product`) USING BTREE,
   CONSTRAINT `fk_review_user` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  CONSTRAINT `fk_reviewer_user` FOREIGN KEY (`reviewer`) REFERENCES `user` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+  CONSTRAINT `fk_reviewer_user` FOREIGN KEY (`reviewer`) REFERENCES `user` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `fk_review_product` FOREIGN KEY (`id_product`) REFERENCES `product` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of review
 -- ----------------------------
-INSERT INTO `review` VALUES (1, 'Người bán ngu vl', 0, '2020-01-02 00:27:41', 1, 1);
+INSERT INTO `review` VALUES (1, 'Người bán ngu vl', 0, '2020-01-02 00:27:41', 2, 1, 1);
+INSERT INTO `review` VALUES (2, 'a', 0, '2020-01-15 23:40:53', 1, 2, 0);
+INSERT INTO `review` VALUES (2, 'Lừa đảo', NULL, NULL, 3, 3, 0);
+INSERT INTO `review` VALUES (7, 'đồ ngon', NULL, NULL, 1, 4, 1);
+INSERT INTO `review` VALUES (7, 'xịn', NULL, NULL, 2, 5, 1);
+INSERT INTO `review` VALUES (7, 'oke', NULL, NULL, 5, 6, 1);
+INSERT INTO `review` VALUES (7, 'haizz', NULL, NULL, 6, 7, 0);
 
 -- ----------------------------
 -- Table structure for user
@@ -310,7 +319,7 @@ CREATE TABLE `user`  (
   `permission` int(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `username_UNIQUE`(`username`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of user
@@ -320,8 +329,10 @@ INSERT INTO `user` VALUES (2, b'0', 'thaiemcui', '0944026117', 'thaiem@gmail.com
 INSERT INTO `user` VALUES (3, b'0', 'thaianh1', '0944026116', 'as@gmail.com', '2020-01-14 22:04:08', 'thaianh1', '123123123', b'1', 0);
 INSERT INTO `user` VALUES (4, b'0', 'thaianh2', '0944026115', '123213@gmail.com', '2020-01-20 22:04:36', 'thaianh2', '123123123', b'0', 0);
 INSERT INTO `user` VALUES (5, b'1', 'lem', '0964351101', 'lem@gmail.com', '1999-06-12 00:00:00', 'lemdeptrai', 'lemquadeptrai', b'1', 1);
-INSERT INTO `user` VALUES (6, NULL, 'lem dep try', NULL, 'lemdeptry@gmail.com', NULL, 'lemdeptry', '$2a$10$VdYEIX7Jq/cOvw1mJfF2MOJIfMGacz1r1eC0A0fVqGHTo3sZoJ0tG', b'0', 0);
-INSERT INTO `user` VALUES (7, NULL, 'Đỗ Thế Anh', 'required', 'nhoxtheanh@gmail.com', NULL, 'dotheanh', '$2a$10$psMNvH74g8rg2gMcFcGx/.ttsdqzBcJ91sDT9BpAsABB11Xzsv2US', b'1', 1);
+INSERT INTO `user` VALUES (6, NULL, 'lem dep try', '123456', 'lemdeptry@gmail.com', NULL, 'lemdeptry', '$2a$10$BcXQG1zeVDCbgzRsC6Ti7uQTAR8PPBNmj.B0EFtEc.p9.cdHuxwya', b'0', 0);
+INSERT INTO `user` VALUES (7, NULL, 'Đỗ Thế Anh', '0904113942', 'nhoxtheanh@gmail.com', NULL, 'dotheanh', '$2a$10$B3Pxk1P0ybSGdN2TCtv5Mecz/aehej.RIQBDFHjx2Oht4ErdtbfT.', b'1', 1);
+INSERT INTO `user` VALUES (8, NULL, 'Đỗ Thế Em', '0904113942', 'nhoxtheem@gmail.com', NULL, 'dotheem', '$2a$10$B3Pxk1P0ybSGdN2TCtv5Mecz/aehej.RIQBDFHjx2Oht4ErdtbfT.', b'1', 0);
+INSERT INTO `user` VALUES (9, NULL, 'Đỗ Thế Chị', NULL, 'nhoxthechi@gmail.com', NULL, 'dothechi', '$2a$10$B3Pxk1P0ybSGdN2TCtv5Mecz/aehej.RIQBDFHjx2Oht4ErdtbfT.', b'0', 0);
 
 -- ----------------------------
 -- Table structure for watchlist
@@ -343,5 +354,7 @@ CREATE TABLE `watchlist`  (
 INSERT INTO `watchlist` VALUES (1, 1);
 INSERT INTO `watchlist` VALUES (2, 1);
 INSERT INTO `watchlist` VALUES (3, 2);
+INSERT INTO `watchlist` VALUES (7, 53);
+INSERT INTO `watchlist` VALUES (7, 56);
 
 SET FOREIGN_KEY_CHECKS = 1;

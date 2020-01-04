@@ -136,9 +136,9 @@
                                 <div class="product-body">
                                     <!-- <p class="product-category">Category</p> -->
                                     <p class="product-time-left">{{startDate}}</p>
-                                    <h3 class="product-name"><a href="#">{{name}}</a></h3>
-                                    <h4 class="product-price">{{buynowPrice}} <del
-                                            class="product-old-price">{{currentPrice}}</del></h4>
+                                    <h3 class="product-name"><a href="/products/detail/{{id}}">{{name}}</a></h3>
+                                    <h4 class="product-price">{{currentPrice}} <del
+                                            class="product-old-price">{{buynowPrice}}</del></h4>
                                     <div class="product-rating">
                                         <i class="fa fa-star"></i>
                                         <i class="fa fa-star"></i>
@@ -147,12 +147,12 @@
                                         <i class="fa fa-star"></i>
                                     </div>
                                     <div class="product-btns">
-                                        <button onclick="addWistList({{id}})" id="{{id}}" class="add-to-wishlist"><i style= "color:#ddd"id="{{id}}-heart" class="fa fa-heart" aria-hidden="true"></i><span
+                                        <button onclick="addWistList({{id}})" id="{{id}}" class="add-to-wishlist">{{#if like}}<i style= "color:#D10024" name="{{id}}-heart" class="fa fa-heart" aria-hidden="true"></i>{{else}}<i style= "color:#ddd"name="{{id}}-heart" class="fa fa-heart" aria-hidden="true"></i>{{/if}}<span
                                                 class="tooltipp">add to wishlist</span></button>
                                     </div>
                                 </div>
                                 <div class="add-to-cart">
-                                    <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> Auction</button>
+                                    <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i><a href="/products/detail/{{id}}">BID NOW</a></button>
                                 </div>
                             </div>
                         </div>

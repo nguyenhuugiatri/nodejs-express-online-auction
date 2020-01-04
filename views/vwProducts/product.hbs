@@ -139,7 +139,7 @@
 
           <ul class="product-btns">
             <li>
-              <a href="#"><i class="fa fa-heart-o"></i> add to wishlist</a>
+              <a href="#" onclick="addWistList({{idProduct}})">{{#if this.product.like}}<i style= "color:#D10024" name="{{idProduct}}-heart" class="fa fa-heart" aria-hidden="true"></i>{{else}}<i style= "color:#ddd"name="{{idProduct}}-heart" class="fa fa-heart" aria-hidden="true"></i>{{/if}} Wish List</a>
             </li>
             <!-- <li>
               <a href="#"><i class="fa fa-exchange"></i> add to compare</a>

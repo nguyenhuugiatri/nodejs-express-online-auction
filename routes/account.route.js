@@ -2,7 +2,6 @@ const express = require("express");
 const bcrypt = require("bcryptjs");
 const moment = require("moment");
 const userModel = require("../models/user.model");
-const Swal = require("sweetalert2");
 const restrict = require("../middlewares/auth.mdw");
 const requireLogin = require("./../middlewares/auth.mdw");
 const router = express.Router();
@@ -29,7 +28,6 @@ router.post("/signin", async (req, res) => {
     });
 
   delete user.password;
-  // req.session.isAuthenticated = true;
   req.session.user = user;
 
   const url = req.query.retUrl || "/";
@@ -53,9 +51,16 @@ router.get("/signup", async (req, res) => {
 });
 
 router.post("/signup", async (req, res) => {
+  checkExist = await userModel.singleByEmailUsername(req.body.username,req.body.email);
+  if(checkExist!==null){
+    return res.render("vwAccount/signup", {
+    layout: false,
+    message: "account exist"
+  });
+  }
+
   const N = 10;
   const hash = bcrypt.hashSync(req.body.password, N);
-
   const entity = req.body;
   entity.password = hash;
   entity.fullname = entity.firstName + " " + entity.lastName;
@@ -167,47 +172,6 @@ router.get("/addWishList", async (req, res) => {
     await userModel.deleteWishList(idUser, idProduct);
     return res.send("Delete Success");
   }
-});
-
-router.get("/list", async (req, res) => {
-  return res.send([
-    {
-      id: 1,
-      username: "thaianh",
-      password: "thaianhvip",
-      fullname: "0944026115",
-      gender: "1",
-      email: "thainh@gmail.com",
-      phone: "01232131",
-      dob: "2020-01-08 22:01:03",
-      permission: "1",
-      active: "0"
-    },
-    {
-      id: 1,
-      username: "thaianh",
-      password: "thaianhvip",
-      fullname: "0944026115",
-      gender: "1",
-      email: "thainh@gmail.com",
-      phone: "01232131",
-      dob: "2020-01-08 22:01:03",
-      permission: "1",
-      active: "1"
-    },
-    {
-      id: 1,
-      username: "thaianh",
-      password: "thaianhvip",
-      fullname: "0944026115",
-      gender: "1",
-      email: "thainh@gmail.com",
-      phone: "01232131",
-      dob: "2020-01-08 22:01:03",
-      permission: "1",
-      active: "0"
-    }
-  ]);
 });
 
 module.exports = router;

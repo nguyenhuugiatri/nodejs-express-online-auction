@@ -99,3 +99,12 @@ if (message === "success") {
     window.location.replace("/account/signin");
   });
 }
+
+if (message === "account exist") {
+  Swal.fire({
+    icon: "info",
+    title: "Account exist",
+    text: "Your username or email have been used by others",
+    footer: `<a href='#'>Forgot password ?</a>`
+  });
+}

@@ -9,15 +9,15 @@ class UserItem extends Component {
     let { user } = this.props;
     return (
       <tr>
-        <td>{user.id}</td>
-        <td>{user.username}</td>
-        <td>{user.password}</td>
-        <td>{user.fullname}</td>
-        <td>{user.gender == 1 ? "Male" : "Female"}</td>
-        <td>{user.email}</td>
-        <td>{user.phone}</td>
-        <td>{moment(user.dob).format("YYYY-MM-DD")}</td>
-        <td>{user.permission == 0 ? "Bidder" : "Seller"}</td>
+        <td className="column-password overflow-auto">{user.id}</td>
+        <td className="column-password overflow-auto">{user.username}</td>
+        <td className="column-password overflow-auto">{user.password}</td>
+        <td className="column-password overflow-auto">{user.fullname}</td>
+        <td className="column-password overflow-auto">{user.gender == 1 ? "Male" : "Female"}</td>
+        <td className="column-password overflow-auto">{user.email}</td>
+        <td className="column-password overflow-auto">{user.phone}</td>
+        <td className="column-password overflow-auto">{moment(user.dob).format("YYYY-MM-DD")}</td>
+        <td className="column-password overflow-auto">{user.permission == 0 ? "Bidder" : "Seller"}</td>
         <td>
           {(user.active == 0) && (
             <select className="custom-select">

@@ -253,12 +253,12 @@
                                     <div class="wk-responsive-tabs-container accordion-xs accordion-sm">
                                         <ul class="nav nav-tabs wk-responsive-tabs">
                                             <li class="active nav nav-tabs">
-                                                <a href="#seller_product_tab" data-toggle="tab">WishList</a>
+                                                <a href="#seller_product_tab" data-toggle="tab">Wish List</a>
                                             </li>
 
-                                            <li><a href="#customer_feedback_tab" data-toggle="tab">Selling Product</a></li>
-                                            <li><a href="#auction_won" data-toggle="tab">Auction won</a></li>
-                                            <li><a href="#user_wishlist_tab" data-toggle="tab">Wishlist</a></li>
+                                            <li><a href="#customer_feedback_tab" data-toggle="tab">Selling Products</a></li>
+                                            <li><a href="#auction_won" data-toggle="tab">Bidding Products</a></li>
+                                            <li><a href="#user_wishlist_tab" data-toggle="tab">Won Products</a></li>
 
 
                                         </ul>
@@ -297,7 +297,7 @@
                                                                     <img src="/img/product01.png" alt="">
                                                                     <div class="product-label">
                                                                         <span class="sale">-30%</span>
-                                                                        <span class="new">New</span>
+                                                                        
                                                                     </div>
                                                                 </div>
                                                                 <div class="product-body">
@@ -358,7 +358,7 @@
                                                                     <img src="/img/product01.png" alt="">
                                                                     <div class="product-label">
                                                                         <span class="sale">-30%</span>
-                                                                        <span class="new">New</span>
+                                                                        
                                                                     </div>
                                                                 </div>
                                                                 <div class="product-body">
@@ -399,26 +399,62 @@
                                             <!-- End Feedback tabbbbbbbbbbbb  -->
 
                                             <!-- Auction won tabbbbbbbbbbbb  -->
-                                            <a href="auction_won" class="accordion-link">Auction won</a>
+                                            <a href="auction_won" class="accordion-link">Bidding Products</a>
                                             <div class="tab-pane" id="auction_won">
                                                 <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
                                                     <div class="" id="tag-div" style="padding:10px 15px;">
                                                     </div>
                                                     <div class="seller_product_grid">
-                                                        <div
-                                                            class="col-md-12 col-lg-12 col-sm-12 col-xs-12 text-center">
-                                                            <h3>Won auctions</h3>
-                                                            <hr>
-                                                            {{!-- Đổ dữ liệu các sản phẩm mà <user> đã thắng từ chủ profile --}}
-                                                            <hr>
+                                                         {{#each this.productBidding}}
+                                                        <!-- product -->
+                                                        <div class="col-md-4 col-xs-6" style ="width: 25%">
+                                                            <div class="product">
+                                                                <div class="product-img">
+                                                                    <img src="/img/product01.png" alt="">
+                                                                    <div class="product-label">
+                                                                        <span class="sale">-30%</span>
+                                                                        
+                                                                    </div>
+                                                                </div>
+                                                                <div class="product-body">
+                                                                    <!-- <p class="product-category">Category</p> -->
+                                                                    <p class="product-time-left">{{startDate}}</p>
+                                                                    <h3 class="product-name"><a href="/products/detail/{{id}}">{{name}}</a></h3>
+                                                                    </h3>
+                                                                    <h4 class="product-price">{{buynowPrice}} <del
+                                                                            class="product-old-price">{{currentPrice}}</del>
+                                                                    </h4>
+                                                                    <div class="product-rating">
+                                                                        <i class="fa fa-star"></i>
+                                                                        <i class="fa fa-star"></i>
+                                                                        <i class="fa fa-star"></i>
+                                                                        <i class="fa fa-star"></i>
+                                                                        <i class="fa fa-star"></i>
+                                                                    </div>
+                                                                    <div class="product-btns">
+                                                                        <button onclick="addWistListAndLoadUrl({{id}})"
+                                                                            id="{{id}}" class="add-to-wishlist"><i
+                                                                                style="color:#D10024" id="{{id}}-heart"
+                                                                                class="fa fa-heart"
+                                                                                aria-hidden="true"></i><span
+                                                                                class="tooltipp">add to
+                                                                                wishlist</span></button>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="add-to-cart">
+                                                                    <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i><a href="/products/detail/{{id}}">BID NOW</a></button>
+                                                                </div>
+                                                            </div>
                                                         </div>
+                                                        <!-- /product -->
+                                                        {{/each}}
                                                     </div>
                                                 </div>
                                             </div>
                                             <!-- End Auction won tabbbbbbbbbbbb  -->
 
                                             <!-- Wishlist tabbbbbbbbbbbb  -->
-                                            <a href="user_wishlist_tab" class="accordion-link">Wishlist</a>
+                                            <a href="user_wishlist_tab" class="accordion-link">Won Products</a>
                                             <div class="tab-pane" id="user_wishlist_tab">
                                                 <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
                                                     <div class="" id="tag-div" style="padding:10px 15px;">
@@ -427,29 +463,49 @@
                                                         <!-- product listing block -->
                                                         <!-- not subscription product -->
                                                         <!-- product grid for medium and large device 4*3 and small device 12*1 -->
-                                                        <div
-                                                            class="col-md-4 col-lg-4 col-sm-6 col-xs-12 mp-mrgn-btm-32 product-block-div">
-                                                            <a href="/products/parfumbio" target="_blank"
-                                                                class="product-block">
-                                                                <!-- product image block -->
-                                                                <div class="mp-product-image-block">
-                                                                    <img src="https://shopify-digital-delivery.s3.amazonaws.com/product_img/main_img/1680421/Fqh2YlKsIB.jpg"
-                                                                        alt="" class="mp-product-image">
+                                                         {{#each this.productWon}}
+                                                        <!-- product -->
+                                                        <div class="col-md-4 col-xs-6" style ="width: 25%">
+                                                            <div class="product">
+                                                                <div class="product-img">
+                                                                    <img src="/img/product01.png" alt="">
+                                                                    <div class="product-label">
+                                                                        <span class="sale">-30%</span>
+                                                                        
+                                                                    </div>
                                                                 </div>
-                                                                <!-- product price block -->
-                                                                <div class="text-center">
-                                                                    <span class="money mp-color-gray"
-                                                                        data-currency-usd="$16.99 USD"
-                                                                        data-currency="$">
-                                                                        $16.99 </span>
+                                                                <div class="product-body">
+                                                                    <!-- <p class="product-category">Category</p> -->
+                                                                    <p class="product-time-left">{{startDate}}</p>
+                                                                    <h3 class="product-name"><a href="/products/detail/{{id}}">{{name}}</a></h3>
+                                                                    </h3>
+                                                                    <h4 class="product-price">{{buynowPrice}} <del
+                                                                            class="product-old-price">{{currentPrice}}</del>
+                                                                    </h4>
+                                                                    <div class="product-rating">
+                                                                        <i class="fa fa-star"></i>
+                                                                        <i class="fa fa-star"></i>
+                                                                        <i class="fa fa-star"></i>
+                                                                        <i class="fa fa-star"></i>
+                                                                        <i class="fa fa-star"></i>
+                                                                    </div>
+                                                                    <div class="product-btns">
+                                                                        <button onclick="addWistListAndLoadUrl({{id}})"
+                                                                            id="{{id}}" class="add-to-wishlist"><i
+                                                                                style="color:#D10024" id="{{id}}-heart"
+                                                                                class="fa fa-heart"
+                                                                                aria-hidden="true"></i><span
+                                                                                class="tooltipp">add to
+                                                                                wishlist</span></button>
+                                                                    </div>
                                                                 </div>
-                                                                <!-- product name block -->
-                                                                <div class="product-name mp-color-gray text-center"
-                                                                    style="word-break:break-word;">
-                                                                    <span>ParfumBio</span>
+                                                                <div class="add-to-cart">
+                                                                    <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i><a href="/products/detail/{{id}}">BID NOW</a></button>
                                                                 </div>
-                                                            </a>
+                                                            </div>
                                                         </div>
+                                                        <!-- /product -->
+                                                        {{/each}}
                                                         <!-- product pagination -->
                                                         <div
                                                             class="col-md-12 col-lg-12 col-sm-12 col-xs-12 text-center">

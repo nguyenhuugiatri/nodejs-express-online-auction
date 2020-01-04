@@ -13,7 +13,7 @@ const app = express();
 app.use(cors())
 app.use(
   session({
-    secret: "keyboard cat",
+    secret: "anhem1nha",
     resave: false,
     saveUninitialized: true,
     cookie: {

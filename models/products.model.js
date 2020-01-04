@@ -6,4 +6,7 @@ module.exports = {
   getSellerProductByID: id => db.load(`select  u.fullname from product as p,user as u , image i where u.id = p.id_seller and p.id = i.id_product and p.id = '${id}'`),
   add: entity => db.add('product', entity),
   getCurrentProductId:()=>db.load('select max(id) from product'),
+
+  getAuctioningProductsBySellerID: idSeller => db.load(`select * from product where id_seller = ${idSeller} and auctioned = 0;`)
+
 };

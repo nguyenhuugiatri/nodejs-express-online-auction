@@ -1,491 +1,659 @@
 <!-- SECTION -->
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Profile</title>
 
-{{#section 'css'}}
-<link rel="stylesheet" href="/css/profile.css">
-{{/section}}
+    {{#section 'css'}}
+    <link rel="stylesheet" href="/css/profile.css">
+    {{/section}}
 
 </head>
+
 <body>
     <!-- SECTION -->
-<div class="section">
-    <!-- container -->
-    <div class="container">
-        <div class="page-container drawer-page-content" id="PageContainer">
+    <div class="section">
+        <!-- container -->
+        <div class="container">
+            <div class="page-container drawer-page-content" id="PageContainer">
 
-            <main class="main-content js-focus-hidden" id="MainContent" role="main" tabindex="-1">
-                <script> var wk_type_url = "?";</script>
-                <style>
-                    #shopify-section-footer,
-                    #shopify-section-static-footer {
-                        float: left;
-                        width: 100%;
-                    }
-
-                    .mp-loader {
-                        position: fixed;
-                        background: rgba(255, 255, 255, 0.6);
-                        top: 0;
-                        left: 0;
-                        bottom: 0;
-                        right: 0;
-                        z-index: 1100
-                    }
-
-                    .mp-loader .mp-spinner {
-                        width: 52px;
-                        height: 52px;
-                        border: 4px solid #cccccc;
-                        border-radius: 50%;
-                        animation: mp-spin 460ms infinite linear;
-                        -o-animation: mp-spin 460ms infinite linear;
-                        -ms-animation: mp-spin 460ms infinite linear;
-                        -webkit-animation: mp-spin 460ms infinite linear;
-                        -moz-animation: mp-spin 460ms infinite linear;
-                        border-color: #555555 #cccccc;
-                        position: absolute;
-                        left: 50%;
-                        top: 50%;
-                        margin-left: -26px;
-                        margin-top: -26px;
-                    }
-
-                    .mp-loader .title-text {
-                        position: absolute;
-                        text-align: center !important;
-                        top: 56%;
-                        width: 100%;
-                    }
-
-                    @keyframes mp-spin {
-                        from {
-                            transform: rotate(0deg);
+                <main class="main-content js-focus-hidden" id="MainContent" role="main" tabindex="-1">
+                    <script> var wk_type_url = "?";</script>
+                    <style>
+                        #shopify-section-footer,
+                        #shopify-section-static-footer {
+                            float: left;
+                            width: 100%;
                         }
 
-                        to {
-                            transform: rotate(360deg);
-                        }
-                    }
-
-                    @-o-keyframes mp-spin {
-                        from {
-                            -o-transform: rotate(0deg);
-                        }
-
-                        to {
-                            -o-transform: rotate(360deg);
-                        }
-                    }
-
-                    @-ms-keyframes mp-spin {
-                        from {
-                            -ms-transform: rotate(0deg);
+                        .mp-loader {
+                            position: fixed;
+                            background: rgba(255, 255, 255, 0.6);
+                            top: 0;
+                            left: 0;
+                            bottom: 0;
+                            right: 0;
+                            z-index: 1100
                         }
 
-                        to {
-                            -ms-transform: rotate(360deg);
-                        }
-                    }
-
-                    @-webkit-keyframes mp-spin {
-                        from {
-                            -webkit-transform: rotate(0deg);
-                        }
-
-                        to {
-                            -webkit-transform: rotate(360deg);
-                        }
-                    }
-
-                    @-moz-keyframes mp-spin {
-                        from {
-                            -moz-transform: rotate(0deg);
+                        .mp-loader .mp-spinner {
+                            width: 52px;
+                            height: 52px;
+                            border: 4px solid #cccccc;
+                            border-radius: 50%;
+                            animation: mp-spin 460ms infinite linear;
+                            -o-animation: mp-spin 460ms infinite linear;
+                            -ms-animation: mp-spin 460ms infinite linear;
+                            -webkit-animation: mp-spin 460ms infinite linear;
+                            -moz-animation: mp-spin 460ms infinite linear;
+                            border-color: #555555 #cccccc;
+                            position: absolute;
+                            left: 50%;
+                            top: 50%;
+                            margin-left: -26px;
+                            margin-top: -26px;
                         }
 
-                        to {
-                            -moz-transform: rotate(360deg);
+                        .mp-loader .title-text {
+                            position: absolute;
+                            text-align: center !important;
+                            top: 56%;
+                            width: 100%;
                         }
-                    }
-                </style>
-                <div class="rte">
-                    <div class="mp_sp_page" data-cust="">
-                        <!-- product listing block -->
-                        <!-- include important library to run smoothly -->
-                        <link href="https://sp-seller.webkul.com/css/bootstrap-grid-only-css.css" type="text/css"
-                            rel="stylesheet">
-                        <link rel="stylesheet" type="text/css"
-                            href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
-                        <link href="https://sp-seller.webkul.com/lib/rateyo/jquery.rateyo.min.css" rel="stylesheet">
-                        <!-- block end -->
-                        <!-- custom css and main css -->
+
+                        @keyframes mp-spin {
+                            from {
+                                transform: rotate(0deg);
+                            }
+
+                            to {
+                                transform: rotate(360deg);
+                            }
+                        }
+
+                        @-o-keyframes mp-spin {
+                            from {
+                                -o-transform: rotate(0deg);
+                            }
+
+                            to {
+                                -o-transform: rotate(360deg);
+                            }
+                        }
+
+                        @-ms-keyframes mp-spin {
+                            from {
+                                -ms-transform: rotate(0deg);
+                            }
+
+                            to {
+                                -ms-transform: rotate(360deg);
+                            }
+                        }
+
+                        @-webkit-keyframes mp-spin {
+                            from {
+                                -webkit-transform: rotate(0deg);
+                            }
+
+                            to {
+                                -webkit-transform: rotate(360deg);
+                            }
+                        }
+
+                        @-moz-keyframes mp-spin {
+                            from {
+                                -moz-transform: rotate(0deg);
+                            }
+
+                            to {
+                                -moz-transform: rotate(360deg);
+                            }
+                        }
+                    </style>
+                    <div class="rte">
+                        <div class="mp_sp_page" data-cust="">
+                            <!-- product listing block -->
+                            <!-- include important library to run smoothly -->
+                            <link href="https://sp-seller.webkul.com/css/bootstrap-grid-only-css.css" type="text/css"
+                                rel="stylesheet">
+                            <link rel="stylesheet" type="text/css"
+                                href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+                            <link href="https://sp-seller.webkul.com/lib/rateyo/jquery.rateyo.min.css" rel="stylesheet">
+                            <!-- block end -->
+                            <!-- custom css and main css -->
 
 
 
-                        {{#each this.profile}}
-                        <div class="container">
-                            <!-- seller information block -->
-                            <div class="row">
-                                <!-- store logo block -->
-                                <div class="col-md-2 col-lg-2 col-sm-2 col-xs-12 wk-seller-logo mp-pad-15">
-                                    <div class="mp-store-logo mp-mrgn-btm-12 wk-parent-logo text-center">
-                                        <div class="wk-child-logo">
-                                            <img src="/img/DealerAvt.png" id="user_logo_image" class="" width="165"
-                                                height="165">
+                            {{#each this.profile}}
+                            <div class="container">
+                                <!-- seller information block -->
+                                <div class="row">
+                                    <!-- store logo block -->
+                                    <div class="col-md-2 col-lg-2 col-sm-2 col-xs-12 wk-seller-logo mp-pad-15">
+                                        <div class="mp-store-logo mp-mrgn-btm-12 wk-parent-logo text-center">
+                                            <div class="wk-child-logo">
+                                                <img src="/img/DealerAvt.png" id="user_logo_image" class="" width="165"
+                                                    height="165">
+                                            </div>
+                                            {{#when ../session.user.id 'eq' id}}
+                                            <!-- EDIT PROFILE DOAỌ BSJFSD JK-->
+                                            <span>
+                                                <button class="btn button-primary" style="margin-top: 7px;">
+                                                    <a href="/account/profile/{{../session.user.id}}/edit">
+                                                        <i class="fa fa-edit"></i>Edit profile</a>
+                                                </button>
+                                            </span>
+                                            <!-- END    EDIT PROFILE DOAỌ BSJFSD JK-->
+                                            {{/when}}
+
+
                                         </div>
-                                        {{#when ../session.user.id 'eq' id}}
-                                        <!-- EDIT PROFILE DOAỌ BSJFSD JK-->
-                                        <span>
-                                            <button class="btn button-primary" style="margin-top: 7px;">
-                                                <a href="/account/profile/{{../session.user.id}}/edit">
-                                                    <i class="fa fa-edit"></i>Edit profile</a>
-                                            </button>
-                                        </span>
-                                        <!-- END    EDIT PROFILE DOAỌ BSJFSD JK-->
-                                        {{/when}}
-
 
                                     </div>
-
-                                </div>
-                                <!-- store logo block end -->
-                                <!-- store info block -->
-                                <div class="col-md-8 col-lg-8 col-sm-8 col-xs-12 ">
-                                    <div class="row mp-mrgn-btm-12 mp-pad-15">
-                                        <!-- store name block -->
-                                        <div class="mp-store-name mp-mrgn-btm-5">
-                                            <span class="fullName">{{fullname}} </span>
-                                            <span class="userName">( {{username}} )</span>
-                                            <span class="label label-warning" id="roleBadge">seller (code cứng)</span>
-                                            <script>
-                                                var roleBadge = document.getElementById("roleBadge");
-                                                if ({{ permission }} === 1) { roleBadge.innerHTML = "seller"; }
+                                    <!-- store logo block end -->
+                                    <!-- store info block -->
+                                    <div class="col-md-8 col-lg-8 col-sm-8 col-xs-12 ">
+                                        <div class="row mp-mrgn-btm-12 mp-pad-15">
+                                            <!-- store name block -->
+                                            <div class="mp-store-name mp-mrgn-btm-5">
+                                                <span class="fullName">{{fullname}} </span>
+                                                <span class="userName">( {{username}} )</span>
+                                                <span class="label label-warning" id="roleBadge">seller (code
+                                                    cứng)</span>
+                                                <script>
+                                                    var roleBadge = document.getElementById("roleBadge");
+                                                    if ({{ permission }} === 1) { roleBadge.innerHTML = "seller"; }
                                                     else if ({{ permission }} === 0) { roleBadge.innerHTML = "bidder"; }
                                                     else { roleBadge.innerHTML = "anonymous"; }
-                                            </script>
-                                        </div>
+                                                </script>
+                                            </div>
 
-                                        <div class="star-rating mp-mrgn-btm-5">
-                                            {{!-- <link rel="stylesheet"
+                                            <div class="star-rating mp-mrgn-btm-5">
+                                                {{!-- <link rel="stylesheet"
                                                 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> --}}
-                                            <abbr title="{{../ratingPoint}}%"><span id="ratingStar" class="Stars"
-                                                    style="--rating: {{../ratingPoint}}; "></span></abbr>
+                                                <abbr title="{{../ratingPoint}}%"><span id="ratingStar" class="Stars"
+                                                        style="--rating: {{../ratingPoint}}; "></span></abbr>
 
-                                            <style>
-                                                :root {
-                                                    --star-size: 20px;
-                                                    --star-color: black;
-                                                    --star-background: #fc0;
-                                                }
+                                                <style>
+                                                    :root {
+                                                        --star-size: 20px;
+                                                        --star-color: black;
+                                                        --star-background: #fc0;
+                                                    }
 
-                                                .Stars {
-                                                    --percent: calc(var(--rating) * 1%);
-                                                    display: inline-block;
-                                                    font-size: var(--star-size);
-                                                    font-family: Times;
-                                                    line-height: 1;
-                                                }
+                                                    .Stars {
+                                                        --percent: calc(var(--rating) * 1%);
+                                                        display: inline-block;
+                                                        font-size: var(--star-size);
+                                                        font-family: Times;
+                                                        line-height: 1;
+                                                    }
 
-                                                .Stars::before {
-                                                    content: "★★★★★";
-                                                    letter-spacing: 3px;
-                                                    background: linear-gradient(90deg, var(--star-background) var(--percent), var(--star-color) var(--percent));
-                                                    -webkit-background-clip: text;
-                                                    -webkit-text-fill-color: transparent;
-                                                }
+                                                    .Stars::before {
+                                                        content: "★★★★★";
+                                                        letter-spacing: 3px;
+                                                        background: linear-gradient(90deg, var(--star-background) var(--percent), var(--star-color) var(--percent));
+                                                        -webkit-background-clip: text;
+                                                        -webkit-text-fill-color: transparent;
+                                                    }
 
-                                                body {
-                                                    background: #eee;
-                                                }
+                                                    body {
+                                                        background: #eee;
+                                                    }
 
-                                                * {
-                                                    position: relative;
-                                                    box-sizing: border-box;
-                                                }
-                                            </style>
-                                            <span class="rate">({{../ratingDescription}})</span>
+                                                    * {
+                                                        position: relative;
+                                                        box-sizing: border-box;
+                                                    }
+                                                </style>
+                                                <span class="rate">({{../ratingDescription}})</span>
 
 
-                                        </div>
-                                        {{!-- store contact --}}
-                                        <div class="mp-mrgn-btm-12">
-                                            <span id="contact_modal" class="mp-subscribe-btn mp-mrgn-btm-12">
-                                                <span class="fa fa-envelope-o email" aria-hidden="true"></span>
-                                                {{email}}
-                                            </span>
-                                        </div>
+                                            </div>
+                                            {{!-- store contact --}}
+                                            <div class="mp-mrgn-btm-12">
+                                                <span id="contact_modal" class="mp-subscribe-btn mp-mrgn-btm-12">
+                                                    <span class="fa fa-envelope-o email" aria-hidden="true"></span>
+                                                    {{email}}
+                                                </span>
+                                            </div>
 
-                                        <!-- store location block -->
-                                        <div class="mp-location mp-color-gray mp-mrgn-btm-5">
-                                            <span class="fa fa-phone"></span> {{phone}}
-                                        </div>
-                                        <!-- store short description block -->
-                                        <div class="mp-store-short-desc mp-mrgn-btm-5">HELLO. I'M MEMBER OF ONLINE
-                                            AUCTION.</div>
-                                        <!-- store info about product and join block -->
-                                        <div class="mp-color-gray mp-mrgn-btm-5">
+                                            <!-- store location block -->
+                                            <div class="mp-location mp-color-gray mp-mrgn-btm-5">
+                                                <span class="fa fa-phone"></span> {{phone}}
+                                            </div>
+                                            <!-- store short description block -->
+                                            <div class="mp-store-short-desc mp-mrgn-btm-5">HELLO. I'M MEMBER OF ONLINE
+                                                AUCTION.</div>
+                                            <!-- store info about product and join block -->
+                                            <div class="mp-color-gray mp-mrgn-btm-5">
 
-                                            <span>Join Since {{dob}} </span>
-                                        </div>
-                                        <!-- store review rating block -->
-                                        <!-- store like block -->
-                                        <div class="mp-mrgn-btm-5" id="wk-store-like-block">
-                                            <button class="btn button-primary" id="wk-like-btn"><span
-                                                    class="fa fa-thumbs-up"></button>
-                                            <button class="btn button-primary" id="wk-like-btn"><span
-                                                    class="fa fa-thumbs-down"></button>
-                                            {{!-- <input type="hidden" id="wk-like-label" data-label-like="Like Shop">
+                                                <span>Join Since {{dob}} </span>
+                                            </div>
+                                            <!-- store review rating block -->
+                                            <!-- store like block -->
+                                            <div class="mp-mrgn-btm-5" id="wk-store-like-block">
+                                                <button class="btn button-primary" id="wk-like-btn"><span
+                                                        class="fa fa-thumbs-up"></button>
+                                                <button class="btn button-primary" id="wk-like-btn"><span
+                                                        class="fa fa-thumbs-down"></button>
+                                                {{!-- <input type="hidden" id="wk-like-label" data-label-like="Like Shop">
                               <input type="hidden" id="wk-liked-label" data-label-liked="Liked"> --}}
+                                            </div>
                                         </div>
                                     </div>
+                                    {{/each}}
                                 </div>
-                            {{/each}}
-                            </div>
-                            <!-- block end -->
-                            <div class="row">
-                                <!-- tabs menu -->
-                                <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 mp-mrgm-btm-12" id="mp-seller-tabs">
-                                    <div class="wk-responsive-tabs-container accordion-xs accordion-sm">
-                                        <ul class="nav nav-tabs wk-responsive-tabs">
-                                            <li class="active nav nav-tabs">
-                                                <a href="#seller_product_tab" data-toggle="tab">WishList</a>
-                                            </li>
+                                <!-- block end -->
+                                <div class="row">
+                                    <!-- tabs menu -->
+                                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 mp-mrgm-btm-12"
+                                        id="mp-seller-tabs">
+                                        <div class="wk-responsive-tabs-container accordion-xs accordion-sm">
+                                            <ul class="nav nav-tabs wk-responsive-tabs">
+                                                <li class="active nav nav-tabs">
+                                                    <a href="#user_wishlist_tab" data-toggle="tab">Wish List</a>
+                                                </li>
 
-                                            <li><a href="#customer_feedback_tab" data-toggle="tab">Selling Product</a></li>
-                                            <li><a href="#auction_won" data-toggle="tab">Auction won</a></li>
-                                            <li><a href="#user_wishlist_tab" data-toggle="tab">Wishlist</a></li>
+                                                <li><a href="#seller_product_tab" data-toggle="tab">Selling Products</a>
+                                                </li>
+                                                <li><a href="#bidding_product_tab" data-toggle="tab">Bidding
+                                                        Products</a></li>
+                                                <li><a href="#auction_won_tab" data-toggle="tab">Won Products</a></li>
+                                                <li><a href="#auctioned_off_tab" data-toggle="tab">Auctioned off
+                                                        Products</a></li>
 
 
-                                        </ul>
-                                        <div class="tab-content mp-tab-content mp-mrgm-btm-12">
-                                            <!-- seller product tab content -->
-                                            <a href="#seller_product_tab"
-                                                class="accordion-link active first">WishList</a>
-                                            <div class="tab-pane active" id="seller_product_tab">
+                                            </ul>
+                                            <div class="tab-content mp-tab-content mp-mrgm-btm-12">
+                                                <!-- wishlist tab content -->
+                                                <a href="#user_wishlist_tab"
+                                                    class="accordion-link active first">WishList</a>
+                                                <div class="tab-pane active" id="user_wishlist_tab">
 
-                                                <!-- product filter block -->
-                                                <div class="col-md-6">
-						<div class="header-search">
-							<form method="get" action="/account/profile/{{idUSer}}/search" onsubmit="">
-								<input type="text" class="input" placeholder="Search here" id="nameproduct"
-									name="nameproduct">
-								<button type="submit" class="search-btn" onclick="">Search</button>
-							</form>
-						</div>
-					</div>
-                                                <!-- product listing block -->
-                                                <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
-                                                    <div class="" id="tag-div" style="padding:10px 15px;">
-                                                        <!--adding tags inside this-->
+                                                    <!-- product filter block -->
+                                                    <div class="col-md-6">
+                                                        <div class="header-search">
+                                                            <form method="get"
+                                                                action="/account/profile/{{idUSer}}/search" onsubmit="">
+                                                                <input type="text" class="input"
+                                                                    placeholder="Search here" id="nameproduct"
+                                                                    name="nameproduct">
+                                                                <button type="submit" class="search-btn"
+                                                                    onclick="">Search</button>
+                                                            </form>
+                                                        </div>
                                                     </div>
-                                                    <!-- import product grid -->
-                                                    <div class="seller_product_grid">
-                                                        <!-- product listing block -->
-                                                        <!-- not subscription product -->
-                                                        <!-- product grid for medium and large device 4*3 and small device 12*1 -->
+                                                    <!-- product listing block -->
+                                                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                                                        <div class="" id="tag-div" style="padding:10px 15px;">
+                                                            <!--adding tags inside this-->
+                                                        </div>
+                                                        <!-- import product grid -->
+                                                        <div class="seller_product_grid">
+                                                            <!-- product listing block -->
+                                                            <!-- not subscription product -->
+                                                            <!-- product grid for medium and large device 4*3 and small device 12*1 -->
 
-                                                        {{#each this.products}}
-                                                        <!-- product -->
-                                                        <div class="col-md-4 col-xs-6" style ="width: 25%">
-                                                            <div class="product">
-                                                                <div class="product-img">
-                                                                    <img src="/img/product01.png" alt="">
-                                                                    <div class="product-label">
-                                                                        <span class="sale">-30%</span>
-                                                                        <span class="new">New</span>
+                                                            {{#each this.products}}
+                                                            <!-- product -->
+                                                            <div class="col-md-4 col-xs-6" style="width: 25%">
+                                                                <div class="product">
+                                                                    <div class="product-img">
+                                                                        <img src="/img/product01.png" alt="">
+                                                                        <div class="product-label">
+                                                                            <span class="sale">-30%</span>
+
+                                                                        </div>
                                                                     </div>
-                                                                </div>
-                                                                <div class="product-body">
-                                                                    <!-- <p class="product-category">Category</p> -->
-                                                                    <p class="product-time-left">{{startDate}}</p>
-                                                                    <h3 class="product-name"><a href="/products/detail/{{id}}">{{name}}</a></h3>
-                                                                    </h3>
-                                                                    <h4 class="product-price">{{buynowPrice}} <del
-                                                                            class="product-old-price">{{currentPrice}}</del>
-                                                                    </h4>
-                                                                    <div class="product-rating">
-                                                                        <i class="fa fa-star"></i>
-                                                                        <i class="fa fa-star"></i>
-                                                                        <i class="fa fa-star"></i>
-                                                                        <i class="fa fa-star"></i>
-                                                                        <i class="fa fa-star"></i>
+                                                                    <div class="product-body">
+                                                                        <!-- <p class="product-category">Category</p> -->
+                                                                        <p class="product-time-left">{{startDate}}</p>
+                                                                        <h3 class="product-name"><a
+                                                                                href="/products/detail/{{id}}">{{name}}</a>
+                                                                        </h3>
+                                                                        </h3>
+                                                                        <h4 class="product-price">{{buynowPrice}} <del
+                                                                                class="product-old-price">{{currentPrice}}</del>
+                                                                        </h4>
+                                                                        <div class="product-rating">
+                                                                            <i class="fa fa-star"></i>
+                                                                            <i class="fa fa-star"></i>
+                                                                            <i class="fa fa-star"></i>
+                                                                            <i class="fa fa-star"></i>
+                                                                            <i class="fa fa-star"></i>
+                                                                        </div>
+                                                                        <div class="product-btns">
+                                                                            <button
+                                                                                onclick="addWistListAndLoadUrl({{id}})"
+                                                                                id="{{id}}" class="add-to-wishlist"><i
+                                                                                    style="color:#D10024"
+                                                                                    id="{{id}}-heart"
+                                                                                    class="fa fa-heart"
+                                                                                    aria-hidden="true"></i><span
+                                                                                    class="tooltipp">add to
+                                                                                    wishlist</span></button>
+                                                                        </div>
                                                                     </div>
-                                                                    <div class="product-btns">
-                                                                        <button onclick="addWistListAndLoadUrl({{id}})"
-                                                                            id="{{id}}" class="add-to-wishlist"><i
-                                                                                style="color:#D10024" id="{{id}}-heart"
-                                                                                class="fa fa-heart"
-                                                                                aria-hidden="true"></i><span
-                                                                                class="tooltipp">add to
-                                                                                wishlist</span></button>
+                                                                    <div class="add-to-cart">
+                                                                        <button class="add-to-cart-btn"><i
+                                                                                class="fa fa-shopping-cart"></i><a
+                                                                                href="/products/detail/{{id}}">BID
+                                                                                NOW</a></button>
                                                                     </div>
-                                                                </div>
-                                                                <div class="add-to-cart">
-                                                                    <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i><a href="/products/detail/{{id}}">BID NOW</a></button>
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                        <!-- /product -->
-                                                        {{/each}}
-                                                        <!-- product pagination -->
-                                                        <div
-                                                            class="col-md-12 col-lg-12 col-sm-12 col-xs-12 text-center">
+                                                            <!-- /product -->
+                                                            {{/each}}
+                                                            <!-- product pagination -->
+                                                            <div
+                                                                class="col-md-12 col-lg-12 col-sm-12 col-xs-12 text-center">
 
+                                                            </div>
+                                                            <!-- product listing block end -->
+                                                            <!-- seller review block -->
                                                         </div>
-                                                        <!-- product listing block end -->
-                                                        <!-- seller review block -->
                                                     </div>
                                                 </div>
-                                            </div>
 
-                                            <!-- Feedback tabbbbbbbbbbbb  -->
-                                            <a href="customer_feedback_tab" class="accordion-link">Selling Product</a>
-                                            <div class="tab-pane" id="customer_feedback_tab">
-                                                <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
-                                                    <div class="" id="tag-div" style="padding:10px 15px;">
-                                                    </div>
-                                                    <div class="seller_product_grid">
-                                                        {{#each this.productSeller}}
-                                                        <!-- product -->
-                                                        <div class="col-md-4 col-xs-6" style ="width: 25%">
-                                                            <div class="product">
-                                                                <div class="product-img">
-                                                                    <img src="/img/product01.png" alt="">
-                                                                    <div class="product-label">
-                                                                        <span class="sale">-30%</span>
-                                                                        <span class="new">New</span>
+                                                <!-- Seller products tabbbbbbbbbbbb  -->
+                                                <a href="seller_product_tab" class="accordion-link">Selling
+                                                    Product</a>
+                                                <div class="tab-pane" id="seller_product_tab">
+                                                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                                                        <div class="" id="tag-div" style="padding:10px 15px;">
+                                                        </div>
+                                                        <div class="seller_product_grid">
+                                                            {{#each this.productSeller}}
+                                                            <!-- product -->
+                                                            <div class="col-md-4 col-xs-6" style="width: 25%">
+                                                                <div class="product">
+                                                                    <div class="product-img">
+                                                                        <img src="/img/product01.png" alt="">
+                                                                        <div class="product-label">
+                                                                            <span class="sale">-30%</span>
+
+                                                                        </div>
                                                                     </div>
-                                                                </div>
-                                                                <div class="product-body">
-                                                                    <!-- <p class="product-category">Category</p> -->
-                                                                    <p class="product-time-left">{{startDate}}</p>
-                                                                    <h3 class="product-name"><a href="/products/detail/{{id}}">{{name}}</a></h3>
-                                                                    </h3>
-                                                                    <h4 class="product-price">{{buynowPrice}} <del
-                                                                            class="product-old-price">{{currentPrice}}</del>
-                                                                    </h4>
-                                                                    <div class="product-rating">
-                                                                        <i class="fa fa-star"></i>
-                                                                        <i class="fa fa-star"></i>
-                                                                        <i class="fa fa-star"></i>
-                                                                        <i class="fa fa-star"></i>
-                                                                        <i class="fa fa-star"></i>
+                                                                    <div class="product-body">
+                                                                        <!-- <p class="product-category">Category</p> -->
+                                                                        <p class="product-time-left">{{startDate}}</p>
+                                                                        <h3 class="product-name"><a
+                                                                                href="/products/detail/{{id}}">{{name}}</a>
+                                                                        </h3>
+                                                                        </h3>
+                                                                        <h4 class="product-price">{{buynowPrice}} <del
+                                                                                class="product-old-price">{{currentPrice}}</del>
+                                                                        </h4>
+                                                                        <div class="product-rating">
+                                                                            <i class="fa fa-star"></i>
+                                                                            <i class="fa fa-star"></i>
+                                                                            <i class="fa fa-star"></i>
+                                                                            <i class="fa fa-star"></i>
+                                                                            <i class="fa fa-star"></i>
+                                                                        </div>
+                                                                        <div class="product-btns">
+                                                                            <button
+                                                                                onclick="addWistListAndLoadUrl({{id}})"
+                                                                                id="{{id}}" class="add-to-wishlist"><i
+                                                                                    style="color:#D10024"
+                                                                                    id="{{id}}-heart"
+                                                                                    class="fa fa-heart"
+                                                                                    aria-hidden="true"></i><span
+                                                                                    class="tooltipp">add to
+                                                                                    wishlist</span></button>
+                                                                        </div>
                                                                     </div>
-                                                                    <div class="product-btns">
-                                                                        <button onclick="addWistListAndLoadUrl({{id}})"
-                                                                            id="{{id}}" class="add-to-wishlist"><i
-                                                                                style="color:#D10024" id="{{id}}-heart"
-                                                                                class="fa fa-heart"
-                                                                                aria-hidden="true"></i><span
-                                                                                class="tooltipp">add to
-                                                                                wishlist</span></button>
+                                                                    <div class="add-to-cart">
+                                                                        <button class="add-to-cart-btn"><i
+                                                                                class="fa fa-shopping-cart"></i><a
+                                                                                href="/products/detail/{{id}}">BID
+                                                                                NOW</a></button>
                                                                     </div>
-                                                                </div>
-                                                                <div class="add-to-cart">
-                                                                    <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i><a href="/products/detail/{{id}}">BID NOW</a></button>
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                        <!-- /product -->
-                                                        {{/each}}
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- End Feedback tabbbbbbbbbbbb  -->
-
-                                            <!-- Auction won tabbbbbbbbbbbb  -->
-                                            <a href="auction_won" class="accordion-link">Auction won</a>
-                                            <div class="tab-pane" id="auction_won">
-                                                <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
-                                                    <div class="" id="tag-div" style="padding:10px 15px;">
-                                                    </div>
-                                                    <div class="seller_product_grid">
-                                                        <div
-                                                            class="col-md-12 col-lg-12 col-sm-12 col-xs-12 text-center">
-                                                            <h3>Won auctions</h3>
-                                                            <hr>
-                                                            {{!-- Đổ dữ liệu các sản phẩm mà <user> đã thắng từ chủ profile --}}
-                                                            <hr>
+                                                            <!-- /product -->
+                                                            {{/each}}
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <!-- End Auction won tabbbbbbbbbbbb  -->
+                                                <!-- End Seller products tabbbbbbbbbbbb  -->
 
-                                            <!-- Wishlist tabbbbbbbbbbbb  -->
-                                            <a href="user_wishlist_tab" class="accordion-link">Wishlist</a>
-                                            <div class="tab-pane" id="user_wishlist_tab">
-                                                <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
-                                                    <div class="" id="tag-div" style="padding:10px 15px;">
-                                                    </div>
-                                                    <div class="seller_product_grid">
-                                                        <!-- product listing block -->
-                                                        <!-- not subscription product -->
-                                                        <!-- product grid for medium and large device 4*3 and small device 12*1 -->
-                                                        <div
-                                                            class="col-md-4 col-lg-4 col-sm-6 col-xs-12 mp-mrgn-btm-32 product-block-div">
-                                                            <a href="/products/parfumbio" target="_blank"
-                                                                class="product-block">
-                                                                <!-- product image block -->
-                                                                <div class="mp-product-image-block">
-                                                                    <img src="https://shopify-digital-delivery.s3.amazonaws.com/product_img/main_img/1680421/Fqh2YlKsIB.jpg"
-                                                                        alt="" class="mp-product-image">
-                                                                </div>
-                                                                <!-- product price block -->
-                                                                <div class="text-center">
-                                                                    <span class="money mp-color-gray"
-                                                                        data-currency-usd="$16.99 USD"
-                                                                        data-currency="$">
-                                                                        $16.99 </span>
-                                                                </div>
-                                                                <!-- product name block -->
-                                                                <div class="product-name mp-color-gray text-center"
-                                                                    style="word-break:break-word;">
-                                                                    <span>ParfumBio</span>
-                                                                </div>
-                                                            </a>
+                                                <!-- Bidding tabbbbbbbbbbbb  -->
+                                                <a href="bidding_product_tab" class="accordion-link">Bidding Products</a>
+                                                <div class="tab-pane" id="bidding_product_tab">
+                                                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                                                        <div class="" id="tag-div" style="padding:10px 15px;">
                                                         </div>
-                                                        <!-- product pagination -->
-                                                        <div
-                                                            class="col-md-12 col-lg-12 col-sm-12 col-xs-12 text-center">
+                                                        <div class="seller_product_grid">
+                                                            {{#each this.productBidding}}
+                                                            <!-- product -->
+                                                            <div class="col-md-4 col-xs-6" style="width: 25%">
+                                                                <div class="product">
+                                                                    <div class="product-img">
+                                                                        <img src="/img/product01.png" alt="">
+                                                                        <div class="product-label">
+                                                                            <span class="sale">-30%</span>
 
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="product-body">
+                                                                        <!-- <p class="product-category">Category</p> -->
+                                                                        <p class="product-time-left">{{startDate}}</p>
+                                                                        <h3 class="product-name"><a
+                                                                                href="/products/detail/{{id}}">{{name}}</a>
+                                                                        </h3>
+                                                                        </h3>
+                                                                        <h4 class="product-price">{{buynowPrice}} <del
+                                                                                class="product-old-price">{{currentPrice}}</del>
+                                                                        </h4>
+                                                                        <div class="product-rating">
+                                                                            <i class="fa fa-star"></i>
+                                                                            <i class="fa fa-star"></i>
+                                                                            <i class="fa fa-star"></i>
+                                                                            <i class="fa fa-star"></i>
+                                                                            <i class="fa fa-star"></i>
+                                                                        </div>
+                                                                        <div class="product-btns">
+                                                                            <button
+                                                                                onclick="addWistListAndLoadUrl({{id}})"
+                                                                                id="{{id}}" class="add-to-wishlist"><i
+                                                                                    style="color:#D10024"
+                                                                                    id="{{id}}-heart"
+                                                                                    class="fa fa-heart"
+                                                                                    aria-hidden="true"></i><span
+                                                                                    class="tooltipp">add to
+                                                                                    wishlist</span></button>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="add-to-cart">
+                                                                        <button class="add-to-cart-btn"><i
+                                                                                class="fa fa-shopping-cart"></i><a
+                                                                                href="/products/detail/{{id}}">BID
+                                                                                NOW</a></button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- /product -->
+                                                            {{/each}}
                                                         </div>
-                                                        <!-- product listing block end -->
-                                                        <!-- seller review block -->
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <!-- End Wishlist tabbbbbbbbbbbb  -->
+                                                <!-- End Bidding tabbbbbbbbbbbb  -->
 
+                                                <!-- Won auction tabbbbbbbbbbbb  -->
+                                                <a href="auction_won_tab" class="accordion-link">Won Products</a>
+                                                <div class="tab-pane" id="auction_won_tab">
+                                                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                                                        <div class="" id="tag-div" style="padding:10px 15px;">
+                                                        </div>
+                                                        <div class="seller_product_grid">
+                                                            <!-- product listing block -->
+                                                            <!-- not subscription product -->
+                                                            <!-- product grid for medium and large device 4*3 and small device 12*1 -->
+                                                            {{#each this.productWon}}
+                                                            <!-- product -->
+                                                            <div class="col-md-4 col-xs-6" style="width: 25%">
+                                                                <div class="product">
+                                                                    <div class="product-img">
+                                                                        <img src="/img/product01.png" alt="">
+                                                                        <div class="product-label">
+                                                                            <span class="sale">-30%</span>
 
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="product-body">
+                                                                        <!-- <p class="product-category">Category</p> -->
+                                                                        <p class="product-time-left">{{startDate}}</p>
+                                                                        <h3 class="product-name"><a
+                                                                                href="/products/detail/{{id}}">{{name}}</a>
+                                                                        </h3>
+                                                                        </h3>
+                                                                        <h4 class="product-price">{{buynowPrice}} <del
+                                                                                class="product-old-price">{{currentPrice}}</del>
+                                                                        </h4>
+                                                                        <div class="product-rating">
+                                                                            <i class="fa fa-star"></i>
+                                                                            <i class="fa fa-star"></i>
+                                                                            <i class="fa fa-star"></i>
+                                                                            <i class="fa fa-star"></i>
+                                                                            <i class="fa fa-star"></i>
+                                                                        </div>
+                                                                        <div class="product-btns">
+                                                                            <button
+                                                                                onclick="addWistListAndLoadUrl({{id}})"
+                                                                                id="{{id}}" class="add-to-wishlist"><i
+                                                                                    style="color:#D10024"
+                                                                                    id="{{id}}-heart"
+                                                                                    class="fa fa-heart"
+                                                                                    aria-hidden="true"></i><span
+                                                                                    class="tooltipp">add to
+                                                                                    wishlist</span></button>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="add-to-cart">
+                                                                        <button class="add-to-cart-btn"><i
+                                                                                class="fa fa-shopping-cart"></i><a
+                                                                                href="/products/detail/{{id}}">BID
+                                                                                NOW</a></button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- /product -->
+                                                            {{/each}}
+                                                            <!-- product pagination -->
+                                                            <div
+                                                                class="col-md-12 col-lg-12 col-sm-12 col-xs-12 text-center">
 
-                                            <div class="mp-loader" style="display: none;">
-                                                <div class="mp-spinner"></div>
-                                                <div class="title-text">Please Wait...</div>
-                                            </div>
-                                            {{!-- <script type="text/javascript"
+                                                            </div>
+                                                            <!-- product listing block end -->
+                                                            <!-- seller review block -->
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- End Won auction  tabbbbbbbbbbbb  -->
+
+                                                <!-- Auctioned off tabbbbbbbbbbbb  -->
+                                                <a href="auctioned_off_tab" class="accordion-link">Auctioned off
+                                                        Products</a>
+                                                <div class="tab-pane" id="auctioned_off_tab">
+                                                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                                                        <div class="" id="tag-div" style="padding:10px 15px;">
+                                                        </div>
+                                                        <div class="seller_product_grid">
+                                                            <!-- product listing block -->
+                                                            <!-- not subscription product -->
+                                                            <!-- product grid for medium and large device 4*3 and small device 12*1 -->
+                                                            {{#each this.productAutioned}}
+                                                            <!-- product -->
+                                                            <div class="col-md-4 col-xs-6" style="width: 25%">
+                                                                <div class="product">
+                                                                    <div class="product-img">
+                                                                        <img src="/img/product01.png" alt="">
+                                                                        <div class="product-label">
+                                                                            <span class="sale">-30%</span>
+
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="product-body">
+                                                                        <!-- <p class="product-category">Category</p> -->
+                                                                        <p class="product-time-left">{{startDate}}</p>
+                                                                        <h3 class="product-name"><a
+                                                                                href="/products/detail/{{id}}">{{name}}</a>
+                                                                        </h3>
+                                                                        </h3>
+                                                                        <h4 class="product-price">{{buynowPrice}} <del
+                                                                                class="product-old-price">{{currentPrice}}</del>
+                                                                        </h4>
+                                                                        <div class="product-rating">
+                                                                            <i class="fa fa-star"></i>
+                                                                            <i class="fa fa-star"></i>
+                                                                            <i class="fa fa-star"></i>
+                                                                            <i class="fa fa-star"></i>
+                                                                            <i class="fa fa-star"></i>
+                                                                        </div>
+                                                                        <div class="product-btns">
+                                                                            <button
+                                                                                onclick="addWistListAndLoadUrl({{id}})"
+                                                                                id="{{id}}" class="add-to-wishlist"><i
+                                                                                    style="color:#D10024"
+                                                                                    id="{{id}}-heart"
+                                                                                    class="fa fa-heart"
+                                                                                    aria-hidden="true"></i><span
+                                                                                    class="tooltipp">add to
+                                                                                    wishlist</span></button>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="add-to-cart">
+                                                                        <button class="add-to-cart-btn"><i
+                                                                                class="fa fa-shopping-cart"></i><a
+                                                                                href="/products/detail/{{id}}">BID
+                                                                                NOW</a></button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- /product -->
+                                                            {{/each}}
+                                                            <!-- product pagination -->
+                                                            <div
+                                                                class="col-md-12 col-lg-12 col-sm-12 col-xs-12 text-center">
+
+                                                            </div>
+                                                            <!-- product listing block end -->
+                                                            <!-- seller review block -->
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- End Auctioned off  tabbbbbbbbbbbb  -->
+
+                                                <div class="mp-loader" style="display: none;">
+                                                    <div class="mp-spinner"></div>
+                                                    <div class="title-text">Please Wait...</div>
+                                                </div>
+                                                {{!-- <script type="text/javascript"
                                                 src="https://sp-seller.webkul.com/js/vc_seller_profile.min.js"></script> --}}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
 
-            </main>
+                </main>
 
 
-            <!-- /container -->
+                <!-- /container -->
+            </div>
+            <!-- /SECTION -->
         </div>
-        <!-- /SECTION -->
     </div>
-</div>
-<script src="https://code.jquery.com/jquery-3.1.0.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
-<script src="/js/searchprofile.js"></script>
+    <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <script src="/js/searchprofile.js"></script>
 </body>
+
 </html>

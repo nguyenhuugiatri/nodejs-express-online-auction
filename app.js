@@ -6,6 +6,7 @@ const morgan = require("morgan");
 const numeral = require("numeral");
 require("express-async-errors");
 const cors = require('cors');
+var flash = require('express-flash');
 
 const app = express();
 
@@ -65,6 +66,7 @@ app.engine(
   })
 );
 app.set("view engine", "hbs");
+app.use(flash());
 
 // require("./middlewares/locals.mdw")(app);
 require("./middlewares/routes.mdw")(app);

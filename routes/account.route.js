@@ -136,16 +136,12 @@ router.post("/profile/:id/edit/changePassword", requireLogin, async (req, res) =
   const user = await userModel.singleRowByID(userId);
 
   const rs = bcrypt.compareSync(password, user.password);
-  if (!rs)
-    return res.render("notFound", {
-      message: "WRONG PASSWORD"
-    });
+  if (!rs){
+    req.flash('error', 'wrong password');
+    res.redirect(req.get('referer'));
+  }
 
-  // kiểm tra rePassword khớp với newPassword
-  if (rePassword != newPassword)
-  return res.render("notFound", {
-    message: "RE-PASSWORD NOT MATCHED!!!"
-  });
+  // kiểm tra rePassword khớp với newPassword (xử lý trong changePassword.js)
 
   // mã hóa newPassword đưa vào database
   const N = 10;

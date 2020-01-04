@@ -1,6 +1,7 @@
 $("#imagePicker").spartanMultiImagePicker({
   fieldName: "file",
-  allowedExt: "png|jpg|jpeg|gif"
+  allowedExt: "png|jpg|jpeg|gif",
+  maxCount: 10
 });
 
 tinymce.init({
@@ -23,3 +24,35 @@ tinymce.init({
   },
   menubar: "favs file edit view insert format tools table help"
 });
+
+const formAddProuct = $("#formAddProuct");
+formAddProuct.submit(function() {
+  if (validate()) return true;
+  else return false;
+});
+
+function validate() {
+  const imageWrapper = document.getElementsByClassName("spartan_item_wrapper");
+  const countImage = imageWrapper.length - 1;
+
+  const enDate = moment(document.getElementById("endDate").value);
+  if (enDate < moment()){
+    Swal.fire({
+      icon: "info",
+      title: "Info",
+      text: "Invalid end date"
+    });
+    return false;
+  }
+
+  if(countImage<3){
+    Swal.fire({
+    icon: "info",
+    title: "Info",
+    text: "Please upload at least 3 images"
+  });
+  return false;
+  }
+
+  return true;
+}

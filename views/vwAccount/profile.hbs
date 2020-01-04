@@ -1,8 +1,19 @@
+<!-- SECTION -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Profile</title>
+
 {{#section 'css'}}
 <link rel="stylesheet" href="/css/profile.css">
 {{/section}}
 
-<!-- SECTION -->
+</head>
+<body>
+    <!-- SECTION -->
 <div class="section">
     <!-- container -->
     <div class="container">
@@ -116,7 +127,7 @@
 
 
 
-                        {{#each profile}}
+                        {{#each this.profile}}
                         <div class="container">
                             <!-- seller information block -->
                             <div class="row">
@@ -231,12 +242,9 @@
                                             {{!-- <input type="hidden" id="wk-like-label" data-label-like="Like Shop">
                               <input type="hidden" id="wk-liked-label" data-label-liked="Liked"> --}}
                                         </div>
-
-
-
                                     </div>
                                 </div>
-
+                            {{/each}}
                             </div>
                             <!-- block end -->
                             <div class="row">
@@ -245,7 +253,7 @@
                                     <div class="wk-responsive-tabs-container accordion-xs accordion-sm">
                                         <ul class="nav nav-tabs wk-responsive-tabs">
                                             <li class="active nav nav-tabs">
-                                                <a href="#seller_product_tab" data-toggle="tab">Seller Products</a>
+                                                <a href="#seller_product_tab" data-toggle="tab">WishList</a>
                                             </li>
 
                                             <li><a href="#customer_feedback_tab" data-toggle="tab">Feedback</a></li>
@@ -256,11 +264,20 @@
                                         </ul>
                                         <div class="tab-content mp-tab-content mp-mrgm-btm-12">
                                             <!-- seller product tab content -->
-                                            <a href="#seller_product_tab" class="accordion-link active first">Seller
-                                                Products</a>
+                                            <a href="#seller_product_tab"
+                                                class="accordion-link active first">WishList</a>
                                             <div class="tab-pane active" id="seller_product_tab">
 
                                                 <!-- product filter block -->
+                                                <div class="col-md-6">
+						<div class="header-search">
+							<form method="get" action="/account/profile/{{idUSer}}/search" onsubmit="">
+								<input type="text" class="input" placeholder="Search here" id="nameproduct"
+									name="nameproduct">
+								<button type="submit" class="search-btn" onclick="">Search</button>
+							</form>
+						</div>
+					</div>
                                                 <!-- product listing block -->
                                                 <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
                                                     <div class="" id="tag-div" style="padding:10px 15px;">
@@ -271,29 +288,52 @@
                                                         <!-- product listing block -->
                                                         <!-- not subscription product -->
                                                         <!-- product grid for medium and large device 4*3 and small device 12*1 -->
-                                                        <div
-                                                            class="col-md-4 col-lg-4 col-sm-6 col-xs-12 mp-mrgn-btm-32 product-block-div">
-                                                            <a href="/products/parfumbio" target="_blank"
-                                                                class="product-block">
-                                                                <!-- product image block -->
-                                                                <div class="mp-product-image-block">
-                                                                    <img src="https://shopify-digital-delivery.s3.amazonaws.com/product_img/main_img/1680421/Fqh2YlKsIB.jpg"
-                                                                        alt="" class="mp-product-image">
+
+                                                        {{#each this.products}}
+                                                        <!-- product -->
+                                                        <div class="col-md-4 col-xs-6">
+                                                            <div class="product">
+                                                                <div class="product-img">
+                                                                    <img src="/img/product01.png" alt="">
+                                                                    <div class="product-label">
+                                                                        <span class="sale">-30%</span>
+                                                                        <span class="new">New</span>
+                                                                    </div>
                                                                 </div>
-                                                                <!-- product price block -->
-                                                                <div class="text-center">
-                                                                    <span class="money mp-color-gray"
-                                                                        data-currency-usd="$16.99 USD"
-                                                                        data-currency="$">
-                                                                        $16.99 </span>
+                                                                <div class="product-body">
+                                                                    <!-- <p class="product-category">Category</p> -->
+                                                                    <p class="product-time-left">{{startDate}}</p>
+                                                                    <h3 class="product-name"><a href="#">{{name}}</a>
+                                                                    </h3>
+                                                                    <h4 class="product-price">{{buynowPrice}} <del
+                                                                            class="product-old-price">{{currentPrice}}</del>
+                                                                    </h4>
+                                                                    <div class="product-rating">
+                                                                        <i class="fa fa-star"></i>
+                                                                        <i class="fa fa-star"></i>
+                                                                        <i class="fa fa-star"></i>
+                                                                        <i class="fa fa-star"></i>
+                                                                        <i class="fa fa-star"></i>
+                                                                    </div>
+                                                                    <div class="product-btns">
+                                                                        <button onclick="addWistListAndLoadUrl({{id}})"
+                                                                            id="{{id}}" class="add-to-wishlist"><i
+                                                                                style="color:#D10024" id="{{id}}-heart"
+                                                                                class="fa fa-heart"
+                                                                                aria-hidden="true"></i><span
+                                                                                class="tooltipp">add to
+                                                                                wishlist</span></button>
+                                                                    </div>
                                                                 </div>
-                                                                <!-- product name block -->
-                                                                <div class="product-name mp-color-gray text-center"
-                                                                    style="word-break:break-word;">
-                                                                    <span>ParfumBio</span>
+                                                                <div class="add-to-cart">
+                                                                    <button class="add-to-cart-btn"><i
+                                                                            class="fa fa-shopping-cart"></i>
+                                                                        Auction</button>
                                                                 </div>
-                                                            </a>
+                                                            </div>
                                                         </div>
+                                                        <!-- /product -->
+                                                        {{/each}}
                                                         <!-- product pagination -->
                                                         <div
                                                             class="col-md-12 col-lg-12 col-sm-12 col-xs-12 text-center">
@@ -402,7 +442,6 @@
                             </div>
                         </div>
 
-                        {{/each}}
             </main>
 
 
@@ -411,3 +450,8 @@
         <!-- /SECTION -->
     </div>
 </div>
+<script src="https://code.jquery.com/jquery-3.1.0.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+<script src="/js/searchprofile.js"></script>
+</body>
+</html>

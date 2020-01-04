@@ -2,6 +2,8 @@ const express = require("express");
 const bcrypt = require("bcryptjs");
 const moment = require("moment");
 const userModel = require("../models/user.model");
+var storeModel = require("../models/store.model");
+const homeModel = require("../models/home.model");
 const restrict = require("../middlewares/auth.mdw");
 const requireLogin = require("./../middlewares/auth.mdw");
 const router = express.Router();
@@ -87,24 +89,31 @@ router.get("/profile", requireLogin, async (req, res) => {
 router.get("/profile/:id", async (req, res) => {
   const userId = req.params.id;
   const row_user = await userModel.singleByID(userId);
+  const rows = await userModel.getWishListbyID(userId);
+  const category = await homeModel.getCategories();
 
   // lấy điểm review từ database
   const number_of_reviews = (await userModel.getNumberOfReviews(userId)).number_of_reviews;
   const positive_reviews = (await userModel.getNumberOfPositiveReviews(userId)).positive_reviews;
   var ratingPoint = 0;
   var ratingDescription = positive_reviews+ "/" + number_of_reviews + " reviews";
-  console.log("number_of_reviews" + number_of_reviews);////////
-  console.log("positive_reviews" + positive_reviews);////////
+  // console.log("number_of_reviews" + number_of_reviews);////////
+  // console.log("positive_reviews" + positive_reviews);////////
    if (number_of_reviews === 0){
     ratingPoint = 0;
     ratingDescription = "There are no reviews yet";
    } 
    else ratingPoint = (positive_reviews / number_of_reviews) * 100;
-console.log(ratingPoint);/////////////////////////////////////////////////////////////
+//console.log(ratingPoint);/////////////////////////////////////////////////////////////
   res.render("vwAccount/profile", {
     profile: row_user,
     ratingPoint: ratingPoint,
-    ratingDescription: ratingDescription
+    ratingDescription: ratingDescription,
+
+    products: rows,
+    empty: rows.length === 0,
+    allCategories: category,
+    idUSer: userId
   });
 });
 
@@ -196,5 +205,37 @@ router.get("/addWishList", async (req, res) => {
     return res.send("Delete Success");
   }
 });
+
+router.get("/profile/:id/search", async (req, res) => {
+  const userId = req.params.id;
+  console.log(req.query);
+  const row_user = await userModel.singleByID(userId);
+  const rows = await userModel.getWishListbyID_Name(userId,req.query.nameproduct);
+  const category = await homeModel.getCategories();
+    // lấy điểm review từ database
+    const number_of_reviews = (await userModel.getNumberOfReviews(userId)).number_of_reviews;
+    const positive_reviews = (await userModel.getNumberOfPositiveReviews(userId)).positive_reviews;
+    var ratingPoint = 0;
+    var ratingDescription = positive_reviews+ "/" + number_of_reviews + " reviews";
+    // console.log("number_of_reviews" + number_of_reviews);////////
+    // console.log("positive_reviews" + positive_reviews);////////
+     if (number_of_reviews === 0){
+      ratingPoint = 0;
+      ratingDescription = "There are no reviews yet";
+     } 
+     else ratingPoint = (positive_reviews / number_of_reviews) * 100;
+  //console.log(ratingPoint);/////////////////////////////////////////////////////////////
+  res.render("vwAccount/profile", {
+    profile: row_user,
+    ratingPoint: ratingPoint,
+    ratingDescription: ratingDescription,
+    products: rows,
+    empty: rows.length === 0,
+    allCategories: category,
+    idUSer: userId
+  });
+});
+
+
 
 module.exports = router;

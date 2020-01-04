@@ -12,7 +12,7 @@
 <body>
   <div class="wrapper">
     <div class="inner">
-      <form id="formSignUp" action="/products/add" method="POST" enctype="multipart/form-data">
+      <form autocomplete="off" id="formAddProuct" action="/products/add" method="POST" enctype="multipart/form-data">
         <h3>INFORMATION</h3>
         <div class="form-wrapper">
           <input type="text" placeholder="Product Name" name="name" id="name" class="form-control" required>
@@ -71,7 +71,7 @@
         <textarea id="tinyEditor" name="details"></textarea>
         <button id="btnSubmit" type="submit">Add Product</button>
       </form>
-      <span id="msg"></span>
+      <input type="text" value="{{message}}" id="message" hidden>
     </div>
   </div>
   <script src="https://code.jquery.com/jquery-3.4.1.slim.js"
@@ -79,6 +79,7 @@
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
   <script src="/vendor/spartan-multi-image-picker-min.js"></script>
   <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+  <script src="https://momentjs.com/downloads/moment.js"></script>
   <script src="/js/addProduct.js"></script>
 </body>
 

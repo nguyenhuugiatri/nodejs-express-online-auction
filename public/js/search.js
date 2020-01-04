@@ -66,3 +66,4 @@ function searchChange()
   var searchInput = document.getElementById("searchInput");
   sessionStorage.setItem("draft", searchInput.value);
 }
+

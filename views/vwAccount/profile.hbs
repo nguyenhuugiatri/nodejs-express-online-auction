@@ -1,4 +1,13 @@
-<!-- SECTION -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Profile</title>
+</head>
+<body>
+    <!-- SECTION -->
 <div class="section">
     <!-- container -->
     <div class="container">
@@ -1103,7 +1112,7 @@
                                     <div class="wk-responsive-tabs-container accordion-xs accordion-sm">
                                         <ul class="nav nav-tabs wk-responsive-tabs">
                                             <li class="active nav nav-tabs">
-                                                <a href="#seller_product_tab" data-toggle="tab">Seller Products</a>
+                                                <a href="#seller_product_tab" data-toggle="tab">WishList</a>
                                             </li>
 
                                             <li><a href="#customer_feedback_tab" data-toggle="tab">Feedback</a></li>
@@ -1118,6 +1127,15 @@
                                             <div class="tab-pane active" id="seller_product_tab">
 
                                                 <!-- product filter block -->
+                                                <div class="col-md-6">
+						<div class="header-search">
+							<form method="get" action="/account/profile/{{idUSer}}/search" onsubmit="">
+								<input type="text" class="input" placeholder="Search here" id="nameproduct"
+									name="nameproduct">
+								<button type="submit" class="search-btn" onclick="">Search</button>
+							</form>
+						</div>
+					</div>
                                                 <!-- product listing block -->
                                                 <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
                                                     <div class="" id="tag-div" style="padding:10px 15px;">
@@ -1268,8 +1286,6 @@
                                                 <div class="mp-spinner"></div>
                                                 <div class="title-text">Please Wait...</div>
                                             </div>
-                                            <script type="text/javascript"
-                                                src="https://sp-seller.webkul.com/js/vc_seller_profile.min.js"></script>
                                         </div>
                                     </div>
                                 </div>
@@ -1284,3 +1300,8 @@
         <!-- /SECTION -->
     </div>
 </div>
+<script src="https://code.jquery.com/jquery-3.1.0.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+<script src="/js/searchprofile.js"></script>
+</body>
+</html>

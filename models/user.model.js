@@ -22,7 +22,8 @@ module.exports = {
   checkWishList: (idUser,idProduct) => db.load(`select * from watchlist where id_user=${idUser} and id_product=${idProduct}`),
   addWishList: (idUser,idProduct) => db.load(`insert into watchlist values(${idUser},${idProduct})`),
   deleteWishList: (idUser,idProduct) => db.load(`delete from watchlist where id_user=${idUser} and id_product=${idProduct}`),
-  getWishListbyID: idUser => db.load(`select * from watchlist as w ,product as p where w.id_user = ${idUser} and w.id_product=p.id `)
+  getWishListbyID: idUser => db.load(`select * from watchlist as w ,product as p where w.id_user = ${idUser} and w.id_product=p.id `),
+  getWishListbyID_Name: (idUser,name) => db.load(`select * from watchlist as w ,product as p where w.id_user = ${idUser} and w.id_product=p.id and name like '%${name}%'`),
   
 
 

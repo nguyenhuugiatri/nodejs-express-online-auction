@@ -87,7 +87,8 @@ router.get("/profile/:id", async (req, res) => {
     profile: row_user,
     products: rows,
     empty: rows.length === 0,
-    allCategories: category
+    allCategories: category,
+    idUSer: userId
   });
 });
 
@@ -136,6 +137,20 @@ router.get("/addWishList",async (req,res)=>{
   }
 });
 
+router.get("/profile/:id/search", async (req, res) => {
+  const userId = req.params.id;
+  console.log(req.query);
+  const row_user = await userModel.single(userId);
+  const rows = await userModel.getWishListbyID_Name(userId,req.query.nameproduct);
+  const category = await homeModel.getCategories();
+  res.render("vwAccount/profile", {
+    profile: row_user,
+    products: rows,
+    empty: rows.length === 0,
+    allCategories: category,
+    idUSer: userId
+  });
+});
 
 router.get("/list", async (req, res) => {
   return res.send([

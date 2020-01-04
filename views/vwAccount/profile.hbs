@@ -256,7 +256,7 @@
                                                 <a href="#seller_product_tab" data-toggle="tab">WishList</a>
                                             </li>
 
-                                            <li><a href="#customer_feedback_tab" data-toggle="tab">Feedback</a></li>
+                                            <li><a href="#customer_feedback_tab" data-toggle="tab">Selling Product</a></li>
                                             <li><a href="#auction_won" data-toggle="tab">Auction won</a></li>
                                             <li><a href="#user_wishlist_tab" data-toggle="tab">Wishlist</a></li>
 
@@ -344,19 +344,55 @@
                                             </div>
 
                                             <!-- Feedback tabbbbbbbbbbbb  -->
-                                            <a href="customer_feedback_tab" class="accordion-link">Feedback</a>
+                                            <a href="customer_feedback_tab" class="accordion-link">Selling Product</a>
                                             <div class="tab-pane" id="customer_feedback_tab">
                                                 <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
                                                     <div class="" id="tag-div" style="padding:10px 15px;">
                                                     </div>
                                                     <div class="seller_product_grid">
-                                                        <div
-                                                            class="col-md-12 col-lg-12 col-sm-12 col-xs-12 text-center">
-                                                            <h3>Auctioned products from this seller</h3>
-                                                            <hr>
-                                                            {{!-- Đổ dữ liệu các sản phẩm mà <user> đã thắng từ chủ profile --}}
-                                                            <hr>
+                                                        {{#each this.productSeller}}
+                                                        <!-- product -->
+                                                        <div class="col-md-4 col-xs-6" style ="width: 25%">
+                                                            <div class="product">
+                                                                <div class="product-img">
+                                                                    <img src="/img/product01.png" alt="">
+                                                                    <div class="product-label">
+                                                                        <span class="sale">-30%</span>
+                                                                        <span class="new">New</span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="product-body">
+                                                                    <!-- <p class="product-category">Category</p> -->
+                                                                    <p class="product-time-left">{{startDate}}</p>
+                                                                    <h3 class="product-name"><a href="/products/detail/{{id}}">{{name}}</a></h3>
+                                                                    </h3>
+                                                                    <h4 class="product-price">{{buynowPrice}} <del
+                                                                            class="product-old-price">{{currentPrice}}</del>
+                                                                    </h4>
+                                                                    <div class="product-rating">
+                                                                        <i class="fa fa-star"></i>
+                                                                        <i class="fa fa-star"></i>
+                                                                        <i class="fa fa-star"></i>
+                                                                        <i class="fa fa-star"></i>
+                                                                        <i class="fa fa-star"></i>
+                                                                    </div>
+                                                                    <div class="product-btns">
+                                                                        <button onclick="addWistListAndLoadUrl({{id}})"
+                                                                            id="{{id}}" class="add-to-wishlist"><i
+                                                                                style="color:#D10024" id="{{id}}-heart"
+                                                                                class="fa fa-heart"
+                                                                                aria-hidden="true"></i><span
+                                                                                class="tooltipp">add to
+                                                                                wishlist</span></button>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="add-to-cart">
+                                                                    <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i><a href="/products/detail/{{id}}">BID NOW</a></button>
+                                                                </div>
+                                                            </div>
                                                         </div>
+                                                        <!-- /product -->
+                                                        {{/each}}
                                                     </div>
                                                 </div>
                                             </div>

@@ -91,6 +91,7 @@ router.get("/profile/:id", async (req, res) => {
   const row_user = await userModel.singleByID(userId);
   const rows = await userModel.getWishListbyID(userId);
   const category = await homeModel.getCategories();
+  const listSeller = await userModel.getListProductOfSeller(userId);
 
   // lấy điểm review từ database
   const number_of_reviews = (await userModel.getNumberOfReviews(userId)).number_of_reviews;
@@ -109,7 +110,7 @@ router.get("/profile/:id", async (req, res) => {
     profile: row_user,
     ratingPoint: ratingPoint,
     ratingDescription: ratingDescription,
-
+    productSeller:listSeller,
     products: rows,
     empty: rows.length === 0,
     allCategories: category,
@@ -211,6 +212,7 @@ router.get("/profile/:id/search", async (req, res) => {
   console.log(req.query);
   const row_user = await userModel.singleByID(userId);
   const rows = await userModel.getWishListbyID_Name(userId,req.query.nameproduct);
+  const listSeller = await userModel.getListProductOfSeller(userId);
   const category = await homeModel.getCategories();
     // lấy điểm review từ database
     const number_of_reviews = (await userModel.getNumberOfReviews(userId)).number_of_reviews;
@@ -230,6 +232,7 @@ router.get("/profile/:id/search", async (req, res) => {
     ratingPoint: ratingPoint,
     ratingDescription: ratingDescription,
     products: rows,
+    productSeller:listSeller,
     empty: rows.length === 0,
     allCategories: category,
     idUSer: userId

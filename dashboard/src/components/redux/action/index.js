@@ -4,9 +4,21 @@ import Swal from "sweetalert2";
 import { navigate } from "@reach/router";
 
 export const actOnDelete = id => {
-  return {
-    type: ActionType.DELETE_USER,
-    id
+  return dispatch => {
+    let token = JSON.parse(sessionStorage.getItem("user")).token;
+    axios({
+      headers: {
+        Authorization: `Bearer ${token}`
+      },
+      method: "GET",
+      url: `http://localhost:3000/admin/user/delete?id=${id}`
+    })
+      .then(result => {
+        dispatch(actOnListUserAPI());
+      })
+      .catch(err => {
+        console.log(err);
+      });
   };
 };
 
@@ -49,7 +61,6 @@ export const actOnListUserAPI = () => {
       url: "http://localhost:3000/admin/user/list"
     })
       .then(result => {
-        console.log(result);
         dispatch(actOnListUser(result.data));
       })
       .catch(err => {

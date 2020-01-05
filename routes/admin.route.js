@@ -117,9 +117,19 @@ router.post("/user/update", requireToken, async (req, res, next) => {
 router.get("/category/list", requireToken, async (req, res, next) => {
   try {
     const category = await categoryModel.allWithNumberOfProducts();
-  return res.send(category);  
+    return res.send(category);
   } catch (err) {
     return res.status(403).send({ message: "List failed" });
+  }
+});
+
+router.get("/category/delete", requireToken, async (req, res, next) => {
+  const { id } = req.query;
+  try {
+    await categoryModel.del(id);
+    return res.status(200).send({ message: "Delete success" });
+  } catch (err) {
+    return res.status(403).send({ message: "Delete failed" });
   }
 });
 

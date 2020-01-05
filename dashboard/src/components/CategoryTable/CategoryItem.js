@@ -39,7 +39,7 @@ class CategoryItem extends Component {
 const mapDispatchToProps = dispatch => {
   return {
     onDelete: id => {
-      dispatch(action.actOnDelete(id));
+      dispatch(action.actOnDeleteCategory(id));
     },
     onEdit: category => {
       dispatch(action.actOnEdit(category));

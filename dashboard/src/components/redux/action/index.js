@@ -246,3 +246,30 @@ export const actFilterCategory = keyword => {
     keyword
   };
 };
+
+export const actOnDeleteCategory = id => {
+  return dispatch => {
+    let token = JSON.parse(sessionStorage.getItem("user")).token;
+    axios({
+      headers: {
+        Authorization: `Bearer ${token}`
+      },
+      method: "GET",
+      url: `http://localhost:3000/admin/category/delete?id=${id}`
+    })
+      .then(result => {
+        dispatch(actOnListCategoryAPI());
+      })
+      .catch(err => {
+      if (err.response) {
+          Swal.fire({
+            title: "Error",
+            text: err.response.data.message,
+            icon: "error",
+            confirmButtonText: "OK"
+          });
+        }
+        console.log(err.response);
+      });
+  };
+};

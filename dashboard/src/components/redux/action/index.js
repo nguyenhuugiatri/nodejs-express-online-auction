@@ -93,7 +93,7 @@ export const actOnEdit = user => {
 
 export const actFilter = keyword => {
   return {
-    type: ActionType.FILTER,
+    type: ActionType.USER_FILTER,
     keyword
   };
 };
@@ -197,5 +197,16 @@ export const actSaveUser = (user,act) => {
         }
         console.log(err.response);
       });
+  };
+};
+
+
+export const actSaveCategory = category => {
+  return dispatch => {
+  };
+};
+
+export const actOnListCategoryAPI = category => {
+  return dispatch => {
   };
 };

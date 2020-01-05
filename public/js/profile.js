@@ -110,3 +110,29 @@ function dislikeBySeller(id) {
     });
   });
 }
+
+function sendUpgradeRequest(userID) {
+  Swal.fire({
+    title: "Are you sure?",
+    text: "You are sending request to be a SELLER.",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Yes, Send request!"
+  }).then(result => {
+    if (result.value) {
+      $.ajax({
+        url: `/account/sendUpgradeRequest?userID=${userID}`,
+        type: "GET"
+      }).done(function(result) {
+        Swal.fire({
+          icon: "success",
+          title: "Please wait for the admin to process your request...",
+          showConfirmButton: false,
+          timer: 3500
+        });
+      });
+    }
+  });
+}

@@ -454,4 +454,18 @@ router.get("/sendReviewBySeller", async (req, res) => {
   }
 });
 
+
+router.get("/sendUpgradeRequest", async (req, res) => {
+  try {
+    const userID = req.query.userID;
+
+    const sendUpgradeRequest = await userModel.sendUpgradeRequest(userID);
+
+    const daXuli = "You have sent Upgrade Request successfully!";
+    return res.send(daXuli);
+  } catch (err) {
+    console.log(err);
+  }
+});
+
 module.exports = router;

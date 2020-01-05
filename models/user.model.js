@@ -205,6 +205,8 @@ module.exports = {
   db.load(`INSERT INTO review (id_user, review, reviewer, id_product, marks, time)
   VALUES (${userID}, "${content}", ${reviewerID}, ${productID}, ${point}, "${timeNow}");`),
 
+  sendUpgradeRequest: userID => db.load(`update user set request = 1 where id = ${userID}`),
+
   del: id => db.load(`update user set status = 0 where id = ${id}`),
   cancelRequest: id => db.load(`update user set request = 0 where id = ${id}`),
   confirmRequest: id =>

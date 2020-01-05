@@ -6,9 +6,10 @@ class Modal extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      id: "",
       username: "",
       fullname: "",
-      password:"",
+      password: "",
       email: "",
       phone: "",
       gender: "1",
@@ -20,6 +21,7 @@ class Modal extends Component {
     if (nextProps && nextProps.userEdit) {
       //Edit
       this.setState({
+        id: nextProps.userEdit.id,
         username: nextProps.userEdit.username,
         password: nextProps.userEdit.password,
         fullname: nextProps.userEdit.fullname,
@@ -31,9 +33,10 @@ class Modal extends Component {
     } else {
       //Add
       this.setState({
+        id: "",
         username: "",
         fullname: "",
-        password:"",
+        password: "",
         email: "",
         phone: "",
         gender: "1",
@@ -50,8 +53,9 @@ class Modal extends Component {
   };
 
   handleSubmit = event => {
+    const type = this.props.userEdit ? "update" : "add";
     event.preventDefault();
-    this.props.onSubmit(this.state);
+    this.props.onSubmit(this.state, type);
   };
 
   render() {
@@ -89,16 +93,19 @@ class Modal extends Component {
                     name="username"
                     onChange={this.handleOnChange}
                     value={this.state.username}
+                    required
+                    disabled={this.props.userEdit}
                   />
                 </div>
                 <div className="form-group">
                   <label>Password</label>
                   <input
-                    type="password"
+                    type="text"
                     className="form-control"
                     name="password"
                     onChange={this.handleOnChange}
                     value={this.state.password}
+                    required
                   />
                 </div>
                 <div className="form-group">
@@ -131,6 +138,7 @@ class Modal extends Component {
                     name="email"
                     onChange={this.handleOnChange}
                     value={this.state.email}
+                    required
                   />
                 </div>
                 <div className="form-group">
@@ -175,8 +183,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onSubmit: user => {
-      dispatch(action.actSaveUser(user));
+    onSubmit: (user, type) => {
+      dispatch(action.actSaveUser(user, type));
     }
   };
 };

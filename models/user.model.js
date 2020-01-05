@@ -105,5 +105,6 @@ module.exports = {
   del: id => db.load(`update user set status = 0 where id = ${id}`),
   cancelRequest: id => db.load(`update user set request = 0 where id = ${id}`),
   confirmRequest: id =>
-    db.load(`update user set request = 0 , permission = 1 where id = ${id}`)
+    db.load(`update user set request = 0 , permission = 1 where id = ${id}`),
+  update: (entity, id) => db.patch("user", entity, { id: id })
 };

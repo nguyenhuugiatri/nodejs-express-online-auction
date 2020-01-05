@@ -11,8 +11,6 @@ const userReducer = (state = initState, action) => {
     case ActionType.ON_LIST_USER:
       state.userList=action.userList;
       return { ...state };
-    case ActionType.DELETE_USER:
-      return { ...state };
     case ActionType.SAVE_USER:
       if (action.user.id) {
         //UPDATE

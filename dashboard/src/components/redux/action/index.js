@@ -168,17 +168,19 @@ export const actLogin = user => {
   };
 };
 
-export const actSaveUser = user => {
+export const actSaveUser = (user,act) => {
   return dispatch => {
     user.gender = parseInt(user.gender);
     user.permission = parseInt(user.permission);
+    if(act==="add")
+    delete user.id;
     let token = JSON.parse(sessionStorage.getItem("user")).token;
     axios({
       headers: {
         Authorization: `Bearer ${token}`
       },
       method: "POST",
-      url: "http://localhost:3000/admin/user/add",
+      url: `http://localhost:3000/admin/user/${act}`,
       data: user
     })
       .then(result => {

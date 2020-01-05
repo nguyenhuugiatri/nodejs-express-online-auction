@@ -60,6 +60,8 @@
 					<input type="password" placeholder="Confirm Password" id="repassword" name="repassword" class="form-control">
 					<i class="zmdi zmdi-lock"></i>
 				</div>
+				<div class="g-recaptcha" data-sitekey="6LcmiswUAAAAAIvRYFamqIEaeXHfT5TSWkNNIWNn" id="captcha">
+				</div>
 				<p id="msg"></p>
 				<button type="submit">Sign Up</button>
 				<input type="text" value="{{message}}" id="message" hidden>
@@ -69,6 +71,7 @@
 	<script src="https://code.jquery.com/jquery-3.4.1.slim.js"
 		integrity="sha256-BTlTdQO9/fascB1drekrDVkaKd9PkwBymMlHOiG+qLI=" crossorigin="anonymous"></script>
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+	<script src='https://www.google.com/recaptcha/api.js'></script>
 	<script src="/js/signup.js"></script>
 </body>
 

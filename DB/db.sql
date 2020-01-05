@@ -11,7 +11,7 @@
  Target Server Version : 80018
  File Encoding         : 65001
 
- Date: 05/01/2020 16:33:27
+ Date: 05/01/2020 21:34:16
 */
 
 SET NAMES utf8mb4;
@@ -91,6 +91,7 @@ INSERT INTO `biddinglist` VALUES (6, '2020-01-03 15:40:34', 20000, 10);
 -- ----------------------------
 DROP TABLE IF EXISTS `category`;
 CREATE TABLE `category` (
+  `status` int(1) NOT NULL DEFAULT '1',
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
@@ -100,9 +101,9 @@ CREATE TABLE `category` (
 -- Records of category
 -- ----------------------------
 BEGIN;
-INSERT INTO `category` VALUES (1, 'Laptop');
-INSERT INTO `category` VALUES (2, 'Smartphone');
-INSERT INTO `category` VALUES (3, 'Tablet');
+INSERT INTO `category` VALUES (1, 1, 'Laptop');
+INSERT INTO `category` VALUES (1, 2, 'Smartphone');
+INSERT INTO `category` VALUES (1, 3, 'Tablet');
 COMMIT;
 
 -- ----------------------------
@@ -151,6 +152,12 @@ INSERT INTO `image` VALUES (56, '/uploads/1/2020-01-02 08:38:44-2.jpeg');
 INSERT INTO `image` VALUES (57, '/uploads/1/2020-01-02 08:38:44-1.jpeg');
 INSERT INTO `image` VALUES (57, '/uploads/1/2020-01-02 08:38:44-2.jpeg');
 INSERT INTO `image` VALUES (57, '/uploads/1/2020-01-02 08:42:41-2.jpeg');
+INSERT INTO `image` VALUES (59, '/uploads/1/2020-01-05-04-33-35-1.jpeg');
+INSERT INTO `image` VALUES (59, '/uploads/1/2020-01-05-04-33-35-2.jpeg');
+INSERT INTO `image` VALUES (59, '/uploads/1/2020-01-05-04-33-35-3.jpeg');
+INSERT INTO `image` VALUES (60, '/uploads/6/2020-01-05-04-37-01-1.jpeg');
+INSERT INTO `image` VALUES (60, '/uploads/6/2020-01-05-04-37-01-2.jpeg');
+INSERT INTO `image` VALUES (60, '/uploads/6/2020-01-05-04-37-01-3.jpeg');
 COMMIT;
 
 -- ----------------------------
@@ -187,7 +194,7 @@ CREATE TABLE `product` (
   CONSTRAINT `fk_product_bidder` FOREIGN KEY (`id_bidder`) REFERENCES `user` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `fk_product_category` FOREIGN KEY (`category`) REFERENCES `category` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `fk_product_seller` FOREIGN KEY (`id_seller`) REFERENCES `user` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE=InnoDB AUTO_INCREMENT=58 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=61 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of product
@@ -208,6 +215,9 @@ INSERT INTO `product` VALUES (53, 'xiaomi poco2', 2, 1, NULL, 123, 123, 321, '20
 INSERT INTO `product` VALUES (55, 'xiaomi poco2', 2, 1, NULL, 123, 123, 321, '2020-01-02 07:42:42', '2020-12-12 11:11:00', NULL, 0);
 INSERT INTO `product` VALUES (56, 'xiaomi poco', 2, 1, NULL, 2, 12, 15, '2020-01-02 08:38:44', '2021-12-01 12:01:00', NULL, 0);
 INSERT INTO `product` VALUES (57, 'xiaomi poco', 2, 1, NULL, 2, 12, 15, '2020-01-02 08:42:41', '2021-12-01 12:01:00', '<p style=\"text-align: right;\">asdasdasdasdasdasdas</p>\r\n<div id=\"eJOY__extension_root\" style=\"all: unset;\">&nbsp;</div>', 0);
+INSERT INTO `product` VALUES (58, 'qwe', 2, 1, NULL, 1, 12, 5, '2020-01-05 04:31:32', '2222-12-02 12:02:00', '<p>&nbsp;</p>\r\n<div id=\"eJOY__extension_root\" style=\"all: unset;\">&nbsp;</div>', 0);
+INSERT INTO `product` VALUES (59, '123', 2, 1, NULL, 2, 12, 15, '2020-01-05 04:33:35', '2222-12-21 02:02:00', '<p>&nbsp;</p>\r\n<div id=\"eJOY__extension_root\" style=\"all: unset;\">&nbsp;</div>', 0);
+INSERT INTO `product` VALUES (60, 'hihi', 2, 6, NULL, 1, 12, 15, '2020-01-05 04:37:01', '2020-12-06 12:02:00', '<p><span style=\"color: #e67e23;\"><em>Lorem Ipsum&nbsp;is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</em></span></p>\r\n<div id=\"eJOY__extension_root\" style=\"all: unset;\">&nbsp;</div>', 0);
 COMMIT;
 
 -- ----------------------------
@@ -256,25 +266,34 @@ CREATE TABLE `user` (
   `joindate` datetime DEFAULT NULL,
   `username` varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `password` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `gender` bit(1) NOT NULL,
+  `gender` int(1) NOT NULL,
   `permission` int(1) NOT NULL DEFAULT '0',
+  `request` int(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE KEY `username_UNIQUE` (`username`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES (1, b'0', 'thaianhvip', '0944026118', 'thaianh@gmail.co', '2020-01-08 22:01:03', 'thaianh', '123123123', b'0', 0);
-INSERT INTO `user` VALUES (2, b'0', 'thaiemcui', '0944026117', 'thaiem@gmail.com', '2020-01-14 22:01:37', 'thaiem', '123123123', b'0', 0);
-INSERT INTO `user` VALUES (3, b'0', 'thaianh1', '0944026116', 'as@gmail.com', '2020-01-14 22:04:08', 'thaianh1', '123123123', b'1', 0);
-INSERT INTO `user` VALUES (4, b'0', 'thaianh2', '0944026115', '123213@gmail.com', '2020-01-20 22:04:36', 'thaianh2', '123123123', b'0', 0);
-INSERT INTO `user` VALUES (5, b'1', 'lem', '0964351101', 'lem@gmail.com', '1999-06-12 00:00:00', 'lemdeptrai', 'lemquadeptrai', b'1', 1);
-INSERT INTO `user` VALUES (6, b'0', 'lem dep try', '123456', 'lemdeptry@gmail.com', NULL, 'lemdeptry', '$2a$2a$10$VdYEIX7Jq/cOvw1mJfF2MOJIfMGacz1r1eC0A0fVqGHTo3sZoJ0tG\r\n$2a$10$VdYEIX7Jq/cOvw1mJfF2MOJIfMGacz1r1eC0A0fVqGHTo3sZoJ0tG\r\n$2a$10$VdYEIX7Jq/cOvw1mJfF2MOJIfMGacz1r1eC0A0fVqGHTo3sZoJ0tG$2a$10$VdYEIX7Jq/cOvw1mJfF2MOJIfMGacz1r1eC0A0fVqGHTo3sZoJ0tG\r\n', b'0', 0);
-INSERT INTO `user` VALUES (7, NULL, 'Đỗ Thế Anh', '0904113942', 'nhoxtheanh@gmail.com', NULL, 'dotheanh', '$2a$10$B3Pxk1P0ybSGdN2TCtv5Mecz/aehej.RIQBDFHjx2Oht4ErdtbfT.', b'1', 1);
-INSERT INTO `user` VALUES (8, NULL, 'Đỗ Thế Em', '0904113942', 'nhoxtheem@gmail.com', NULL, 'dotheem', '$2a$10$B3Pxk1P0ybSGdN2TCtv5Mecz/aehej.RIQBDFHjx2Oht4ErdtbfT.', b'1', 0);
-INSERT INTO `user` VALUES (9, NULL, 'Đỗ Thế Chị', NULL, 'nhoxthechi@gmail.com', NULL, 'dothechi', '$2a$10$B3Pxk1P0ybSGdN2TCtv5Mecz/aehej.RIQBDFHjx2Oht4ErdtbfT.', b'0', 0);
-INSERT INTO `user` VALUES (10, b'1', 'Thai Anh', NULL, '1223@gmail.com', NULL, 'thaianhqwe', '$2a$10$VdYEIX7Jq/cOvw1mJfF2MOJIfMGacz1r1eC0A0fVqGHTo3sZoJ0tG', b'0', 0);
+BEGIN;
+INSERT INTO `user` VALUES (1, b'0', 'thaianhvip', '0944026118', 'thaianh@gmail.co', '2020-01-08 22:01:03', 'thaianh', '$2a$10$VdYEIX7Jq/cOvw1mJfF2MOJIfMGacz1r1eC0A0fVqGHTo3sZoJ0tG', 0, 0, 1);
+INSERT INTO `user` VALUES (2, b'1', 'thaiemcuiqwe', '0944026117', 'thaiem@gmail.com', '2020-01-14 22:01:37', 'thaiem', '$2a$10$O2ihTfrzG3xvjX0DlnEHTuQn7Kv4yT//jYAzl6wAMejUEZmVrtrE6', 0, 1, 0);
+INSERT INTO `user` VALUES (3, b'1', 'thaianh1', '0944026116', 'as@gmail.com', '2020-01-14 22:04:08', 'thaianh1', '$2a$10$VdYEIX7Jq/cOvw1mJfF2MOJIfMGacz1r1eC0A0fVqGHTo3sZoJ0tG', 1, 1, 0);
+INSERT INTO `user` VALUES (4, b'1', 'thaianh2', '0944026115', '123213@gmail.com', '2020-01-20 22:04:36', 'thaianh2', '$2a$10$VdYEIX7Jq/cOvw1mJfF2MOJIfMGacz1r1eC0A0fVqGHTo3sZoJ0tG', 0, 1, 0);
+INSERT INTO `user` VALUES (5, b'1', 'lem', '0964351101', 'lem@gmail.com', '1999-06-12 00:00:00', 'lemdeptrai', '$2a$10$VdYEIX7Jq/cOvw1mJfF2MOJIfMGacz1r1eC0A0fVqGHTo3sZoJ0tG', 1, 1, 0);
+INSERT INTO `user` VALUES (6, b'1', 'lem dep try', '123456', 'lemdeptry@gmail.com', NULL, 'lemdeptry', '$2a$10$VdYEIX7Jq/cOvw1mJfF2MOJIfMGacz1r1eC0A0fVqGHTo3sZoJ0tG', 0, 1, 0);
+INSERT INTO `user` VALUES (7, b'1', 'Đỗ Thế Anh', '0904113942', 'nhoxtheanh@gmail.com', NULL, 'dotheanh', '$2a$10$B3Pxk1P0ybSGdN2TCtv5Mecz/aehej.RIQBDFHjx2Oht4ErdtbfT.', 1, 1, 0);
+INSERT INTO `user` VALUES (8, b'1', 'Đỗ Thế Em hihi', '0904113942', 'nhoxtheem@gmail.com', NULL, 'dotheem', '$2a$10$qIbkqfKjHzHHEh/otJFuIOV39uC4rdKCz1u/CymSW/jAvGoE7IBZ2', 1, 1, 0);
+INSERT INTO `user` VALUES (9, b'0', 'Đỗ Thế Chị', NULL, 'nhoxthechi@gmail.com', NULL, 'dothechi', '$2a$10$B3Pxk1P0ybSGdN2TCtv5Mecz/aehej.RIQBDFHjx2Oht4ErdtbfT.', 0, 1, 0);
+INSERT INTO `user` VALUES (10, b'1', 'lem Nguyen', NULL, 'qweqwe@gmail.com', '2020-01-05 00:00:00', 'lemdeptry2', '$2a$10$sO35b9SfYKXgSBeko177FewKe9Ph//5oLOf4Ow6cNpmLTfvROz4ta', 1, 1, 0);
+INSERT INTO `user` VALUES (14, b'1', 'aaaaaaa', '0911232111', 'aaaaaaaa@g.com', '2020-01-05 00:00:00', 'aaaaaaaa', '$2a$10$R.2q2fx0s9WwECqoB4yhouhq8KA7l1dfk4bGn9OZ3IeNGx0RK5pUW', 1, 1, 0);
+INSERT INTO `user` VALUES (15, b'1', 'thaianhvip111', '0931467534', 'qweqwe11111@gmail.com', '2020-01-05 00:00:00', 'lemdeptry11111', '$2a$10$3wyZl.HmiOgkbmG6K5w7ceE.1Zo9WS4J/SkHMrfqTuALqzNvQgAG.', 1, 1, 0);
+INSERT INTO `user` VALUES (16, b'0', 'thaianhvip111', '0931467534', 'qweqwe111111@gmail.com', '2020-01-05 00:00:00', 'lemdeptry111111', '$2a$10$6/8d62vvL0nw6txWfE74J.BNgR6JXhxNtG2.skFqFNQLZAQIEKhFm', 0, 1, 0);
+INSERT INTO `user` VALUES (17, b'0', 'thaianhvip11111', '0931467534', 'qweqwe1111111@gmail.com', '2020-01-05 00:00:00', 'lemdeptry11111111', '$2a$10$thmPyuxUVy.rV1.OFnoZGeiU2PXH9lceGYSs75YZoVU4njX6Qp9Pq', 0, 1, 0);
+INSERT INTO `user` VALUES (18, b'1', 'thaianhvip', '0931467534', 'qweqw22e@gmail.com', '2020-01-05 00:00:00', 'lemdeptry22', '$2a$10$xakNoNi.J0f1g/JOJ72s3eVlbPrSMCHmRYxaWmEY.DLKn8bdV990q', 0, 1, 0);
+INSERT INTO `user` VALUES (19, b'1', 'thaianhvip123', '0931467534', 'qweqwe123@gmail.com', '2020-01-05 00:00:00', 'lemdeptry123', '$2a$10$gWrH/pH0LZon.Iyi.55AZ.0lqC0pMrM84T6nrf.cDe8SFJLvqDR5W', 1, 1, 0);
+COMMIT;
 
 -- ----------------------------
 -- Table structure for watchlist

@@ -17,9 +17,9 @@ class Sidebar extends Component {
             </Link>
             <Link
               className="list-group-item list-group-item-action bg-light"
-              to="/product-table"
+              to="/category-table"
             >
-              Products
+              Categories
             </Link>
           </div>
         </div>

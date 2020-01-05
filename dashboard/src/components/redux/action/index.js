@@ -17,13 +17,15 @@ export const actOnDelete = id => {
         dispatch(actOnListUserAPI());
       })
       .catch(err => {
-        Swal.fire({
-          title: "Error",
-          text: err.message,
-          icon: "error",
-          confirmButtonText: "OK"
-        });
-        console.log(err.message);
+      if (err.response) {
+          Swal.fire({
+            title: "Error",
+            text: err.response.data.message,
+            icon: "error",
+            confirmButtonText: "OK"
+          });
+        }
+        console.log(err.response);
       });
   };
 };
@@ -42,13 +44,15 @@ export const actOnConfirmRequest = id => {
         dispatch(actOnListUserAPI());
       })
       .catch(err => {
-        Swal.fire({
-          title: "Error",
-          text: err.message,
-          icon: "error",
-          confirmButtonText: "OK"
-        });
-        console.log(err.message);
+     if (err.response) {
+          Swal.fire({
+            title: "Error",
+            text: err.response.data.message,
+            icon: "error",
+            confirmButtonText: "OK"
+          });
+        }
+        console.log(err.response);
       });
   };
 };
@@ -67,13 +71,15 @@ export const actOnCancelRequest = id => {
         dispatch(actOnListUserAPI());
       })
       .catch(err => {
-        Swal.fire({
-          title: "Error",
-          text: err.message,
-          icon: "error",
-          confirmButtonText: "OK"
-        });
-        console.log(err.message);
+        if (err.response) {
+          Swal.fire({
+            title: "Error",
+            text: err.response.data.message,
+            icon: "error",
+            confirmButtonText: "OK"
+          });
+        }
+        console.log(err.response);
       });
   };
 };
@@ -85,16 +91,9 @@ export const actOnEdit = user => {
   };
 };
 
-export const actSaveUser = user => {
-  return {
-    type: ActionType.SAVE_USER,
-    user
-  };
-};
-
 export const actFilter = keyword => {
   return {
-    type: ActionType.FILTER,
+    type: ActionType.USER_FILTER,
     keyword
   };
 };
@@ -128,13 +127,15 @@ export const actOnListUserAPI = () => {
         dispatch(actOnListUser(result.data));
       })
       .catch(err => {
-        Swal.fire({
-          title: "Error",
-          text: err.message,
-          icon: "error",
-          confirmButtonText: "OK"
-        });
-        console.log(err.message);
+        if (err.response) {
+          Swal.fire({
+            title: "Error",
+            text: err.response.data.message,
+            icon: "error",
+            confirmButtonText: "OK"
+          });
+        }
+        console.log(err.response);
       });
   };
 };
@@ -154,13 +155,153 @@ export const actLogin = user => {
         }
       })
       .catch(err => {
-        Swal.fire({
-          title: "Error",
-          text: "Invalid account or password",
-          icon: "error",
-          confirmButtonText: "OK"
-        });
-        console.log(err.message);
+        if (err.response) {
+          Swal.fire({
+            title: "Error",
+            text: err.response.data.message,
+            icon: "error",
+            confirmButtonText: "OK"
+          });
+        }
+        console.log(err.response);
+      });
+  };
+};
+
+export const actSaveUser = (user,act) => {
+  return dispatch => {
+    user.gender = parseInt(user.gender);
+    user.permission = parseInt(user.permission);
+    if(act==="add")
+    delete user.id;
+    let token = JSON.parse(sessionStorage.getItem("user")).token;
+    axios({
+      headers: {
+        Authorization: `Bearer ${token}`
+      },
+      method: "POST",
+      url: `http://localhost:3000/admin/user/${act}`,
+      data: user
+    })
+      .then(result => {
+        dispatch(actOnListUserAPI());
+      })
+      .catch(err => {
+        if (err.response) {
+          Swal.fire({
+            title: "Error",
+            text: err.response.data.message,
+            icon: "error",
+            confirmButtonText: "OK"
+          });
+        }
+        console.log(err.response);
+      });
+  };
+};
+
+
+const actOnListCategory = categoryList => {
+  return {
+    type: ActionType.ON_LIST_CATEGORY,
+    categoryList
+  };
+};
+
+export const actOnEditCategory = category => {
+  return {
+    type: ActionType.EDIT_CATEGORY,
+    category
+  };
+};
+
+export const actSaveCategory = (category,act) => {
+  return dispatch => {
+    if(act==="add")
+    delete category.id;
+    let token = JSON.parse(sessionStorage.getItem("user")).token;
+    axios({
+      headers: {
+        Authorization: `Bearer ${token}`
+      },
+      method: "POST",
+      url: `http://localhost:3000/admin/category/${act}`,
+      data: category
+    })
+      .then(result => {
+        dispatch(actOnListCategoryAPI());
+      })
+      .catch(err => {
+        if (err.response) {
+          Swal.fire({
+            title: "Error",
+            text: err.response.data.message,
+            icon: "error",
+            confirmButtonText: "OK"
+          });
+        }
+        console.log(err.response);
+      });
+  };
+};
+
+export const actOnListCategoryAPI = () => {
+  return dispatch => {
+    let token = JSON.parse(sessionStorage.getItem("user")).token;
+    axios({
+      headers: {
+        Authorization: `Bearer ${token}`
+      },
+      method: "GET",
+      url: "http://localhost:3000/admin/category/list"
+    })
+      .then(result => {
+        dispatch(actOnListCategory(result.data));
+      })
+      .catch(err => {
+        if (err.response) {
+          Swal.fire({
+            title: "Error",
+            text: err.response.data.message,
+            icon: "error",
+            confirmButtonText: "OK"
+          });
+        }
+        console.log(err.response);
+      });
+  };
+};
+
+export const actFilterCategory = keyword => {
+  return {
+    type: ActionType.CATEGORY_FILTER,
+    keyword
+  };
+};
+
+export const actOnDeleteCategory = id => {
+  return dispatch => {
+    let token = JSON.parse(sessionStorage.getItem("user")).token;
+    axios({
+      headers: {
+        Authorization: `Bearer ${token}`
+      },
+      method: "GET",
+      url: `http://localhost:3000/admin/category/delete?id=${id}`
+    })
+      .then(result => {
+        dispatch(actOnListCategoryAPI());
+      })
+      .catch(err => {
+      if (err.response) {
+          Swal.fire({
+            title: "Error",
+            text: err.response.data.message,
+            icon: "error",
+            confirmButtonText: "OK"
+          });
+        }
+        console.log(err.response);
       });
   };
 };

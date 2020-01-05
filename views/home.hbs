@@ -12,7 +12,8 @@
 					</div>
 					<div class="shop-body">
 						<h3>Laptop<br>Collection</h3>
-						<a href="/store/search?searchInput=&1=true" class="cta-btn">Bid now <i class="fa fa-arrow-circle-right"></i></a>
+						<a href="/store/search?searchInput=&1=true" class="cta-btn">Bid now <i
+								class="fa fa-arrow-circle-right"></i></a>
 					</div>
 				</div>
 			</div>
@@ -26,7 +27,8 @@
 					</div>
 					<div class="shop-body">
 						<h3>Smartphone<br>Collection</h3>
-						<a href="/store/search?searchInput=&2=true" class="cta-btn">Bid now <i class="fa fa-arrow-circle-right"></i></a>
+						<a href="/store/search?searchInput=&2=true" class="cta-btn">Bid now <i
+								class="fa fa-arrow-circle-right"></i></a>
 					</div>
 				</div>
 			</div>
@@ -40,7 +42,8 @@
 					</div>
 					<div class="shop-body">
 						<h3>Tablet<br>Collection</h3>
-						<a href="/store/search?searchInput=&3=true" class="cta-btn">Bid now <i class="fa fa-arrow-circle-right"></i></a>
+						<a href="/store/search?searchInput=&3=true" class="cta-btn">Bid now <i
+								class="fa fa-arrow-circle-right"></i></a>
 					</div>
 				</div>
 			</div>
@@ -89,30 +92,31 @@
 									<div class="product-img">
 										<img src="./img/product02.png" alt="">
 										<div class="product-label">
+											<span class="sale">Bidding: {{count}}</span>
 											{{#if this.new}}
-                                        <span class="new">New</span>
-                                        {{/if}}
+											<span class="new">New</span>
+											{{/if}}
 										</div>
 									</div>
 									<div class="product-body">
-										<p class="product-time-left">{{endDate}}</p>
-										<h3 class="product-name"><a href="/products/detail/{{id}}">{{name}}</a></h3>
-										<h4 class="product-price">{{currentPrice}} <del class="product-old-price">{{buynowPrice}}</del></h4>
-										<div class="product-rating">
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star-o"></i>
-										</div>
+										<p class="product-time-left">{{timeLeft}}</p>
+										<h3 class="product-name"><a href="/products/detail/{{idproduct}}">{{name}}</a></h3>
+										<h4 class="product-price">{{currentPrice}} </h4>
+										<p>{{fullname}}</p>
 										<div class="product-btns">
-											<button onclick="addWistList({{id}})" id="{{id}}" class="add-to-wishlist">{{#if like}}<i style= "color:#D10024" name="{{id}}-heart" class="fa fa-heart" aria-hidden="true"></i>{{else}}<i style= "color:#ddd"name="{{id}}-heart" class="fa fa-heart" aria-hidden="true"></i>{{/if}}<span
-                                                class="tooltipp">add to wishlist</span></button>
+											<button onclick="addWistList({{idproduct}})" id="{{idproduct}}"
+												class="add-to-wishlist">{{#if like}}<i style="color:#D10024"
+													name="{{idproduct}}-heart" class="fa fa-heart"
+													aria-hidden="true"></i>{{else}}<i style="color:#ddd"
+													name="{{idproduct}}-heart" class="fa fa-heart"
+													aria-hidden="true"></i>{{/if}}<span class="tooltipp">add to
+													wishlist</span></button>
 
 										</div>
 									</div>
 									<div class="add-to-cart">
-										<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i><a href="/products/detail/{{id}}">BID NOW</a></button>
+										<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i><a
+												href="/products/detail/{{idproduct}}">BID NOW</a></button>
 									</div>
 								</div>
 								<!-- /product -->
@@ -215,30 +219,30 @@
 									<div class="product-img">
 										<img src="./img/product06.png" alt="">
 										<div class="product-label">
-											<span class="sale">-30%</span>
+											<span class="sale">Bidding: {{count}}</span>
 											{{#if this.new}}
-                                        <span class="new">New</span>
-                                        {{/if}}
+											<span class="new">New</span>
+											{{/if}}
 										</div>
 									</div>
 									<div class="product-body">
-										<p class="product-time-left">{{endDate}}</p>
-										<h3 class="product-name"><a href="/products/detail/{{id}}">{{name}}</a></h3>
-										<h4 class="product-price">{{currentPrice}} <del class="product-old-price">{{buynowPrice}}</del></h4>
-										<div class="product-rating">
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-										</div>
+										<p class="product-time-left">{{timeLeft}}</p>
+										<h3 class="product-name"><a href="/products/detail/{{idproduct}}">{{name}}</a></h3>
+										<h4 class="product-price">{{currentPrice}}</h4>
+										<p>{{fullname}}</p>
 										<div class="product-btns">
-											<button onclick="addWistList({{id}})" id="{{id}}" class="add-to-wishlist">{{#if like}}<i style= "color:#D10024" name="{{id}}-heart" class="fa fa-heart" aria-hidden="true"></i>{{else}}<i style= "color:#ddd"name="{{id}}-heart" class="fa fa-heart" aria-hidden="true"></i>{{/if}}<span
-                                                class="tooltipp">add to wishlist</span></button>
+											<button onclick="addWistList({{idproduct}})" id="{{idproduct}}"
+												class="add-to-wishlist">{{#if like}}<i style="color:#D10024"
+													name="{{idproduct}}-heart" class="fa fa-heart"
+													aria-hidden="true"></i>{{else}}<i style="color:#ddd"
+													name="{{idproduct}}-heart" class="fa fa-heart"
+													aria-hidden="true"></i>{{/if}}<span class="tooltipp">add to
+													wishlist</span></button>
 										</div>
 									</div>
 									<div class="add-to-cart">
-										<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i><a href="/products/detail/{{id}}">BID NOW</a></button>
+										<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i><a
+												href="/products/detail/{{idproduct}}">BID NOW</a></button>
 									</div>
 								</div>
 								<!-- /product -->
@@ -295,31 +299,32 @@
 									<div class="product-img">
 										<img src="./img/product06.png" alt="">
 										<div class="product-label">
-											<span class="sale">-30%</span>
+											<span class="sale">Bidding: {{count}}</span>
+
 											{{#if this.new}}
-                                        <span class="new">New</span>
-                                        {{/if}}
+											<span class="new">New</span>
+											{{/if}}
 										</div>
 									</div>
 									<div class="product-body">
-										<p class="product-time-left">{{startDate}}</p>
-										<h3 class="product-name"><a href="/products/detail/{{id}}">{{name}}</a></h3>
-										<h4 class="product-price">{{currentPrice}} <del class="product-old-price">{{buynowPrice}}</del></h4>
-										<div class="product-rating">
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-										</div>
+										<p class="product-time-left">{{timeLeft}}</p>
+										<h3 class="product-name"><a href="/products/detail/{{idproduct}}">{{name}}</a></h3>
+										<h4 class="product-price">{{currentPrice}}</h4>
+										<p>{{fullname}}</p>
 										<div class="product-btns">
-											<button onclick="addWistList({{id}})" id="{{id}}" class="add-to-wishlist">{{#if like}}<i style= "color:#D10024" name="{{id}}-heart" class="fa fa-heart" aria-hidden="true"></i>{{else}}<i style= "color:#ddd"name="{{id}}-heart" class="fa fa-heart" aria-hidden="true"></i>{{/if}}<span
-                                                class="tooltipp">add to wishlist</span></button>
+											<button onclick="addWistList({{idproduct}})" id="{{idproduct}}"
+												class="add-to-wishlist">{{#if like}}<i style="color:#D10024"
+													name="{{idproduct}}-heart" class="fa fa-heart"
+													aria-hidden="true"></i>{{else}}<i style="color:#ddd"
+													name="{{idproduct}}-heart" class="fa fa-heart"
+													aria-hidden="true"></i>{{/if}}<span class="tooltipp">add to
+													wishlist</span></button>
 
 										</div>
 									</div>
 									<div class="add-to-cart">
-										<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i><a href="/products/detail/{{id}}">BID NOW</a></button>
+										<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i><a
+												href="/products/detail/{{idproduct}}">BID NOW</a></button>
 									</div>
 								</div>
 								<!-- /product -->
@@ -376,6 +381,6 @@
 </div>
 <!-- /NEWSLETTER -->
 <script src="https://code.jquery.com/jquery-3.4.1.slim.js"
-		integrity="sha256-BTlTdQO9/fascB1drekrDVkaKd9PkwBymMlHOiG+qLI=" crossorigin="anonymous"></script>
-	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+	integrity="sha256-BTlTdQO9/fascB1drekrDVkaKd9PkwBymMlHOiG+qLI=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <script src="/js/wishList.js"></script>

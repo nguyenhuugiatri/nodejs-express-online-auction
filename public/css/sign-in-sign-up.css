@@ -189,6 +189,7 @@
 #msg {
   display: none;
   color: red;
+  margin-top: 5px;
 }
 
 @-webkit-keyframes hvr-icon-wobble-horizontal {

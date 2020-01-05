@@ -10,7 +10,7 @@ class CategoryItem extends Component {
       <tr>
         <td className="column-password overflow-auto">{category.id}</td>
         <td className="column-password overflow-auto">{category.name}</td>
-        <td className="column-password overflow-auto">0</td>
+        <td className="column-password overflow-auto">{category.quantity}</td>
         <td>
           <button
             className="btn btn-info mr-2"

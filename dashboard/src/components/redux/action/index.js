@@ -201,12 +201,48 @@ export const actSaveUser = (user,act) => {
 };
 
 
+const actOnListCategory = categoryList => {
+  return {
+    type: ActionType.ON_LIST_CATEGORY,
+    categoryList
+  };
+};
+
 export const actSaveCategory = category => {
   return dispatch => {
   };
 };
 
-export const actOnListCategoryAPI = category => {
+export const actOnListCategoryAPI = () => {
   return dispatch => {
+    let token = JSON.parse(sessionStorage.getItem("user")).token;
+    axios({
+      headers: {
+        Authorization: `Bearer ${token}`
+      },
+      method: "GET",
+      url: "http://localhost:3000/admin/category/list"
+    })
+      .then(result => {
+        dispatch(actOnListCategory(result.data));
+      })
+      .catch(err => {
+        if (err.response) {
+          Swal.fire({
+            title: "Error",
+            text: err.response.data.message,
+            icon: "error",
+            confirmButtonText: "OK"
+          });
+        }
+        console.log(err.response);
+      });
+  };
+};
+
+export const actFilterCategory = keyword => {
+  return {
+    type: ActionType.CATEGORY_FILTER,
+    keyword
   };
 };

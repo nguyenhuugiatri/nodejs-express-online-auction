@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const adminModel = require("../models/admin.model");
 const userModel = require("../models/user.model");
+const categoryModel = require("../models/category.model");
 const requireToken = require("./../middlewares/adminAuth.mdw");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
@@ -37,8 +38,12 @@ router.post("/login", async (req, res, next) => {
 });
 
 router.get("/user/list", requireToken, async (req, res, next) => {
-  const users = await userModel.all();
-  res.send(users);
+  try {
+    const users = await userModel.all();
+    return res.send(users);
+  } catch (err) {
+    return res.status(403).send({ message: "List failed" });
+  }
 });
 
 router.get("/user/delete", requireToken, async (req, res, next) => {
@@ -92,7 +97,7 @@ router.post("/user/add", requireToken, async (req, res, next) => {
 });
 
 router.post("/user/update", requireToken, async (req, res, next) => {
-  const id=parseInt(req.body.id);
+  const id = parseInt(req.body.id);
   const N = 10;
   const hash = bcrypt.hashSync(req.body.password, N);
   const entity = req.body;
@@ -101,11 +106,20 @@ router.post("/user/update", requireToken, async (req, res, next) => {
   delete entity.username;
   delete entity.email;
   try {
-    await userModel.update(entity,id);
+    await userModel.update(entity, id);
     return res.status(200).send({ message: "Update success" });
   } catch (err) {
     console.log(err);
     return res.status(403).send({ message: "Update failed" });
+  }
+});
+
+router.get("/category/list", requireToken, async (req, res, next) => {
+  try {
+    const category = await categoryModel.allWithNumberOfProducts();
+  return res.send(category);  
+  } catch (err) {
+    return res.status(403).send({ message: "List failed" });
   }
 });
 

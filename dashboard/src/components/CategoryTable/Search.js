@@ -26,7 +26,7 @@ class Search extends Component {
 const mapDispatchToProps = dispatch => {
   return {
     onFilter: keyword => {
-      dispatch(action.actFilter(keyword));
+      dispatch(action.actFilterCategory(keyword));
     }
   };
 };

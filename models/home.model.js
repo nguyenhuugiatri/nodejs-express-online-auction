@@ -19,7 +19,8 @@ module.exports = {
 
   upProductBidding:(idProduct , idUser , bidPrice) => db.load(`update product set id_bidder=${idUser} , currentPrice=${bidPrice} where id = ${idProduct}`),
   upBiddingList:(idProduct,time,bidPrice,idUser)=> db.load(`INSERT INTO biddinglist values(${idProduct},'${time}',${bidPrice},${idUser})`),
-  getProductCurrent : id => db.load(`select * from product where id = ${id}`)
+  getProductCurrent : id => db.load(`select * from product where id = ${id}`),
+  upgradeUser : id => db.load(`update user set request = 1 where id = ${id}`)
 //   add: entity => db.add('products', entity),
 //   del: id => db.del('products', { ProID: id }),
 //   patch: entity => {

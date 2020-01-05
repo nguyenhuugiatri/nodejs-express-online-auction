@@ -1,8 +1,14 @@
 
+
 function addWistList(id) {
   // var heart = $(`#${id}-heart`);
   const hearts = document.getElementsByName(`${id}-heart`);
-
+  var idUser = document.getElementById("userID");
+  if (!idUser.value)
+  {
+    window.location.replace("/account/signin");
+    return;
+  }
   for (const heart of hearts)
   {
     console.log( heart);
@@ -12,15 +18,14 @@ function addWistList(id) {
   // console.log(heart.css("color"));
   // if (heart.css("color") === "rgb(221, 221, 221)") heart.css("color", "#D10024");
   // else heart.css("color", "#ddd");
-  var idUser = document.getElementById("userID");
+  
   var urlSend =
     "/account/addWishList?userid=" + idUser.value + "&idproduct=" + id;
   $.ajax({
     url: urlSend,
     type: "GET"
   }).done(function(result) {
-    if(result!=='Add Success'||result!=='Delete Success')
-    window.location.replace('/account/signin');
+    // console.log(result);
   });
 }
 function addWistListAndLoadUrl(id) {

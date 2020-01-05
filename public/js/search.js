@@ -1,3 +1,4 @@
+
 function SendRequestClickCheckBoxs() {
   var checkboxes = document.getElementsByName("boxes");
   var urlSend = "/store/search?searchInput=";

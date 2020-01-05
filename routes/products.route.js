@@ -11,6 +11,7 @@ var storeModel = require("../models/store.model");
 const requireLogin = require("./../middlewares/auth.mdw");
 const helper = require("./../utils/helper");
 const path = require("path");
+const nodemailer =  require('nodemailer');
 
 let imageArr = [];
 
@@ -116,8 +117,6 @@ router.get("/detail/:id", async (req, res) => {
   }
   // mask name
  rows[0].fullname = helper.maskNameString(rows[0].fullname);
-
-
 
   var endDate = moment(rows[0].endDate);
   var timeleft = moment(endDate.diff(today));

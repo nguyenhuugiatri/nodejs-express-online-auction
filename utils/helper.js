@@ -7,6 +7,14 @@ module.exports = {
         }
       }
     return false;
+  },
+  checkCurrentPrice:(idProduct,listTakePriceNow)=>{
+    for (let i = 0; i < listTakePriceNow.length; i++) {
+      if (idProduct == listTakePriceNow[i].id) {
+        return true;
+      }
+    }
+  return false;
   }
   
 };

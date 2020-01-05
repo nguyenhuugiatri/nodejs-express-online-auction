@@ -38,8 +38,9 @@ module.exports = {
   getWishListbyID: idUser => db.load(`select * from watchlist as w ,product as p where w.id_user = ${idUser} and w.id_product=p.id `),
   getWishListbyID_Name: (idUser,name) => db.load(`select * from watchlist as w ,product as p where w.id_user = ${idUser} and w.id_product=p.id and name like '%${name}%'`),
   getListProductOfSeller: idSeller => db.load(`select * from product where id_seller= ${idSeller} and auctioned=0`),
-  getListProductOfBidding: idBidder => db.load(`select * from product where id_bidder= ${idBidder} and auctioned=0`),
+  getListProductOfBidding: idBidder => db.load(`select * from biddinglist as b , product as p where b.id_product = p.id and p.auctioned=0 and b.id_user=${idBidder}`),
   getListProductOfWon: idBidder => db.load(`select * from product where id_bidder= ${idBidder} and auctioned=1`),
+  getUserTakeNowProduct: idUser => db.load(`select * from product where id_bidder=${idUser}`),
   
   singleByID: id => db.load(`select * from user where id = ${id}`), //////// làm sao thay thế cho #each trong profile và edit và changePassword
   singleRowByID: async id => {

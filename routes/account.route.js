@@ -1,6 +1,7 @@
 const express = require("express");
 const bcrypt = require("bcryptjs");
 const moment = require("moment");
+const helper = require("./../utils/helper");
 const userModel = require("../models/user.model");
 var storeModel = require("../models/store.model");
 const homeModel = require("../models/home.model");
@@ -93,6 +94,7 @@ router.get("/profile/:id", async (req, res) => {
   const category = await homeModel.getCategories();
   const listSeller = await userModel.getListProductOfSeller(userId);
   const listBidding = await userModel.getListProductOfBidding(userId);
+  const listNowTake = await userModel.getUserTakeNowProduct(userId);
   const listWon = await userModel.getListProductOfWon(userId);
 
   // lấy điểm review từ database
@@ -108,6 +110,49 @@ router.get("/profile/:id", async (req, res) => {
    } 
    else ratingPoint = (positive_reviews / number_of_reviews) * 100;
 //console.log(ratingPoint);/////////////////////////////////////////////////////////////
+
+//Check product co dang giu gia khong?
+for (let i=0;i<listBidding.length;i++)
+{
+  for (let j=0;j<listNowTake.length;j++)
+  {
+    if (helper.checkCurrentPrice(listBidding[i].id_product,listNowTake))
+    {
+      listBidding[i].now = true;
+    }
+  }
+}
+// check NEW
+const today = moment();
+for (let i = 0; i < rows.length; i++) {
+ var timeStart = moment(rows[i].startDate);
+ var s = today.diff(timeStart, "seconds");
+ if (s <= 600) {
+   rows[i].new = true;
+ }
+}
+for (let i = 0; i < listSeller.length; i++) {
+var timeStart = moment(listSeller[i].startDate);
+var s = today.diff(timeStart, "seconds");
+if (s <= 600) {
+  listSeller[i].new = true;
+}
+}
+for (let i = 0; i < listBidding.length; i++) {
+var timeStart = moment(listBidding[i].startDate);
+var s = today.diff(timeStart, "seconds");
+if (s <= 600) {
+  listBidding[i].new = true;
+}
+}
+for (let i = 0; i < listWon.length; i++) {
+var timeStart = moment(listWon[i].startDate);
+var s = today.diff(timeStart, "seconds");
+if (s <= 600) {
+  listWon[i].new = true;
+}
+}
+
   res.render("vwAccount/profile", {
     profile: row_user,
     ratingPoint: ratingPoint,
@@ -218,6 +263,7 @@ router.get("/profile/:id/search", async (req, res) => {
   const rows = await userModel.getWishListbyID_Name(userId,req.query.nameproduct);
   const listSeller = await userModel.getListProductOfSeller(userId);
   const listBidding = await userModel.getListProductOfBidding(userId);
+  const listNowTake = await userModel.getUserTakeNowProduct(userId);
   const listWon = await userModel.getListProductOfWon(userId);
   const category = await homeModel.getCategories();
     // lấy điểm review từ database
@@ -233,6 +279,48 @@ router.get("/profile/:id/search", async (req, res) => {
      } 
      else ratingPoint = (positive_reviews / number_of_reviews) * 100;
   //console.log(ratingPoint);/////////////////////////////////////////////////////////////
+
+  //Check product co dang giu gia khong?
+  for (let i=0;i<listBidding.length;i++)
+  {
+    for (let j=0;j<listNowTake.length;j++)
+    {
+      if (helper.checkCurrentPrice(listBidding[i].id_product,listNowTake))
+      {
+        listBidding[i].now = true;
+      }
+    }
+  }
+  // check NEW
+  const today = moment();
+ for (let i = 0; i < rows.length; i++) {
+   var timeStart = moment(rows[i].startDate);
+   var s = today.diff(timeStart, "seconds");
+   if (s <= 600) {
+     rows[i].new = true;
+   }
+ }
+ for (let i = 0; i < listSeller.length; i++) {
+  var timeStart = moment(listSeller[i].startDate);
+  var s = today.diff(timeStart, "seconds");
+  if (s <= 600) {
+    listSeller[i].new = true;
+  }
+}
+for (let i = 0; i < listBidding.length; i++) {
+  var timeStart = moment(listBidding[i].startDate);
+  var s = today.diff(timeStart, "seconds");
+  if (s <= 600) {
+    listBidding[i].new = true;
+  }
+}
+for (let i = 0; i < listWon.length; i++) {
+  var timeStart = moment(listWon[i].startDate);
+  var s = today.diff(timeStart, "seconds");
+  if (s <= 600) {
+    listWon[i].new = true;
+  }
+}
   res.render("vwAccount/profile", {
     profile: row_user,
     ratingPoint: ratingPoint,

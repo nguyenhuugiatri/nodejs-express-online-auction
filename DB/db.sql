@@ -1,7 +1,7 @@
 /*
- Navicat MySQL Data Transfer
+ Navicat Premium Data Transfer
 
- Source Server         : WebProject
+ Source Server         : auction
  Source Server Type    : MySQL
  Source Server Version : 80018
  Source Host           : localhost:3306
@@ -11,7 +11,7 @@
  Target Server Version : 80018
  File Encoding         : 65001
 
- Date: 05/01/2020 02:10:23
+ Date: 05/01/2020 16:33:27
 */
 
 SET NAMES utf8mb4;
@@ -38,50 +38,6 @@ CREATE TABLE `admin`  (
 INSERT INTO `admin` VALUES (1, 'lem', 'nguyenhuugiatri@gmail.com', '0964351101', 'lemdeptrai', 'lemquadeptrai');
 
 -- ----------------------------
--- Table structure for auctionedproduct
--- ----------------------------
-DROP TABLE IF EXISTS `auctionedproduct`;
-CREATE TABLE `auctionedproduct`  (
-  `id_user` int(11) NOT NULL,
-  `id_product` int(11) NOT NULL,
-  PRIMARY KEY (`id_user`, `id_product`) USING BTREE,
-  INDEX `fk_aucproduct_product_idx`(`id_product`) USING BTREE,
-  CONSTRAINT `fk_aucProduct_product` FOREIGN KEY (`id_product`) REFERENCES `product` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  CONSTRAINT `fk_aucProduct_user` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of auctionedproduct
--- ----------------------------
-INSERT INTO `auctionedproduct` VALUES (1, 1);
-INSERT INTO `auctionedproduct` VALUES (2, 1);
-INSERT INTO `auctionedproduct` VALUES (3, 2);
-INSERT INTO `auctionedproduct` VALUES (1, 3);
-
--- ----------------------------
--- Table structure for auctionhistory
--- ----------------------------
-DROP TABLE IF EXISTS `auctionhistory`;
-CREATE TABLE `auctionhistory`  (
-  `id_product` int(11) NOT NULL,
-  `time` datetime(0) NOT NULL,
-  `bidPrice` float NULL DEFAULT NULL,
-  `id_user` int(11) NOT NULL,
-  PRIMARY KEY (`id_product`, `time`, `id_user`) USING BTREE,
-  INDEX `fk_aucHistory_user_idx`(`id_user`) USING BTREE,
-  INDEX `fk_aucHistory_product_idx`(`id_product`) USING BTREE,
-  CONSTRAINT `fk_aucHistory_product` FOREIGN KEY (`id_product`) REFERENCES `product` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  CONSTRAINT `fk_aucHistory_user` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of auctionhistory
--- ----------------------------
-INSERT INTO `auctionhistory` VALUES (1, '2020-01-02 00:21:53', 1000, 1);
-INSERT INTO `auctionhistory` VALUES (2, '2020-01-02 00:22:34', 1200, 2);
-INSERT INTO `auctionhistory` VALUES (3, '2020-01-02 00:22:53', 4000, 3);
-
--- ----------------------------
 -- Table structure for ban
 -- ----------------------------
 DROP TABLE IF EXISTS `ban`;
@@ -100,25 +56,31 @@ CREATE TABLE `ban`  (
 INSERT INTO `ban` VALUES (4, 1);
 
 -- ----------------------------
--- Table structure for biddingproduct
+-- Table structure for biddinglist
 -- ----------------------------
-DROP TABLE IF EXISTS `biddingproduct`;
-CREATE TABLE `biddingproduct`  (
-  `id_user` int(11) NOT NULL,
+DROP TABLE IF EXISTS `biddinglist`;
+CREATE TABLE `biddinglist`  (
   `id_product` int(11) NOT NULL,
-  PRIMARY KEY (`id_user`, `id_product`) USING BTREE,
-  INDEX `fk_bidding_product_idx`(`id_product`) USING BTREE,
-  INDEX `fk_bidding_user`(`id_user`) USING BTREE,
-  CONSTRAINT `fk_bidding_product` FOREIGN KEY (`id_product`) REFERENCES `product` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  CONSTRAINT `fk_bidding_user` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+  `time` datetime(0) NOT NULL,
+  `bidPrice` float NULL DEFAULT NULL,
+  `id_user` int(11) NOT NULL,
+  PRIMARY KEY (`id_product`, `time`, `id_user`) USING BTREE,
+  INDEX `fk_aucHistory_user_idx`(`id_user`) USING BTREE,
+  INDEX `fk_aucHistory_product_idx`(`id_product`) USING BTREE,
+  CONSTRAINT `fk_aucHistory_product` FOREIGN KEY (`id_product`) REFERENCES `product` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `fk_aucHistory_user` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
--- Records of biddingproduct
+-- Records of biddinglist
 -- ----------------------------
-INSERT INTO `biddingproduct` VALUES (1, 1);
-INSERT INTO `biddingproduct` VALUES (2, 1);
-INSERT INTO `biddingproduct` VALUES (3, 2);
+INSERT INTO `biddinglist` VALUES (2, '2020-01-02 00:22:34', 1200, 2);
+INSERT INTO `biddinglist` VALUES (3, '2020-01-02 00:21:53', 1000, 10);
+INSERT INTO `biddinglist` VALUES (3, '2020-01-05 16:19:16', 50000, 2);
+INSERT INTO `biddinglist` VALUES (3, '2020-01-22 15:49:30', 5000, 2);
+INSERT INTO `biddinglist` VALUES (4, '2020-01-02 00:22:53', 4000, 3);
+INSERT INTO `biddinglist` VALUES (5, '2020-01-09 15:39:46', 2000, 10);
+INSERT INTO `biddinglist` VALUES (6, '2020-01-03 15:40:34', 20000, 10);
 
 -- ----------------------------
 -- Table structure for category
@@ -162,6 +124,15 @@ INSERT INTO `image` VALUES (3, 'lem');
 INSERT INTO `image` VALUES (3, 'sr3_1');
 INSERT INTO `image` VALUES (3, 'sr3_2');
 INSERT INTO `image` VALUES (3, 'sr3_3');
+INSERT INTO `image` VALUES (4, 's1');
+INSERT INTO `image` VALUES (4, 's2');
+INSERT INTO `image` VALUES (4, 's3');
+INSERT INTO `image` VALUES (5, 's1');
+INSERT INTO `image` VALUES (5, 's2');
+INSERT INTO `image` VALUES (5, 's3');
+INSERT INTO `image` VALUES (6, 's1');
+INSERT INTO `image` VALUES (6, 's2');
+INSERT INTO `image` VALUES (6, 's3');
 INSERT INTO `image` VALUES (44, 'wwwww');
 INSERT INTO `image` VALUES (45, 'lku');
 INSERT INTO `image` VALUES (49, '2020-01-02 07:36:19-2.jpeg');
@@ -217,56 +188,14 @@ INSERT INTO `product` VALUES (1, 'Acer Nitro 5', 1, 1, 2, 1000, 10000, 20000, '2
 INSERT INTO `product` VALUES (2, 'Macbook Pro 2019', 1, 3, 4, 1000, 15000, 20000, '2020-01-01 22:06:26', '2020-01-15 22:06:29', 'LAPTOP cùi', 0);
 INSERT INTO `product` VALUES (3, 'Asus ROG', 1, 2, 1, 1000, 10000, 20000, '2020-01-01 22:07:23', '2020-01-14 22:07:26', 'LAPTOP vip', 0);
 INSERT INTO `product` VALUES (4, 'Iphone', 2, 4, 3, 200, 1200, 3000, '2020-01-02 00:17:21', '2020-01-24 00:17:27', 'Iphone đẹp', 0);
-INSERT INTO `product` VALUES (5, 'xiaomi', 2, 1, NULL, 120, 1000, 1200, '2020-01-02 15:24:33', '2020-01-02 15:24:36', NULL, 0);
+INSERT INTO `product` VALUES (5, 'xiaomi', 2, 1, 10, 120, 1000, 1200, '2020-01-02 15:24:33', '2020-01-02 15:24:36', NULL, 0);
 INSERT INTO `product` VALUES (6, 'xiaomi poco', 2, 1, NULL, 5, 10, 10, '2020-01-02 03:36:46', '2020-02-01 11:01:00', NULL, 0);
 INSERT INTO `product` VALUES (7, 'xiaomi poco', 2, 1, NULL, 5, 10, 20, '2020-01-02 03:37:23', '2020-02-01 11:01:00', NULL, 0);
-INSERT INTO `product` VALUES (8, 'xiaomi poco', 2, 1, NULL, 5, 10, 20, '2020-01-02 03:38:37', '2020-02-01 11:01:00', NULL, 0);
-INSERT INTO `product` VALUES (9, 'xiaomi poco', 2, 1, NULL, 5, 10, 20, '2020-01-02 03:39:08', '2020-02-01 11:01:00', NULL, 0);
-INSERT INTO `product` VALUES (10, 'xiaomi poco', 2, 1, NULL, 5, 10, 20, '2020-01-02 03:39:56', '2020-02-01 11:01:00', NULL, 0);
-INSERT INTO `product` VALUES (11, 'xiaomi poco', 2, 1, NULL, 5, 10, 20, '2020-01-02 03:40:43', '2020-02-01 11:01:00', NULL, 0);
-INSERT INTO `product` VALUES (12, 'xiaomi poco', 2, 1, NULL, 5, 10, 20, '2020-01-02 03:41:31', '2020-02-01 11:01:00', NULL, 0);
-INSERT INTO `product` VALUES (13, 'xiaomi poco', 2, 1, NULL, 5, 10, 20, '2020-01-02 03:42:01', '2020-02-01 11:01:00', NULL, 0);
-INSERT INTO `product` VALUES (14, 'xiaomi poco', 2, 1, NULL, 5, 10, 20, '2020-01-02 03:42:11', '2020-02-01 11:01:00', NULL, 0);
-INSERT INTO `product` VALUES (15, '123', 2, 1, NULL, 123, 123, 123, '2020-01-02 03:42:39', '2311-12-21 12:11:00', NULL, 0);
-INSERT INTO `product` VALUES (16, '123', 2, 1, NULL, 123, 123, 123, '2020-01-02 03:42:48', '2311-12-21 12:11:00', NULL, 0);
-INSERT INTO `product` VALUES (17, '123', 2, 1, NULL, 123, 123, 123, '2020-01-02 03:43:30', '2311-12-21 12:11:00', NULL, 0);
-INSERT INTO `product` VALUES (18, 'xiaomi poco2', 2, 1, NULL, 123, 123, 321, '2020-01-02 03:44:07', '2020-12-12 11:11:00', NULL, 0);
-INSERT INTO `product` VALUES (19, 'xiaomi poco2', 2, 1, NULL, 123, 123, 321, '2020-01-02 03:45:05', '2020-12-12 11:11:00', NULL, 0);
-INSERT INTO `product` VALUES (20, 'xiaomi poco2', 2, 1, NULL, 123, 123, 321, '2020-01-02 04:17:58', '2020-12-12 11:11:00', NULL, 0);
-INSERT INTO `product` VALUES (21, '213', 3, 1, NULL, 321, 23, 12, '2020-01-02 05:19:22', '0003-03-12 12:02:00', NULL, 0);
-INSERT INTO `product` VALUES (22, 'xiaomi poco2', 2, 1, NULL, 123, 123, 321, '2020-01-02 05:40:09', '2020-12-12 11:11:00', NULL, 0);
-INSERT INTO `product` VALUES (23, 'xiaomi poco2', 2, 1, NULL, 123, 123, 321, '2020-01-02 05:43:34', '2020-12-12 11:11:00', NULL, 0);
-INSERT INTO `product` VALUES (24, '213', 3, 1, NULL, 321, 23, 12, '2020-01-02 05:48:50', '0003-03-12 12:02:00', NULL, 0);
-INSERT INTO `product` VALUES (25, '213', 3, 1, NULL, 321, 23, 12, '2020-01-02 05:49:33', '0003-03-12 12:02:00', NULL, 0);
-INSERT INTO `product` VALUES (26, '123', 2, 1, NULL, 13, 123, 123, '2020-01-02 05:50:34', '2020-12-31 12:00:00', NULL, 0);
-INSERT INTO `product` VALUES (27, '123', 2, 1, NULL, 13, 123, 123, '2020-01-02 05:51:02', '2020-12-31 12:00:00', NULL, 0);
-INSERT INTO `product` VALUES (28, 'xiaomi poco2', 2, 1, NULL, 123, 123, 321, '2020-01-02 05:52:16', '2020-12-12 11:11:00', NULL, 0);
-INSERT INTO `product` VALUES (29, 'xiaomi poco2', 2, 1, NULL, 123, 123, 321, '2020-01-02 05:52:39', '2020-12-12 11:11:00', NULL, 0);
-INSERT INTO `product` VALUES (30, 'xiaomi poco2', 2, 1, NULL, 123, 123, 321, '2020-01-02 05:52:53', '2020-12-12 11:11:00', NULL, 0);
-INSERT INTO `product` VALUES (31, 'xiaomi poco2', 2, 1, NULL, 123, 123, 321, '2020-01-02 05:53:17', '2020-12-12 11:11:00', NULL, 0);
-INSERT INTO `product` VALUES (32, '123', 2, 1, NULL, 13, 123, 123, '2020-01-02 05:53:42', '2020-12-31 12:00:00', NULL, 0);
-INSERT INTO `product` VALUES (33, 'xiaomi poco2', 2, 1, NULL, 123, 123, 321, '2020-01-02 06:00:15', '2020-12-12 11:11:00', NULL, 0);
-INSERT INTO `product` VALUES (34, '123', 2, 1, NULL, 13, 123, 123, '2020-01-02 06:05:18', '2020-12-31 12:00:00', NULL, 0);
-INSERT INTO `product` VALUES (35, '123', 2, 1, NULL, 13, 123, 123, '2020-01-02 06:05:43', '2020-12-31 12:00:00', NULL, 0);
-INSERT INTO `product` VALUES (36, '123', 2, 1, NULL, 13, 123, 123, '2020-01-02 06:06:30', '2020-12-31 12:00:00', NULL, 0);
-INSERT INTO `product` VALUES (37, '123', 2, 1, NULL, 13, 123, 123, '2020-01-02 06:06:43', '2020-12-31 12:00:00', NULL, 0);
-INSERT INTO `product` VALUES (38, '123', 2, 1, NULL, 13, 123, 123, '2020-01-02 06:07:39', '2020-12-31 12:00:00', NULL, 0);
-INSERT INTO `product` VALUES (39, '32', 2, 1, NULL, 1, 123, 122, '2020-01-02 06:27:25', '2020-12-21 12:01:00', NULL, 0);
-INSERT INTO `product` VALUES (40, 'lrm', 1, 1, 1, 122, 12, 2, '2020-01-02 19:13:07', '2020-01-25 19:13:11', NULL, 0);
-INSERT INTO `product` VALUES (41, 'dwq', 2, 1, NULL, 1, 12, 14, '2020-01-02 07:18:25', '2020-12-01 12:05:00', NULL, 0);
-INSERT INTO `product` VALUES (42, 'dwq', 2, 1, NULL, 1, 12, 14, '2020-01-02 07:19:37', '2020-12-01 12:05:00', NULL, 0);
-INSERT INTO `product` VALUES (43, 'xiaomi poco2', 2, 1, NULL, 123, 123, 321, '2020-01-02 07:25:57', '2020-12-12 11:11:00', NULL, 0);
 INSERT INTO `product` VALUES (44, 'xiaomi poco2', 2, 1, NULL, 123, 123, 321, '2020-01-02 07:28:04', '2020-12-12 11:11:00', NULL, 0);
 INSERT INTO `product` VALUES (45, 'xiaomi poco2', 2, 1, NULL, 123, 123, 321, '2020-01-02 07:31:47', '2020-12-12 11:11:00', NULL, 0);
-INSERT INTO `product` VALUES (46, 'xiaomi poco2', 2, 1, NULL, 123, 123, 321, '2020-01-02 07:32:29', '2020-12-12 11:11:00', NULL, 0);
-INSERT INTO `product` VALUES (47, 'xiaomi poco2', 2, 1, NULL, 123, 123, 321, '2020-01-02 07:33:42', '2020-12-12 11:11:00', NULL, 0);
-INSERT INTO `product` VALUES (48, 'xiaomi poco2', 2, 1, NULL, 123, 123, 321, '2020-01-02 07:34:08', '2020-12-12 11:11:00', NULL, 0);
 INSERT INTO `product` VALUES (49, 'xiaomi poco2', 2, 1, NULL, 123, 123, 321, '2020-01-02 07:36:19', '2020-12-12 11:11:00', NULL, 0);
-INSERT INTO `product` VALUES (50, 'xiaomi poco2', 2, 1, NULL, 123, 123, 321, '2020-01-02 07:38:27', '2020-12-12 11:11:00', NULL, 0);
-INSERT INTO `product` VALUES (51, 'xiaomi poco2', 2, 1, NULL, 123, 123, 321, '2020-01-02 07:39:05', '2020-12-12 11:11:00', NULL, 0);
 INSERT INTO `product` VALUES (52, 'xiaomi poco2', 2, 1, NULL, 123, 123, 321, '2020-01-02 07:39:29', '2020-12-12 11:11:00', NULL, 0);
 INSERT INTO `product` VALUES (53, 'xiaomi poco2', 2, 1, NULL, 123, 123, 321, '2020-01-02 07:40:11', '2020-12-12 11:11:00', NULL, 0);
-INSERT INTO `product` VALUES (54, 'xiaomi poco2', 2, 1, NULL, 123, 123, 321, '2020-01-02 07:42:10', '2020-12-12 11:11:00', NULL, 0);
 INSERT INTO `product` VALUES (55, 'xiaomi poco2', 2, 1, NULL, 123, 123, 321, '2020-01-02 07:42:42', '2020-12-12 11:11:00', NULL, 0);
 INSERT INTO `product` VALUES (56, 'xiaomi poco', 2, 1, NULL, 2, 12, 15, '2020-01-02 08:38:44', '2021-12-01 12:01:00', NULL, 0);
 INSERT INTO `product` VALUES (57, 'xiaomi poco', 2, 1, NULL, 2, 12, 15, '2020-01-02 08:42:41', '2021-12-01 12:01:00', '<p style=\"text-align: right;\">asdasdasdasdasdasdas</p>\r\n<div id=\"eJOY__extension_root\" style=\"all: unset;\">&nbsp;</div>', 0);
@@ -286,9 +215,9 @@ CREATE TABLE `review`  (
   PRIMARY KEY (`id_user`, `reviewer`, `id_product`) USING BTREE,
   INDEX `fk_review_reviewer_idx`(`reviewer`) USING BTREE,
   INDEX `fk_review_product`(`id_product`) USING BTREE,
+  CONSTRAINT `fk_review_product` FOREIGN KEY (`id_product`) REFERENCES `product` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `fk_review_user` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  CONSTRAINT `fk_reviewer_user` FOREIGN KEY (`reviewer`) REFERENCES `user` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  CONSTRAINT `fk_review_product` FOREIGN KEY (`id_product`) REFERENCES `product` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+  CONSTRAINT `fk_reviewer_user` FOREIGN KEY (`reviewer`) REFERENCES `user` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
@@ -319,7 +248,7 @@ CREATE TABLE `user`  (
   `permission` int(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `username_UNIQUE`(`username`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of user
@@ -329,10 +258,11 @@ INSERT INTO `user` VALUES (2, b'0', 'thaiemcui', '0944026117', 'thaiem@gmail.com
 INSERT INTO `user` VALUES (3, b'0', 'thaianh1', '0944026116', 'as@gmail.com', '2020-01-14 22:04:08', 'thaianh1', '123123123', b'1', 0);
 INSERT INTO `user` VALUES (4, b'0', 'thaianh2', '0944026115', '123213@gmail.com', '2020-01-20 22:04:36', 'thaianh2', '123123123', b'0', 0);
 INSERT INTO `user` VALUES (5, b'1', 'lem', '0964351101', 'lem@gmail.com', '1999-06-12 00:00:00', 'lemdeptrai', 'lemquadeptrai', b'1', 1);
-INSERT INTO `user` VALUES (6, NULL, 'lem dep try', '123456', 'lemdeptry@gmail.com', NULL, 'lemdeptry', '$2a$10$BcXQG1zeVDCbgzRsC6Ti7uQTAR8PPBNmj.B0EFtEc.p9.cdHuxwya', b'0', 0);
+INSERT INTO `user` VALUES (6, b'0', 'lem dep try', '123456', 'lemdeptry@gmail.com', NULL, 'lemdeptry', '$2a$2a$10$VdYEIX7Jq/cOvw1mJfF2MOJIfMGacz1r1eC0A0fVqGHTo3sZoJ0tG\r\n$2a$10$VdYEIX7Jq/cOvw1mJfF2MOJIfMGacz1r1eC0A0fVqGHTo3sZoJ0tG\r\n$2a$10$VdYEIX7Jq/cOvw1mJfF2MOJIfMGacz1r1eC0A0fVqGHTo3sZoJ0tG$2a$10$VdYEIX7Jq/cOvw1mJfF2MOJIfMGacz1r1eC0A0fVqGHTo3sZoJ0tG\r\n', b'0', 0);
 INSERT INTO `user` VALUES (7, NULL, 'Đỗ Thế Anh', '0904113942', 'nhoxtheanh@gmail.com', NULL, 'dotheanh', '$2a$10$B3Pxk1P0ybSGdN2TCtv5Mecz/aehej.RIQBDFHjx2Oht4ErdtbfT.', b'1', 1);
 INSERT INTO `user` VALUES (8, NULL, 'Đỗ Thế Em', '0904113942', 'nhoxtheem@gmail.com', NULL, 'dotheem', '$2a$10$B3Pxk1P0ybSGdN2TCtv5Mecz/aehej.RIQBDFHjx2Oht4ErdtbfT.', b'1', 0);
 INSERT INTO `user` VALUES (9, NULL, 'Đỗ Thế Chị', NULL, 'nhoxthechi@gmail.com', NULL, 'dothechi', '$2a$10$B3Pxk1P0ybSGdN2TCtv5Mecz/aehej.RIQBDFHjx2Oht4ErdtbfT.', b'0', 0);
+INSERT INTO `user` VALUES (10, b'1', 'Thai Anh', NULL, '1223@gmail.com', NULL, 'thaianhqwe', '$2a$10$VdYEIX7Jq/cOvw1mJfF2MOJIfMGacz1r1eC0A0fVqGHTo3sZoJ0tG', b'0', 0);
 
 -- ----------------------------
 -- Table structure for watchlist
@@ -354,7 +284,12 @@ CREATE TABLE `watchlist`  (
 INSERT INTO `watchlist` VALUES (1, 1);
 INSERT INTO `watchlist` VALUES (2, 1);
 INSERT INTO `watchlist` VALUES (3, 2);
+INSERT INTO `watchlist` VALUES (10, 44);
+INSERT INTO `watchlist` VALUES (10, 45);
+INSERT INTO `watchlist` VALUES (10, 49);
 INSERT INTO `watchlist` VALUES (7, 53);
 INSERT INTO `watchlist` VALUES (7, 56);
+INSERT INTO `watchlist` VALUES (10, 56);
+INSERT INTO `watchlist` VALUES (10, 57);
 
 SET FOREIGN_KEY_CHECKS = 1;

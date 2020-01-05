@@ -7,7 +7,7 @@ module.exports = {
     // getNumProduct() {return db.load('SELECT COUNT(*) as num FROM product WHERE auctioned = 0')},
 
     //single: id => db.load(`select * from products where ProID = ${id}`)
-    all: () => db.load('select * from product'),
+    all: () => db.load('SELECT p.id as idproduct,p.name,p.currentPrice , p.endDate, p.startDate, u.fullname ,count(b.id_product) as count from product as p LEFT JOIN user as u ON p.id_bidder = u.id LEFT JOIN biddinglist as b ON p.id = b.id_product GROUP BY p.id'),
     searchbyName: name => db.load(`SELECT * FROM product where name like '%${name}%'`),
     categoryOfSearchName: name => db.load(`select c.id,count(p.id) as count , c.name from product as p, category as c  where  c.id = category and p.name LIKE '%${name}%' group by category`),
     searchbyNameCategory: sql => db.load(`${sql}`) ,

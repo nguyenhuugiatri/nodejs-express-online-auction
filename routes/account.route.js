@@ -260,7 +260,7 @@ router.post(
   }
 );
 
-router.get("/addWishList", async (req, res) => {
+router.get("/addWishList",requireLogin, async (req, res) => {
   var jsonGet = {};
   jsonGet = req.query;
   var idUser, idProduct;

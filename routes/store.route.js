@@ -11,7 +11,7 @@ const router = express.Router();
 router.get("/", async (req, res) => {
   const rows = await storeModel.all();
   const category = await homeModel.getCategories();
-  
+  const rowsCategory = await storeModel.categoryOfSearchName("");
   var idUser = -1;
    if (req.session.user)
    {
@@ -32,7 +32,11 @@ router.get("/", async (req, res) => {
              rows[i].like = true;
            }
     }
-    rows[i].fullname = helper.maskNameString(rows[i].fullname);
+    if (rows[i].fullname!==null)
+    {
+      rows[i].fullname = helper.maskNameString(rows[i].fullname);
+    }
+    else rows[i].fullname = "Chưa có người đấu giá";
     var endDate = moment(rows[i].endDate);
     var timeleft = moment(endDate.diff(today));
     var stringTime = helper.convertTimeLeft(timeleft);
@@ -43,6 +47,7 @@ router.get("/", async (req, res) => {
   console.log(idUser + "AAAAAAAA");
   res.render("store", {
     products: rows,
+    categories: rowsCategory,
     empty: rows.length === 0,
     allCategories: category
   });
@@ -56,7 +61,7 @@ router.get("/search", async (req, res) => {
   console.log(req.query);
   var jsonGet = {};
   jsonGet = req.query;
-  var sql = "select * from product where";
+  var sql = "SELECT p.id as idproduct,p.name,p.currentPrice , p.endDate, u.fullname ,count(b.id_product) as count from product as p LEFT JOIN user as u ON p.id_bidder = u.id LEFT JOIN biddinglist as b ON p.id = b.id_product where ";
   var flagCate = 0;
   var flagCheck = 0;
   for (const key in jsonGet) {
@@ -67,16 +72,16 @@ router.get("/search", async (req, res) => {
   for (const key in jsonGet) {
     if (key === "searchInput") {
       if (flagCheck === 0) {
-        sql += ` name like '%${jsonGet[key]}%'`;
+        sql += ` name like '%${jsonGet[key]}%' GROUP BY p.id `;
       } else {
-        sql += `) and name like '%${jsonGet[key]}%'`;
+        sql += `) and name like '%${jsonGet[key]}%' GROUP BY p.id `;
       }
     } else if (key === "endDate" && jsonGet[key] === "true") {
-      sql += " ORDER BY endDate DESC";
+      sql += " GROUP BY p.id ORDER BY endDate DESC";
     } else if (key === "priceASC" && jsonGet[key] === "true") {
-      sql += " ORDER BY currentPrice ASC";
+      sql += " GROUP BY p.id ORDER BY currentPrice ASC";
     } else if (key === "priceASC" && jsonGet[key] === "false") {
-      sql += " ORDER BY currentPrice DESC";
+      sql += " GROUP BY p.id ORDER BY currentPrice DESC";
     } else {
       if (flagCate === 0) {
         sql += `(category = ${key}`;
@@ -109,6 +114,15 @@ router.get("/search", async (req, res) => {
             rows[i].like = true;
           }
    }
+   if (rows[i].fullname!==null)
+    {
+      rows[i].fullname = helper.maskNameString(rows[i].fullname);
+    }
+    else rows[i].fullname = "Chưa có người đấu giá";
+    var endDate = moment(rows[i].endDate);
+    var timeleft = moment(endDate.diff(today));
+    var stringTime = helper.convertTimeLeft(timeleft);
+    rows[i].timeLeft = stringTime;
  }
   res.render("store", {
     products: rows,

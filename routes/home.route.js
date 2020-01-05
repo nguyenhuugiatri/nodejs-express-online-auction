@@ -27,7 +27,11 @@ router.get("/", async (req, res, next) => {
         rowsPrice[i].like = true;
       }
     }
-    rowsPrice[i].fullname = helper.maskNameString(rowsPrice[i].fullname);
+    if (rowsPrice[i].fullname!==null)
+    {
+      rowsPrice[i].fullname = helper.maskNameString(rowsPrice[i].fullname);
+    }
+    else rowsPrice[i].fullname = "Chưa có người đấu giá";
     var endDate = moment(rowsPrice[i].endDate);
     var timeleft = moment(endDate.diff(today));
     var stringTime = helper.convertTimeLeft(timeleft);
@@ -44,7 +48,11 @@ router.get("/", async (req, res, next) => {
         rowsEndate[i].like = true;
       }
     }
-    rowsEndate[i].fullname = helper.maskNameString(rowsEndate[i].fullname);
+    if (rowsEndate[i].fullname!==null)
+    {
+      rowsEndate[i].fullname = helper.maskNameString(rowsEndate[i].fullname);
+    }
+    else rowsEndate[i].fullname = "Chưa có người đấu giá";
     var endDate = moment(rowsEndate[i].endDate);
     var timeleft = moment(endDate.diff(today));
     var stringTime = helper.convertTimeLeft(timeleft);
@@ -62,7 +70,12 @@ router.get("/", async (req, res, next) => {
         rowsBidd[i].like = true;
       }
     }
-    rowsBidd[i].fullname = helper.maskNameString(rowsBidd[i].fullname);
+    if (rowsBidd[i].fullname!==null)
+    {
+      rowsBidd[i].fullname = helper.maskNameString(rowsBidd[i].fullname);
+    }
+    else rowsBidd[i].fullname = "Chưa có người đấu giá";
+    
     var endDate = moment(rowsBidd[i].endDate);
     var timeleft = moment(endDate.diff(today));
     var stringTime = helper.convertTimeLeft(timeleft);

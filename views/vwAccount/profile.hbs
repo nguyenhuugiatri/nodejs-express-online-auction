@@ -307,8 +307,9 @@
                                                                     <div class="product-img">
                                                                         <img src="/img/product01.png" alt="">
                                                                         <div class="product-label">
-                                                                            <span class="sale">-30%</span>
-
+                                                                            {{#if this.new}}
+                                                                            <span class="new">New</span>
+                                                                            {{/if}}
                                                                         </div>
                                                                     </div>
                                                                     <div class="product-body">
@@ -376,8 +377,9 @@
                                                                     <div class="product-img">
                                                                         <img src="/img/product01.png" alt="">
                                                                         <div class="product-label">
-                                                                            <span class="sale">-30%</span>
-
+                                                                            {{#if this.new}}
+                                                                            <span class="new">New</span>
+                                                                            {{/if}}
                                                                         </div>
                                                                     </div>
                                                                     <div class="product-body">
@@ -425,7 +427,8 @@
                                                 <!-- End Seller products tabbbbbbbbbbbb  -->
 
                                                 <!-- Bidding tabbbbbbbbbbbb  -->
-                                                <a href="bidding_product_tab" class="accordion-link">Bidding Products</a>
+                                                <a href="bidding_product_tab" class="accordion-link">Bidding
+                                                    Products</a>
                                                 <div class="tab-pane" id="bidding_product_tab">
                                                     <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
                                                         <div class="" id="tag-div" style="padding:10px 15px;">
@@ -438,7 +441,12 @@
                                                                     <div class="product-img">
                                                                         <img src="/img/product01.png" alt="">
                                                                         <div class="product-label">
-                                                                            <span class="sale">-30%</span>
+                                                                            {{#if this.new}}
+                                                                            <span class="new">New</span>
+                                                                            {{/if}}
+                                                                            {{#if this.now}}
+                                                                            <span class="sale">Now Highest</span>
+                                                                            {{/if}}
 
                                                                         </div>
                                                                     </div>
@@ -496,6 +504,53 @@
                                                             <!-- product listing block -->
                                                             <!-- not subscription product -->
                                                             <!-- product grid for medium and large device 4*3 and small device 12*1 -->
+
+                                                            {{#if this.listWonFromYou }}
+                                                            <div id="products-won-from-you" class="row">
+                                                                <h1>Products won from you</h1>
+                                                                {{#each this.listWonFromYou}}
+                                                                <!-- product -->
+                                                                <div class="col-md-4 col-xs-6" style="width: 25%">
+                                                                    <div class="product">
+                                                                        <div class="product-img">
+                                                                            <img src="/img/product01.png" alt="">
+                                                                            <div class="product-label">
+                                                                                <span class="auctionedLabel">Auction
+                                                                                    ended</span>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="product-body">
+                                                                            <!-- <p class="product-category">Category</p> -->
+                                                                            {{!-- <p class="product-time-left">{{startDate}}</p> --}}
+                                                                            <h3 class="product-name"><a
+                                                                                    href="/products/detail/{{id}}">{{name}}</a>
+                                                                            </h3>
+                                                                            </h3>
+                                                                            <h4 class="product-price">Highest bid:
+                                                                                {{currentPrice}}
+                                                                            </h4>
+                                                                            <h3 class="product-name"><a
+                                                                                    href="/products/detail/{{id}}">Seller:
+                                                                                    {{seller}}</a>
+                                                                            </h3>
+                                                                            <h3 class="product-name"><a
+                                                                                    href="/products/detail/{{id}}">Winner:
+                                                                                    {{winner}}</a>
+                                                                            </h3>
+
+
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <!-- /product -->
+                                                                {{/each}}
+                                                            </div>
+                                                            <div id="other-won-products" class="row">
+                                                                <h1>All won products</h1>
+                                                            </div>
+                                                            {{/if}}
+
+
                                                             {{#each this.productWon}}
                                                             <!-- product -->
                                                             <div class="col-md-4 col-xs-6" style="width: 25%">
@@ -503,44 +558,30 @@
                                                                     <div class="product-img">
                                                                         <img src="/img/product01.png" alt="">
                                                                         <div class="product-label">
-                                                                            <span class="sale">-30%</span>
-
+                                                                            <span class="auctionedLabel">Auction
+                                                                                ended</span>
                                                                         </div>
                                                                     </div>
                                                                     <div class="product-body">
                                                                         <!-- <p class="product-category">Category</p> -->
-                                                                        <p class="product-time-left">{{startDate}}</p>
+                                                                        {{!-- <p class="product-time-left">{{startDate}}</p> --}}
                                                                         <h3 class="product-name"><a
                                                                                 href="/products/detail/{{id}}">{{name}}</a>
                                                                         </h3>
                                                                         </h3>
-                                                                        <h4 class="product-price">{{buynowPrice}} <del
-                                                                                class="product-old-price">{{currentPrice}}</del>
+                                                                        <h4 class="product-price">Highest bid:
+                                                                            {{currentPrice}}
                                                                         </h4>
-                                                                        <div class="product-rating">
-                                                                            <i class="fa fa-star"></i>
-                                                                            <i class="fa fa-star"></i>
-                                                                            <i class="fa fa-star"></i>
-                                                                            <i class="fa fa-star"></i>
-                                                                            <i class="fa fa-star"></i>
-                                                                        </div>
-                                                                        <div class="product-btns">
-                                                                            <button
-                                                                                onclick="addWistListAndLoadUrl({{id}})"
-                                                                                id="{{id}}" class="add-to-wishlist"><i
-                                                                                    style="color:#D10024"
-                                                                                    id="{{id}}-heart"
-                                                                                    class="fa fa-heart"
-                                                                                    aria-hidden="true"></i><span
-                                                                                    class="tooltipp">add to
-                                                                                    wishlist</span></button>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="add-to-cart">
-                                                                        <button class="add-to-cart-btn"><i
-                                                                                class="fa fa-shopping-cart"></i><a
-                                                                                href="/products/detail/{{id}}">BID
-                                                                                NOW</a></button>
+                                                                        <h3 class="product-name"><a
+                                                                                href="/products/detail/{{id}}">Seller:
+                                                                                {{seller}}</a>
+                                                                        </h3>
+                                                                        <h3 class="product-name"><a
+                                                                                href="/products/detail/{{id}}">Winner:
+                                                                                {{winner}}</a>
+                                                                        </h3>
+
+
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -560,7 +601,7 @@
 
                                                 <!-- Auctioned off tabbbbbbbbbbbb  -->
                                                 <a href="auctioned_off_tab" class="accordion-link">Auctioned off
-                                                        Products</a>
+                                                    Products</a>
                                                 <div class="tab-pane" id="auctioned_off_tab">
                                                     <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
                                                         <div class="" id="tag-div" style="padding:10px 15px;">
@@ -569,6 +610,38 @@
                                                             <!-- product listing block -->
                                                             <!-- not subscription product -->
                                                             <!-- product grid for medium and large device 4*3 and small device 12*1 -->
+
+                                                            {{#each this.listAuctionedForYou}}
+                                                            <!-- product -->
+                                                            <div class="col-md-4 col-xs-6" style="width: 25%">
+                                                                <div class="product">
+                                                                    <div class="product-img">
+                                                                        <img src="/img/product01.png" alt="">
+                                                                        <div class="product-label">
+                                                                            <span class="auctionedLabel">Auction
+                                                                                ended</span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="product-body">
+                                                                        <!-- <p class="product-category">Category</p> -->
+                                                                        {{!-- <p class="product-time-left">{{startDate}}</p> --}}
+                                                                        <h3 class="product-name"><a
+                                                                                href="/products/detail/{{id}}">{{name}}</a>
+                                                                        </h3>
+                                                                        </h3>
+                                                                        <h4 class="product-price">Highest bid:
+                                                                            {{currentPrice}}
+                                                                        </h4>
+
+
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- /product -->
+                                                            {{/each}}
+
+
                                                             {{#each this.productAutioned}}
                                                             <!-- product -->
                                                             <div class="col-md-4 col-xs-6" style="width: 25%">
@@ -576,44 +649,29 @@
                                                                     <div class="product-img">
                                                                         <img src="/img/product01.png" alt="">
                                                                         <div class="product-label">
-                                                                            <span class="sale">-30%</span>
-
+                                                                            <span class="auctionedLabel">Auction
+                                                                                ended</span>
                                                                         </div>
                                                                     </div>
                                                                     <div class="product-body">
                                                                         <!-- <p class="product-category">Category</p> -->
-                                                                        <p class="product-time-left">{{startDate}}</p>
+                                                                        {{!-- <p class="product-time-left">{{startDate}}</p> --}}
                                                                         <h3 class="product-name"><a
                                                                                 href="/products/detail/{{id}}">{{name}}</a>
                                                                         </h3>
                                                                         </h3>
-                                                                        <h4 class="product-price">{{buynowPrice}} <del
-                                                                                class="product-old-price">{{currentPrice}}</del>
+                                                                        <h4 class="product-price">Highest bid:
+                                                                            {{currentPrice}}
                                                                         </h4>
-                                                                        <div class="product-rating">
-                                                                            <i class="fa fa-star"></i>
-                                                                            <i class="fa fa-star"></i>
-                                                                            <i class="fa fa-star"></i>
-                                                                            <i class="fa fa-star"></i>
-                                                                            <i class="fa fa-star"></i>
-                                                                        </div>
-                                                                        <div class="product-btns">
-                                                                            <button
-                                                                                onclick="addWistListAndLoadUrl({{id}})"
-                                                                                id="{{id}}" class="add-to-wishlist"><i
-                                                                                    style="color:#D10024"
-                                                                                    id="{{id}}-heart"
-                                                                                    class="fa fa-heart"
-                                                                                    aria-hidden="true"></i><span
-                                                                                    class="tooltipp">add to
-                                                                                    wishlist</span></button>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="add-to-cart">
-                                                                        <button class="add-to-cart-btn"><i
-                                                                                class="fa fa-shopping-cart"></i><a
-                                                                                href="/products/detail/{{id}}">BID
-                                                                                NOW</a></button>
+                                                                        <h3 class="product-name"><a
+                                                                                href="/products/detail/{{id}}">Seller:
+                                                                                {{seller}}</a>
+                                                                        </h3>
+                                                                        <h3 class="product-name"><a
+                                                                                href="/products/detail/{{id}}">Winner:
+                                                                                {{winner}}</a>
+                                                                        </h3>
+
                                                                     </div>
                                                                 </div>
                                                             </div>

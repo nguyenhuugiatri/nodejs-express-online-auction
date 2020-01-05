@@ -123,10 +123,10 @@ router.get("/detail/:id", async (req, res) => {
  else rows[0].fullname = "Chưa có người đấu giá";
 
 
-  var endDate = moment(rows[0].endDate);
-  var timeleft = moment(endDate.diff(today));
-  var stringTime = helper.convertTimeLeft(timeleft);
-  rows[0].timeLeft = stringTime;
+  var endDate = moment(rows[0].endDate).format("YYYY-MM-DD HH:mm:ss");
+  // var timeleft = moment(endDate.diff(today));
+  // var stringTime = helper.convertTimeLeft(timeleft);
+  rows[0].timeLeft = endDate;
   
   res.render("vwProducts/product", {
     product: rows[0],

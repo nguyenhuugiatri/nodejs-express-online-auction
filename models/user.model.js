@@ -32,16 +32,41 @@ module.exports = {
       `update user  set password = '${hashedPassword}' where id = ${userId}`
     ),
 
-  checkWishList: (idUser,idProduct) => db.load(`select * from watchlist where id_user=${idUser} and id_product=${idProduct}`),
-  addWishList: (idUser,idProduct) => db.load(`insert into watchlist values(${idUser},${idProduct})`),
-  deleteWishList: (idUser,idProduct) => db.load(`delete from watchlist where id_user=${idUser} and id_product=${idProduct}`),
-  getWishListbyID: idUser => db.load(`select * from watchlist as w ,product as p where w.id_user = ${idUser} and w.id_product=p.id `),
-  getWishListbyID_Name: (idUser,name) => db.load(`select * from watchlist as w ,product as p where w.id_user = ${idUser} and w.id_product=p.id and name like '%${name}%'`),
-  getListProductOfSeller: idSeller => db.load(`select * from product where id_seller= ${idSeller} and auctioned=0`),
-  getListProductOfBidding: idBidder => db.load(`select * from product where id_bidder= ${idBidder} and auctioned=0`),
-  getListProductOfWon: idBidder => db.load(`select * from product where id_bidder= ${idBidder} and auctioned=1`),
-  getListProductAuctioned: idSeller => db.load(`select * from product where id_seller= ${idSeller} and auctioned=1`),
-  
+  checkWishList: (idUser, idProduct) =>
+    db.load(
+      `select * from watchlist where id_user=${idUser} and id_product=${idProduct}`
+    ),
+  addWishList: (idUser, idProduct) =>
+    db.load(`insert into watchlist values(${idUser},${idProduct})`),
+  deleteWishList: (idUser, idProduct) =>
+    db.load(
+      `delete from watchlist where id_user=${idUser} and id_product=${idProduct}`
+    ),
+  getWishListbyID: idUser =>
+    db.load(
+      `select * from watchlist as w ,product as p where w.id_user = ${idUser} and w.id_product=p.id `
+    ),
+  getWishListbyID_Name: (idUser, name) =>
+    db.load(
+      `select * from watchlist as w ,product as p where w.id_user = ${idUser} and w.id_product=p.id and name like '%${name}%'`
+    ),
+  getListProductOfSeller: idSeller =>
+    db.load(
+      `select * from product where id_seller= ${idSeller} and auctioned=0`
+    ),
+  getListProductOfBidding: idBidder =>
+    db.load(
+      `select * from product where id_bidder= ${idBidder} and auctioned=0`
+    ),
+  getListProductOfWon: idBidder =>
+    db.load(
+      `select * from product where id_bidder= ${idBidder} and auctioned=1`
+    ),
+  getListProductAuctioned: idSeller =>
+    db.load(
+      `select * from product where id_seller= ${idSeller} and auctioned=1`
+    ),
+
   singleByID: id => db.load(`select * from user where id = ${id}`), //////// làm sao thay thế cho #each trong profile và edit và changePassword
   singleRowByID: async id => {
     const rows = await db.load(`select * from user where id = '${id}'`);
@@ -76,6 +101,9 @@ module.exports = {
     if (rows.length === 0) return null;
     return rows[0];
   },
-  
-  del: id => db.load(`update user set status = 0 where id = ${id}`)
+
+  del: id => db.load(`update user set status = 0 where id = ${id}`),
+  cancelRequest: id => db.load(`update user set request = 0 where id = ${id}`),
+  confirmRequest: id =>
+    db.load(`update user set request = 0 , permission = 1 where id = ${id}`)
 };

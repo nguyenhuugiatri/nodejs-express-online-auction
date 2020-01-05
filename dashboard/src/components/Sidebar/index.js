@@ -7,7 +7,7 @@ class Sidebar extends Component {
     return (
       <div className="d-flex" id="wrapper">
         <div className="bg-light border-right" id="sidebar-wrapper">
-          <div className="sidebar-heading">Auction Dashboard</div>
+          <div className="sidebar-heading"><Link className="sidebar__heading" to="/">Auction Dashboard</Link></div>
           <div className="list-group list-group-flush">
             <Link
               className="list-group-item list-group-item-action bg-light"

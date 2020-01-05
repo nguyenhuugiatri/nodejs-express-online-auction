@@ -35,7 +35,7 @@ class Users extends Component {
               <th>Phone Number</th>
               <th>Date Of Birth</th>
               <th>Type</th>
-              <th>Active</th>
+              <th>Request</th>
               <th>Edit / Delete</th>
             </tr>
           </thead>

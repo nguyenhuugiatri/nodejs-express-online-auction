@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import * as action from "./../redux/action/index";
-import './styles.scss'
-import moment from 'moment'
+import "./styles.scss";
+import moment from "moment";
 
 class UserItem extends Component {
   render() {
@@ -13,23 +13,39 @@ class UserItem extends Component {
         <td className="column-password overflow-auto">{user.username}</td>
         <td className="column-password overflow-auto">{user.password}</td>
         <td className="column-password overflow-auto">{user.fullname}</td>
-        <td className="column-password overflow-auto">{user.gender == 1 ? "Male" : "Female"}</td>
+        <td className="column-password overflow-auto">
+          {user.gender == 1 ? "Male" : "Female"}
+        </td>
         <td className="column-password overflow-auto">{user.email}</td>
         <td className="column-password overflow-auto">{user.phone}</td>
-        <td className="column-password overflow-auto">{moment(user.dob).format("YYYY-MM-DD")}</td>
-        <td className="column-password overflow-auto">{user.permission == 0 ? "Bidder" : "Seller"}</td>
-        <td>
-          {(user.active == 0) && (
-            <select className="custom-select">
-                <option value="0" defaultValue>Inactive</option>
-                <option value="1">Active</option>
-            </select>
-          )}
-          {(user.active == 1) && (
-            <select className="custom-select">
-                <option value="1" defaultValue>Active</option>
-                <option value="0">Inactive</option>
-            </select>
+        <td className="column-password overflow-auto">
+          {moment(user.dob).format("YYYY-MM-DD")}
+        </td>
+        <td className="column-password overflow-auto">
+          {user.permission == 0 ? "Bidder" : "Seller"}
+        </td>
+        <td className="column-password overflow-auto">
+          {user.request == 0 ? (
+            "None"
+          ) : (
+            <>
+              <button
+                className="btn btn-outline-success mr-1"
+                onClick={() => {
+                  this.props.onConfirmRequest(user.id);
+                }}
+              >
+                Confirm
+              </button>
+              <button
+                className="btn btn-outline-danger"
+                onClick={() => {
+                  this.props.onCancelRequest(user.id);
+                }}
+              >
+                Cancel
+              </button>
+            </>
           )}
         </td>
         <td>
@@ -62,9 +78,14 @@ const mapDispatchToProps = dispatch => {
     onDelete: id => {
       dispatch(action.actOnDelete(id));
     },
-
     onEdit: user => {
       dispatch(action.actOnEdit(user));
+    },
+    onConfirmRequest: id => {
+      dispatch(action.actOnConfirmRequest(id));
+    },
+    onCancelRequest: id => {
+      dispatch(action.actOnCancelRequest(id));
     }
   };
 };

@@ -4,8 +4,8 @@
  Source Server         : auction
  Source Server Type    : MySQL
  Source Server Version : 80018
- Source Host           : localhost:3306
- Source Schema         : db
+ Source Host           : 127.0.0.1:3306
+ Source Schema         : DB
 
  Target Server Type    : MySQL
  Target Server Version : 80018
@@ -21,39 +21,43 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- Table structure for admin
 -- ----------------------------
 DROP TABLE IF EXISTS `admin`;
-CREATE TABLE `admin`  (
+CREATE TABLE `admin` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `email` varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `phone` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `name` varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `email` varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `phone` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `username` varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `password` varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `password` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   PRIMARY KEY (`id`) USING BTREE,
-  UNIQUE INDEX `username_UNIQUE`(`username`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+  UNIQUE KEY `username_UNIQUE` (`username`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of admin
 -- ----------------------------
-INSERT INTO `admin` VALUES (1, 'lem', 'nguyenhuugiatri@gmail.com', '0964351101', 'lemdeptrai', 'lemquadeptrai');
+BEGIN;
+INSERT INTO `admin` VALUES (1, 'lem', 'nguyenhuugiatri@gmail.com', '0964351101', 'lemdeptry', '$2a$10$VdYEIX7Jq/cOvw1mJfF2MOJIfMGacz1r1eC0A0fVqGHTo3sZoJ0tG');
+COMMIT;
 
 -- ----------------------------
 -- Table structure for ban
 -- ----------------------------
 DROP TABLE IF EXISTS `ban`;
-CREATE TABLE `ban`  (
+CREATE TABLE `ban` (
   `id_product` int(11) NOT NULL,
   `id_user` int(11) NOT NULL,
-  PRIMARY KEY (`id_product`, `id_user`) USING BTREE,
-  INDEX `fk_ban_user`(`id_user`) USING BTREE,
+  PRIMARY KEY (`id_product`,`id_user`) USING BTREE,
+  KEY `fk_ban_user` (`id_user`) USING BTREE,
   CONSTRAINT `fk_ban_product` FOREIGN KEY (`id_product`) REFERENCES `product` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `fk_ban_user` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of ban
 -- ----------------------------
+BEGIN;
 INSERT INTO `ban` VALUES (4, 1);
+COMMIT;
 
 -- ----------------------------
 -- Table structure for biddinglist
@@ -86,34 +90,37 @@ INSERT INTO `biddinglist` VALUES (6, '2020-01-03 15:40:34', 20000, 10);
 -- Table structure for category
 -- ----------------------------
 DROP TABLE IF EXISTS `category`;
-CREATE TABLE `category`  (
+CREATE TABLE `category` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `name` varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of category
 -- ----------------------------
+BEGIN;
 INSERT INTO `category` VALUES (1, 'Laptop');
 INSERT INTO `category` VALUES (2, 'Smartphone');
 INSERT INTO `category` VALUES (3, 'Tablet');
+COMMIT;
 
 -- ----------------------------
 -- Table structure for image
 -- ----------------------------
 DROP TABLE IF EXISTS `image`;
-CREATE TABLE `image`  (
+CREATE TABLE `image` (
   `id_product` int(11) NOT NULL,
   `src` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  PRIMARY KEY (`id_product`, `src`) USING BTREE,
-  INDEX `fk_image_product_idx`(`id_product`) USING BTREE,
+  PRIMARY KEY (`id_product`,`src`) USING BTREE,
+  KEY `fk_image_product_idx` (`id_product`) USING BTREE,
   CONSTRAINT `fk_image_product` FOREIGN KEY (`id_product`) REFERENCES `product` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of image
 -- ----------------------------
+BEGIN;
 INSERT INTO `image` VALUES (1, 'sr1_1');
 INSERT INTO `image` VALUES (1, 'sr1_2');
 INSERT INTO `image` VALUES (1, 'sr1_3');
@@ -144,46 +151,48 @@ INSERT INTO `image` VALUES (56, '/uploads/1/2020-01-02 08:38:44-2.jpeg');
 INSERT INTO `image` VALUES (57, '/uploads/1/2020-01-02 08:38:44-1.jpeg');
 INSERT INTO `image` VALUES (57, '/uploads/1/2020-01-02 08:38:44-2.jpeg');
 INSERT INTO `image` VALUES (57, '/uploads/1/2020-01-02 08:42:41-2.jpeg');
+COMMIT;
 
 -- ----------------------------
 -- Table structure for parameter
 -- ----------------------------
 DROP TABLE IF EXISTS `parameter`;
-CREATE TABLE `parameter`  (
-  `sell_product_cost` int(11) NULL DEFAULT NULL,
+CREATE TABLE `parameter` (
+  `sell_product_cost` int(11) DEFAULT NULL,
   `id` int(11) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Table structure for product
 -- ----------------------------
 DROP TABLE IF EXISTS `product`;
-CREATE TABLE `product`  (
+CREATE TABLE `product` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(5000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `name` varchar(5000) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `category` int(11) NOT NULL,
-  `id_seller` int(11) NULL DEFAULT NULL,
-  `id_bidder` int(11) NULL DEFAULT NULL,
-  `bidStep` int(11) NULL DEFAULT NULL,
+  `id_seller` int(11) DEFAULT NULL,
+  `id_bidder` int(11) DEFAULT NULL,
+  `bidStep` int(11) DEFAULT NULL,
   `currentPrice` int(11) NOT NULL,
-  `buynowPrice` int(11) NULL DEFAULT NULL,
-  `startDate` datetime(0) NOT NULL,
-  `endDate` datetime(0) NOT NULL,
-  `details` varchar(5000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `auctioned` int(11) NULL DEFAULT 0,
+  `buynowPrice` int(11) DEFAULT NULL,
+  `startDate` datetime NOT NULL,
+  `endDate` datetime NOT NULL,
+  `details` varchar(5000) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `auctioned` int(11) DEFAULT '0',
   PRIMARY KEY (`id`) USING BTREE,
-  INDEX `fk_product_category_idx`(`category`) USING BTREE,
-  INDEX `fk_product_bidder_idx`(`id_bidder`) USING BTREE,
-  INDEX `fk_product_seller`(`id_seller`) USING BTREE,
+  KEY `fk_product_category_idx` (`category`) USING BTREE,
+  KEY `fk_product_bidder_idx` (`id_bidder`) USING BTREE,
+  KEY `fk_product_seller` (`id_seller`) USING BTREE,
   CONSTRAINT `fk_product_bidder` FOREIGN KEY (`id_bidder`) REFERENCES `user` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `fk_product_category` FOREIGN KEY (`category`) REFERENCES `category` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `fk_product_seller` FOREIGN KEY (`id_seller`) REFERENCES `user` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 58 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE=InnoDB AUTO_INCREMENT=58 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of product
 -- ----------------------------
+BEGIN;
 INSERT INTO `product` VALUES (1, 'Acer Nitro 5', 1, 1, 2, 1000, 10000, 20000, '2020-01-01 22:05:21', '2020-01-14 22:05:24', 'LAPTOP vip', 0);
 INSERT INTO `product` VALUES (2, 'Macbook Pro 2019', 1, 3, 4, 1000, 15000, 20000, '2020-01-01 22:06:26', '2020-01-15 22:06:29', 'LAPTOP cùi', 0);
 INSERT INTO `product` VALUES (3, 'Asus ROG', 1, 2, 1, 1000, 10000, 20000, '2020-01-01 22:07:23', '2020-01-14 22:07:26', 'LAPTOP vip', 0);
@@ -199,16 +208,17 @@ INSERT INTO `product` VALUES (53, 'xiaomi poco2', 2, 1, NULL, 123, 123, 321, '20
 INSERT INTO `product` VALUES (55, 'xiaomi poco2', 2, 1, NULL, 123, 123, 321, '2020-01-02 07:42:42', '2020-12-12 11:11:00', NULL, 0);
 INSERT INTO `product` VALUES (56, 'xiaomi poco', 2, 1, NULL, 2, 12, 15, '2020-01-02 08:38:44', '2021-12-01 12:01:00', NULL, 0);
 INSERT INTO `product` VALUES (57, 'xiaomi poco', 2, 1, NULL, 2, 12, 15, '2020-01-02 08:42:41', '2021-12-01 12:01:00', '<p style=\"text-align: right;\">asdasdasdasdasdasdas</p>\r\n<div id=\"eJOY__extension_root\" style=\"all: unset;\">&nbsp;</div>', 0);
+COMMIT;
 
 -- ----------------------------
 -- Table structure for review
 -- ----------------------------
 DROP TABLE IF EXISTS `review`;
-CREATE TABLE `review`  (
+CREATE TABLE `review` (
   `id_user` int(11) NOT NULL,
-  `review` varchar(1000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `status` int(11) NULL DEFAULT NULL,
-  `time` datetime(0) NULL DEFAULT NULL,
+  `review` varchar(1000) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `status` int(11) DEFAULT NULL,
+  `time` datetime DEFAULT NULL,
   `reviewer` int(11) NOT NULL,
   `id_product` int(11) NOT NULL,
   `marks` int(1) NULL DEFAULT NULL,
@@ -223,6 +233,7 @@ CREATE TABLE `review`  (
 -- ----------------------------
 -- Records of review
 -- ----------------------------
+BEGIN;
 INSERT INTO `review` VALUES (1, 'Người bán ngu vl', 0, '2020-01-02 00:27:41', 2, 1, 1);
 INSERT INTO `review` VALUES (2, 'a', 0, '2020-01-15 23:40:53', 1, 2, 0);
 INSERT INTO `review` VALUES (2, 'Lừa đảo', NULL, NULL, 3, 3, 0);
@@ -230,25 +241,26 @@ INSERT INTO `review` VALUES (7, 'đồ ngon', NULL, NULL, 1, 4, 1);
 INSERT INTO `review` VALUES (7, 'xịn', NULL, NULL, 2, 5, 1);
 INSERT INTO `review` VALUES (7, 'oke', NULL, NULL, 5, 6, 1);
 INSERT INTO `review` VALUES (7, 'haizz', NULL, NULL, 6, 7, 0);
+COMMIT;
 
 -- ----------------------------
 -- Table structure for user
 -- ----------------------------
 DROP TABLE IF EXISTS `user`;
-CREATE TABLE `user`  (
+CREATE TABLE `user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `status` bit(1) NULL DEFAULT NULL,
+  `status` bit(1) DEFAULT b'1',
   `fullname` varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `phone` varchar(11) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `phone` varchar(11) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `email` varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `dob` datetime(0) NULL DEFAULT NULL,
+  `dob` datetime DEFAULT NULL,
   `username` varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `password` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `gender` bit(1) NOT NULL,
-  `permission` int(1) NOT NULL DEFAULT 0,
+  `permission` int(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`) USING BTREE,
-  UNIQUE INDEX `username_UNIQUE`(`username`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+  UNIQUE KEY `username_UNIQUE` (`username`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of user
@@ -268,19 +280,20 @@ INSERT INTO `user` VALUES (10, b'1', 'Thai Anh', NULL, '1223@gmail.com', NULL, '
 -- Table structure for watchlist
 -- ----------------------------
 DROP TABLE IF EXISTS `watchlist`;
-CREATE TABLE `watchlist`  (
+CREATE TABLE `watchlist` (
   `id_user` int(11) NOT NULL,
   `id_product` int(11) NOT NULL,
-  PRIMARY KEY (`id_user`, `id_product`) USING BTREE,
-  INDEX `fk_watchList_product_idx`(`id_product`) USING BTREE,
-  INDEX `fk_watchlist_user`(`id_user`) USING BTREE,
+  PRIMARY KEY (`id_user`,`id_product`) USING BTREE,
+  KEY `fk_watchList_product_idx` (`id_product`) USING BTREE,
+  KEY `fk_watchlist_user` (`id_user`) USING BTREE,
   CONSTRAINT `fk_watchlist_product` FOREIGN KEY (`id_product`) REFERENCES `product` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `fk_watchlist_user` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of watchlist
 -- ----------------------------
+BEGIN;
 INSERT INTO `watchlist` VALUES (1, 1);
 INSERT INTO `watchlist` VALUES (2, 1);
 INSERT INTO `watchlist` VALUES (3, 2);

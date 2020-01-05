@@ -83,9 +83,7 @@
               <i class="fa fa-star"></i>
               <i class="fa fa-star-o"></i>
             </div>
-            <a class="review-link" href="#"
-              >10 Review(s) | Add your review</a
-            >
+            <a class="review-link" href="#">10 Review(s) | Add your review</a>
           </div>
           <!-- <h3 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h3> -->
           <div class="product-price-group">
@@ -139,7 +137,9 @@
 
           <ul class="product-btns">
             <li>
-              <a href="#" onclick="addWistList({{idProduct}})">{{#if this.product.like}}<i style= "color:#D10024" name="{{idProduct}}-heart" class="fa fa-heart" aria-hidden="true"></i>{{else}}<i style= "color:#ddd"name="{{idProduct}}-heart" class="fa fa-heart" aria-hidden="true"></i>{{/if}} Wish List</a>
+              <a href="#" onclick="addWistList({{idProduct}})">{{#if this.product.like}}<i style="color:#D10024"
+                  name="{{idProduct}}-heart" class="fa fa-heart" aria-hidden="true"></i>{{else}}<i style="color:#ddd"
+                  name="{{idProduct}}-heart" class="fa fa-heart" aria-hidden="true"></i>{{/if}} Wish List</a>
             </li>
             <!-- <li>
               <a href="#"><i class="fa fa-exchange"></i> add to compare</a>
@@ -191,8 +191,11 @@
             <div id="tab1" class="tab-pane fade in active">
               <div class="row">
                 <div class="col-md-12">
-                  <table border="1" class="info-seller-table">
-                    <tr>
+                  <div class="panel panel-default" style="margin: 0 100px;">
+                    <!-- Default panel contents -->
+                    <!-- Table -->
+                    <table class="table">
+                      <tr>
                       <th>Thời điểm</th>
                       <th>Người mua</th>
                       <th>Giá</th>
@@ -202,17 +205,8 @@
                       <td>****Anh</td>
                       <td>11,000,000</td>
                     </tr>
-                    <tr>
-                        <td>1/11/2019 10:43</td>
-                        <td>****Khoa</td>
-                        <td>9,000,000</td>
-                      </tr>
-                      <tr>
-                          <td>1/11/2019 10:43</td>
-                          <td>****Vy</td>
-                          <td>3,000,000</td>
-                        </tr>
-                  </table>
+                    </table>
+                  </div>
                 </div>
               </div>
             </div>
@@ -424,53 +418,17 @@
                 <div class="col-md-3">
                   <div id="review-form">
                     <form class="review-form">
-                      <input
-                        class="input"
-                        type="text"
-                        placeholder="Your Name"
-                      />
-                      <input
-                        class="input"
-                        type="email"
-                        placeholder="Your Email"
-                      />
-                      <textarea
-                        class="input"
-                        placeholder="Your Review"
-                      ></textarea>
+                      <input class="input" type="text" placeholder="Your Name" />
+                      <input class="input" type="email" placeholder="Your Email" />
+                      <textarea class="input" placeholder="Your Review"></textarea>
                       <div class="input-rating">
                         <span>Your Rating: </span>
                         <div class="stars">
-                          <input
-                            id="star5"
-                            name="rating"
-                            value="5"
-                            type="radio"
-                          /><label for="star5"></label>
-                          <input
-                            id="star4"
-                            name="rating"
-                            value="4"
-                            type="radio"
-                          /><label for="star4"></label>
-                          <input
-                            id="star3"
-                            name="rating"
-                            value="3"
-                            type="radio"
-                          /><label for="star3"></label>
-                          <input
-                            id="star2"
-                            name="rating"
-                            value="2"
-                            type="radio"
-                          /><label for="star2"></label>
-                          <input
-                            id="star1"
-                            name="rating"
-                            value="1"
-                            type="radio"
-                          /><label for="star1"></label>
+                          <input id="star5" name="rating" value="5" type="radio" /><label for="star5"></label>
+                          <input id="star4" name="rating" value="4" type="radio" /><label for="star4"></label>
+                          <input id="star3" name="rating" value="3" type="radio" /><label for="star3"></label>
+                          <input id="star2" name="rating" value="2" type="radio" /><label for="star2"></label>
+                          <input id="star1" name="rating" value="1" type="radio" /><label for="star1"></label>
                         </div>
                       </div>
                       <button class="primary-btn">Submit</button>
@@ -525,16 +483,13 @@
             <div class="product-rating"></div>
             <div class="product-btns">
               <button class="add-to-wishlist">
-                <i class="fa fa-heart-o"></i
-                ><span class="tooltipp">add to wishlist</span>
+                <i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span>
               </button>
               <button class="add-to-compare">
-                <i class="fa fa-exchange"></i
-                ><span class="tooltipp">add to compare</span>
+                <i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span>
               </button>
               <button class="quick-view">
-                <i class="fa fa-eye"></i
-                ><span class="tooltipp">quick view</span>
+                <i class="fa fa-eye"></i><span class="tooltipp">quick view</span>
               </button>
             </div>
           </div>
@@ -573,16 +528,13 @@
             </div>
             <div class="product-btns">
               <button class="add-to-wishlist">
-                <i class="fa fa-heart-o"></i
-                ><span class="tooltipp">add to wishlist</span>
+                <i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span>
               </button>
               <button class="add-to-compare">
-                <i class="fa fa-exchange"></i
-                ><span class="tooltipp">add to compare</span>
+                <i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span>
               </button>
               <button class="quick-view">
-                <i class="fa fa-eye"></i
-                ><span class="tooltipp">quick view</span>
+                <i class="fa fa-eye"></i><span class="tooltipp">quick view</span>
               </button>
             </div>
           </div>
@@ -620,16 +572,13 @@
             </div>
             <div class="product-btns">
               <button class="add-to-wishlist">
-                <i class="fa fa-heart-o"></i
-                ><span class="tooltipp">add to wishlist</span>
+                <i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span>
               </button>
               <button class="add-to-compare">
-                <i class="fa fa-exchange"></i
-                ><span class="tooltipp">add to compare</span>
+                <i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span>
               </button>
               <button class="quick-view">
-                <i class="fa fa-eye"></i
-                ><span class="tooltipp">quick view</span>
+                <i class="fa fa-eye"></i><span class="tooltipp">quick view</span>
               </button>
             </div>
           </div>
@@ -659,16 +608,13 @@
             <div class="product-rating"></div>
             <div class="product-btns">
               <button class="add-to-wishlist">
-                <i class="fa fa-heart-o"></i
-                ><span class="tooltipp">add to wishlist</span>
+                <i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span>
               </button>
               <button class="add-to-compare">
-                <i class="fa fa-exchange"></i
-                ><span class="tooltipp">add to compare</span>
+                <i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span>
               </button>
               <button class="quick-view">
-                <i class="fa fa-eye"></i
-                ><span class="tooltipp">quick view</span>
+                <i class="fa fa-eye"></i><span class="tooltipp">quick view</span>
               </button>
             </div>
           </div>
@@ -686,4 +632,3 @@
   <!-- /container -->
 </div>
 <!-- /Section -->
-

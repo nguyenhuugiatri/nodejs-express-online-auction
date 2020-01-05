@@ -3,6 +3,7 @@ const bcrypt = require("bcryptjs");
 const moment = require("moment");
 const helper = require("./../utils/helper");
 const userModel = require("../models/user.model");
+const productsModel = require("../models/products.model");
 var storeModel = require("../models/store.model");
 const homeModel = require("../models/home.model");
 const restrict = require("../middlewares/auth.mdw");
@@ -71,6 +72,7 @@ router.post("/signup", async (req, res) => {
   entity.password = hash;
   entity.fullname = entity.firstName + " " + entity.lastName;
   entity.gender = parseInt(entity.gender);
+  entity.joindate = moment().format(moment.HTML5_FMT.DATE);
 
   delete entity.repassword;
   delete entity.lastName;
@@ -96,15 +98,31 @@ router.get("/profile/:id", async (req, res) => {
   const listBidding = await userModel.getListProductOfBidding(userId);
   const listNowTake = await userModel.getUserTakeNowProduct(userId);
   const listWon = await userModel.getListProductOfWon(userId);
+  const listAuctioned = await userModel.getListProductAuctioned(userId);
+
+  var listWonFromYou = null;
+  var listAuctionedForYou =null;
+
+  const your = req.session.user;
+  if (your)
+  {
+    yourID = your.id;
+    listWonFromYou = await userModel.getListProductOfWonFromYou(userId, yourID);
+    listAuctionedForYou  = await userModel.getListProductAuctionedForYou(userId, yourID);
+  }
+
 
   // lấy điểm review từ database
-  const number_of_reviews = (await userModel.getNumberOfReviews(userId)).number_of_reviews;
-  const positive_reviews = (await userModel.getNumberOfPositiveReviews(userId)).positive_reviews;
+  const number_of_reviews = (await userModel.getNumberOfReviews(userId))
+    .number_of_reviews;
+  const positive_reviews = (await userModel.getNumberOfPositiveReviews(userId))
+    .positive_reviews;
   var ratingPoint = 0;
-  var ratingDescription = positive_reviews+ "/" + number_of_reviews + " reviews";
+  var ratingDescription =
+    positive_reviews + "/" + number_of_reviews + " reviews";
   // console.log("number_of_reviews" + number_of_reviews);////////
   // console.log("positive_reviews" + positive_reviews);////////
-   if (number_of_reviews === 0){
+  if (number_of_reviews === 0) {
     ratingPoint = 0;
     ratingDescription = "There are no reviews yet";
    } 
@@ -157,13 +175,17 @@ if (s <= 600) {
     profile: row_user,
     ratingPoint: ratingPoint,
     ratingDescription: ratingDescription,
-    productSeller:listSeller,
-    productBidding:listBidding,
-    productWon:listWon,
+    productSeller: listSeller,
+    productBidding: listBidding,
+    productWon: listWon,
+    productAutioned: listAuctioned,
     products: rows,
     empty: rows.length === 0,
     allCategories: category,
-    idUSer: userId
+    idUSer: userId,
+
+    listWonFromYou: listWonFromYou,
+    listAuctionedForYou: listAuctionedForYou
   });
 });
 
@@ -260,24 +282,29 @@ router.get("/profile/:id/search", async (req, res) => {
   const userId = req.params.id;
   console.log(req.query);
   const row_user = await userModel.singleByID(userId);
-  const rows = await userModel.getWishListbyID_Name(userId,req.query.nameproduct);
+  const rows = await userModel.getWishListbyID_Name(
+    userId,
+    req.query.nameproduct
+  );
   const listSeller = await userModel.getListProductOfSeller(userId);
   const listBidding = await userModel.getListProductOfBidding(userId);
   const listNowTake = await userModel.getUserTakeNowProduct(userId);
   const listWon = await userModel.getListProductOfWon(userId);
   const category = await homeModel.getCategories();
-    // lấy điểm review từ database
-    const number_of_reviews = (await userModel.getNumberOfReviews(userId)).number_of_reviews;
-    const positive_reviews = (await userModel.getNumberOfPositiveReviews(userId)).positive_reviews;
-    var ratingPoint = 0;
-    var ratingDescription = positive_reviews+ "/" + number_of_reviews + " reviews";
-    // console.log("number_of_reviews" + number_of_reviews);////////
-    // console.log("positive_reviews" + positive_reviews);////////
-     if (number_of_reviews === 0){
-      ratingPoint = 0;
-      ratingDescription = "There are no reviews yet";
-     } 
-     else ratingPoint = (positive_reviews / number_of_reviews) * 100;
+  // lấy điểm review từ database
+  const number_of_reviews = (await userModel.getNumberOfReviews(userId))
+    .number_of_reviews;
+  const positive_reviews = (await userModel.getNumberOfPositiveReviews(userId))
+    .positive_reviews;
+  var ratingPoint = 0;
+  var ratingDescription =
+    positive_reviews + "/" + number_of_reviews + " reviews";
+  // console.log("number_of_reviews" + number_of_reviews);////////
+  // console.log("positive_reviews" + positive_reviews);////////
+  if (number_of_reviews === 0) {
+    ratingPoint = 0;
+    ratingDescription = "There are no reviews yet";
+  } else ratingPoint = (positive_reviews / number_of_reviews) * 100;
   //console.log(ratingPoint);/////////////////////////////////////////////////////////////
 
   //Check product co dang giu gia khong?
@@ -326,15 +353,13 @@ for (let i = 0; i < listWon.length; i++) {
     ratingPoint: ratingPoint,
     ratingDescription: ratingDescription,
     products: rows,
-    productSeller:listSeller,
-    productBidding:listBidding,
-    productWon:listWon,
+    productSeller: listSeller,
+    productBidding: listBidding,
+    productWon: listWon,
     empty: rows.length === 0,
     allCategories: category,
     idUSer: userId
   });
 });
-
-
 
 module.exports = router;

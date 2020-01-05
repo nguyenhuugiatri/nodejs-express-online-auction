@@ -191,10 +191,6 @@
   color: red;
 }
 
-#msg::after {
-  content: " !";
-}
-
 @-webkit-keyframes hvr-icon-wobble-horizontal {
   16.65% {
     -webkit-transform: translateX(6px);

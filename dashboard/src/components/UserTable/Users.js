@@ -33,9 +33,9 @@ class Users extends Component {
               <th>Gender</th>
               <th>Email</th>
               <th>Phone Number</th>
-              <th>Date Of Birth</th>
+              <th>Join Date</th>
               <th>Type</th>
-              <th>Active</th>
+              <th>Request</th>
               <th>Edit / Delete</th>
             </tr>
           </thead>

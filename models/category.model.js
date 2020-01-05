@@ -13,5 +13,6 @@ module.exports = {
     if (rows.length === 0) return null;
     return rows[0];
   },
-  add: entity => db.add("category", entity)
+  add: entity => db.add("category", entity),
+  update: (entity, id) => db.patch("category", entity, { id: id })
 };

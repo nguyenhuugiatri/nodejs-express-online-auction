@@ -74,9 +74,8 @@ class Modal extends Component {
                     className="form-control"
                     name="name"
                     onChange={this.handleOnChange}
-                    value={this.state.username}
+                    value={this.state.name}
                     required
-                    disabled={this.props.userEdit}
                   />
                 </div>
                 <button type="submit" className="mt-3 btn btn-success">

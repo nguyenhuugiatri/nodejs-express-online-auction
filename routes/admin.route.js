@@ -139,12 +139,24 @@ router.post("/category/add", requireToken, async (req, res, next) => {
     return res.status(403).send({ message: "Category name exists" });
   }
 
-  const entity=req.body;
+  const entity = req.body;
   try {
     await categoryModel.add(entity);
     return res.status(200).send({ message: "Add success" });
   } catch (err) {
     return res.status(403).send({ message: "Add failed" });
+  }
+});
+
+router.post("/category/update", requireToken, async (req, res, next) => {
+  const id = parseInt(req.body.id);
+  const entity = req.body;
+  try {
+    await categoryModel.update(entity, id);
+    return res.status(200).send({ message: "Update success" });
+  } catch (err) {
+    console.log(err);
+    return res.status(403).send({ message: "Update failed" });
   }
 });
 

@@ -208,10 +208,10 @@ const actOnListCategory = categoryList => {
   };
 };
 
-export const actOnEditCategory = user => {
+export const actOnEditCategory = category => {
   return {
     type: ActionType.EDIT_CATEGORY,
-    user
+    category
   };
 };
 

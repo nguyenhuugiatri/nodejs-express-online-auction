@@ -42,7 +42,7 @@ const mapDispatchToProps = dispatch => {
       dispatch(action.actOnDeleteCategory(id));
     },
     onEdit: category => {
-      dispatch(action.actOnEdit(category));
+      dispatch(action.actOnEditCategory(category));
     }
   };
 };

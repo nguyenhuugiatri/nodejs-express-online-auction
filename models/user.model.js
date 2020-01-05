@@ -201,13 +201,9 @@ module.exports = {
     return rows[0];
   },
 
-  // addReview: (productID, userID, reviewerID, content, point, timeNow) =>
-  //   db.load(`INSERT INTO review (id_user, review, reviewer, id_product, marks, time)
-  //   VALUES (${userID}, "${content}", ${reviewerID}, ${productID}, ${point}, ${timeNow} );`),
-
-  addReview: (productID, userID, reviewerID, content, point) =>
-  db.load(`INSERT INTO review (id_user, review, reviewer, id_product, marks)
-  VALUES (${userID}, "${content}", ${reviewerID}, ${productID}, ${point});`),
+  addReview: (productID, userID, reviewerID, content, point, timeNow) =>
+  db.load(`INSERT INTO review (id_user, review, reviewer, id_product, marks, time)
+  VALUES (${userID}, "${content}", ${reviewerID}, ${productID}, ${point}, "${timeNow}");`),
 
   del: id => db.load(`update user set status = 0 where id = ${id}`),
   cancelRequest: id => db.load(`update user set request = 0 where id = ${id}`),

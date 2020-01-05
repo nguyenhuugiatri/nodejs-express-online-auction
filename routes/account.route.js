@@ -425,10 +425,11 @@ router.get("/sendReviewByWinner", async (req, res) => {
     const point = req.query.point;
     const reviewerID = req.session.user.id;
     const userID = (await userModel.getIDSeller(productID)).id_seller;
+    const timeNow = moment().format("YYYY-MM-DD hh:mm:ss");
 
-    const addReview = await userModel.addReview(productID, userID, reviewerID, content, point);
+    const addReview = await userModel.addReview(productID, userID, reviewerID, content, point, timeNow);
 
-    const daXuli = "Bạn đã +" + point + " cho sản phẩm " + productID + " với nội dung: " + content;
+    const daXuli = "You +" + point + " point for this auction (" + productID + ") with description: " + content;
     return res.send(daXuli);
   } catch (err) {
     console.log(err);
@@ -442,11 +443,11 @@ router.get("/sendReviewBySeller", async (req, res) => {
     const point = req.query.point;
     const reviewerID = req.session.user.id;
     const userID = (await userModel.getIDWinner(productID)).id_bidder;
-    // const timeNow = moment();
+    const timeNow = moment().format("YYYY-MM-DD hh:mm:ss");
 
-    const addReview = await userModel.addReview(productID, userID, reviewerID, content, point); /// timeNow
+    const addReview = await userModel.addReview(productID, userID, reviewerID, content, point, timeNow);
 
-    const daXuli = "Bạn đã +" + point + " cho sản phẩm " + productID + " với nội dung: " + content;
+    const daXuli = "You +" + point + " point for this auction (" + productID + ") with description: " + content;
     return res.send(daXuli);
   } catch (err) {
     console.log(err);

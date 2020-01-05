@@ -19,7 +19,7 @@ class UserItem extends Component {
         <td className="column-password overflow-auto">{user.email}</td>
         <td className="column-password overflow-auto">{user.phone}</td>
         <td className="column-password overflow-auto">
-          {moment(user.dob).format("YYYY-MM-DD")}
+          {moment(user.joindate).format("YYYY-MM-DD")}
         </td>
         <td className="column-password overflow-auto">
           {user.permission == 0 ? "Bidder" : "Seller"}

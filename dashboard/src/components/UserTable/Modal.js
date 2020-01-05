@@ -92,7 +92,7 @@ class Modal extends Component {
                   />
                 </div>
                 <div className="form-group">
-                  <label>Name</label>
+                  <label>Full Name</label>
                   <input
                     type="text"
                     className="form-control"

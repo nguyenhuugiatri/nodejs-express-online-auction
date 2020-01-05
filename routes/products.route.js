@@ -10,17 +10,22 @@ const homeModel = require("../models/home.model");
 var storeModel = require("../models/store.model");
 const helper = require("./../utils/helper");
 const requireLogin = require("./../middlewares/auth.mdw");
+const path = require("path");
 
-const id_seller = 1;
 let imageArr = [];
 
 const storage = multer.diskStorage({
   //Nơi lưu
   destination: (req, file, cb) => {
-    const path = `public/uploads/${id_seller}`;
+    let destination = path.join("public", "uploads");
     //Nếu chưa có thì tạo
-    if (!fs.existsSync(path)) fs.mkdirSync(path);
-    cb(null, path);
+    if (req.session && req.session.user && req.session.user.id) {
+      destination = path.join(destination, String(req.session.user.id));
+    } else {
+      destination = path.join(destination, "files");
+    }
+    if (!fs.existsSync(destination)) fs.mkdirSync(destination);
+    cb(null, destination);
   },
   //Tên file
   filename: async (req, file, cb) => {
@@ -57,8 +62,9 @@ router.post(
   requireLogin,
   uploadImage.array("file"),
   async (req, res, next) => {
+    const id=req.session.user.id;
     const entity = req.body;
-    entity.id_seller = id_seller;
+    entity.id_seller = id;
     entity.startDate = moment().format("YYYY-MM-DD hh:mm:ss");
     entity.endDate = moment(entity.endDate).format("YYYY-MM-DD hh:mm:ss");
     try {
@@ -66,12 +72,12 @@ router.post(
       const currentProductId = await productModel.getCurrentProductId();
       imageArr.map(async image => {
         await imageModel.add({
-          id_product: currentProductId[0]["max(id)"],
-          src: `/uploads/${id_seller}/${image}`
+          id_product: currentProductId,
+          src: `/uploads/${id}/${image}`
         });
       });
       imageArr = [];
-      res.redirect("/products/detail/1");
+      res.redirect(`/products/detail/${currentProductId}`);
     } catch (err) {
       console.log(err);
     }
@@ -85,28 +91,26 @@ router.get("/detail/:id", async (req, res) => {
   const category = await homeModel.getCategories();
   const today = moment();
   var idUser = -1;
-  if (req.session.user)
-  {
+  if (req.session.user) {
     idUser = req.session.user.id;
   }
- const wishList = await storeModel.getWishListbyId(idUser);
- // console.log(helper(2,wishList));
- 
-   var timeStart = moment(rows[0].startDate);
-   var s = today.diff(timeStart, "seconds");
-   if (s <= 600) {
-     rows[0].new = true;
-   }
-   for (let j = 0; j < wishList.length; j++) {
-     if (helper.check(proId, wishList)) 
-          { 
-            rows[0].like = true;
-          }
-   }
-   
+  const wishList = await storeModel.getWishListbyId(idUser);
+  // console.log(helper(2,wishList));
+
+  var timeStart = moment(rows[0].startDate);
+  var s = today.diff(timeStart, "seconds");
+  if (s <= 600) {
+    rows[0].new = true;
+  }
+  for (let j = 0; j < wishList.length; j++) {
+    if (helper.check(proId, wishList)) {
+      rows[0].like = true;
+    }
+  }
+
   res.render("vwProducts/product", {
     product: rows[0],
-    idProduct : proId,
+    idProduct: proId,
     sellerName: nameSeller[0],
     allCategories: category
   });

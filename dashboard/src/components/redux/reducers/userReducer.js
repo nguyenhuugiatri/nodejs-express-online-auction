@@ -1,9 +1,9 @@
 import * as ActionType from "./../constants/ActionType";
 
 let initState = {
-  userList: [ ],
+  userList: [],
   userEdit: null,
-  keyword: ""
+  keyword: "",
 };
 
 const userReducer = (state = initState, action) => {
@@ -12,16 +12,6 @@ const userReducer = (state = initState, action) => {
       state.userList=action.userList;
       return { ...state };
     case ActionType.DELETE_USER:
-      let userList = [...state.userList];
-
-      let index = userList.findIndex(item => {
-        return item.id === action.id;
-      });
-
-      userList.splice(index, 1);
-
-      state.userList = userList;
-
       return { ...state };
     case ActionType.SAVE_USER:
       if (action.user.id) {

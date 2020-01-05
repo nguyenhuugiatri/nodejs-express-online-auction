@@ -4,9 +4,77 @@ import Swal from "sweetalert2";
 import { navigate } from "@reach/router";
 
 export const actOnDelete = id => {
-  return {
-    type: ActionType.DELETE_USER,
-    id
+  return dispatch => {
+    let token = JSON.parse(sessionStorage.getItem("user")).token;
+    axios({
+      headers: {
+        Authorization: `Bearer ${token}`
+      },
+      method: "GET",
+      url: `http://localhost:3000/admin/user/delete?id=${id}`
+    })
+      .then(result => {
+        dispatch(actOnListUserAPI());
+      })
+      .catch(err => {
+        Swal.fire({
+          title: "Error",
+          text: err.message,
+          icon: "error",
+          confirmButtonText: "OK"
+        });
+        console.log(err.message);
+      });
+  };
+};
+
+export const actOnConfirmRequest = id => {
+  return dispatch => {
+    let token = JSON.parse(sessionStorage.getItem("user")).token;
+    axios({
+      headers: {
+        Authorization: `Bearer ${token}`
+      },
+      method: "GET",
+      url: `http://localhost:3000/admin/user/confirm-request?id=${id}`
+    })
+      .then(result => {
+        dispatch(actOnListUserAPI());
+      })
+      .catch(err => {
+        Swal.fire({
+          title: "Error",
+          text: err.message,
+          icon: "error",
+          confirmButtonText: "OK"
+        });
+        console.log(err.message);
+      });
+  };
+};
+
+export const actOnCancelRequest = id => {
+  return dispatch => {
+    let token = JSON.parse(sessionStorage.getItem("user")).token;
+    axios({
+      headers: {
+        Authorization: `Bearer ${token}`
+      },
+      method: "GET",
+      url: `http://localhost:3000/admin/user/cancel-request?id=${id}`
+    })
+      .then(result => {
+        dispatch(actOnListUserAPI());
+      })
+      .catch(err => {
+        Swal.fire({
+          title: "Error",
+          text: err.message,
+          icon: "error",
+          confirmButtonText: "OK"
+        });
+        console.log(err.message);
+      });
   };
 };
 
@@ -38,6 +106,14 @@ const actOnListUser = userList => {
   };
 };
 
+export const actLogout = () => {
+  return dispatch => {
+    sessionStorage.removeItem("user");
+    navigate("/", { replace: true });
+    window.location.reload();
+  };
+};
+
 export const actOnListUserAPI = () => {
   return dispatch => {
     let token = JSON.parse(sessionStorage.getItem("user")).token;
@@ -49,11 +125,16 @@ export const actOnListUserAPI = () => {
       url: "http://localhost:3000/admin/user/list"
     })
       .then(result => {
-        console.log(result);
         dispatch(actOnListUser(result.data));
       })
       .catch(err => {
-        console.log(err);
+        Swal.fire({
+          title: "Error",
+          text: err.message,
+          icon: "error",
+          confirmButtonText: "OK"
+        });
+        console.log(err.message);
       });
   };
 };

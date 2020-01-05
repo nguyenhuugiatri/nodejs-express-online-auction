@@ -16,7 +16,7 @@ module.exports = {
     if (rows.length === 0) return null;
     return rows[0]["max(id)"];
   },
-
+  getListHistoryProduct: id => db.load(`select * from biddinglist as b , user as u where b.id_user= u.id and b.id_product=${id}`),
   getAuctioningProductsBySellerID: idSeller =>
     db.load(
       `select * from product where id_seller = ${idSeller} and auctioned = 0;`

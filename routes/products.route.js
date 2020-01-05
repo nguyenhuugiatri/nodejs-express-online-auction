@@ -8,8 +8,8 @@ const fs = require("fs");
 const router = express.Router();
 const homeModel = require("../models/home.model");
 var storeModel = require("../models/store.model");
-const helper = require("./../utils/helper");
 const requireLogin = require("./../middlewares/auth.mdw");
+const helper = require("./../utils/helper");
 const path = require("path");
 
 let imageArr = [];
@@ -88,6 +88,7 @@ router.get("/detail/:id", async (req, res) => {
   const proId = req.params.id;
   const rows = await productModel.getProductByID(proId);
   const nameSeller = await productModel.getSellerProductByID(proId);
+  const listHistory = await productModel.getListHistoryProduct(proId);
   const category = await homeModel.getCategories();
   const today = moment();
   var idUser = -1;
@@ -108,9 +109,26 @@ router.get("/detail/:id", async (req, res) => {
     }
   }
 
+  for (let i=0;i<listHistory.length;i++)
+  {
+    listHistory[i].time = moment(listHistory[i].time).format("YYYY-MM-DD hh:mm:ss");
+    listHistory[i].fullname = helper.maskNameString(listHistory[i].fullname);
+  }
+  // mask name
+ rows[0].fullname = helper.maskNameString(rows[0].fullname);
+
+
+
+  var endDate = moment(rows[0].endDate);
+  var timeleft = moment(endDate.diff(today));
+  var stringTime = helper.convertTimeLeft(timeleft);
+  rows[0].timeLeft = stringTime;
+  
   res.render("vwProducts/product", {
     product: rows[0],
     idProduct: proId,
+    history : listHistory,
+    emptyHistory : listHistory.length===0,
     sellerName: nameSeller[0],
     allCategories: category
   });

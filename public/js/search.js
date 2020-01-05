@@ -50,20 +50,16 @@ for (let i = 0; i < checkboxes.length; i++) {
   else document.getElementById(`${checkboxes[i].id}`).checked = false;
 }
 var loadSelect = sessionStorage.getItem("selected");
-if (loadSelect) document.getElementById("mySelect").value=loadSelect;
+if (loadSelect) document.getElementById("mySelect").value = loadSelect;
 
-
-if (urlCurrent.indexOf("/search") !== -1)
-{
-  if (sessionStorage.getItem("draft"))
+if (urlCurrent.indexOf("/search") !== -1) {
+  if (sessionStorage.getItem("draft")!==null) {
     searchInput.value = sessionStorage.getItem("draft");
-}
-else {
+  }
+} else {
   sessionStorage.clear();
 }
-function searchChange()
-{
+function searchChange() {
   var searchInput = document.getElementById("searchInput");
   sessionStorage.setItem("draft", searchInput.value);
 }
-

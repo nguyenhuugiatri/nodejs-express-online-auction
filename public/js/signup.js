@@ -42,6 +42,16 @@ function validate() {
     msg.show();
     return false;
   }
+  if (!validEmail(email)) {
+    msg.html("Invalid email");
+    msg.show();
+    return false;
+  }
+  if (gender == null || gender == "") {
+    msg.html("Gender is required");
+    msg.show();
+    return false;
+  }
   if (pass == null || pass == "") {
     msg.html("Password is required");
     msg.show();
@@ -57,16 +67,7 @@ function validate() {
     msg.show();
     return false;
   }
-  if (gender == null || gender == "") {
-    msg.html("Gender is required");
-    msg.show();
-    return false;
-  }
-  if (!validEmail(email)) {
-    msg.html("Invalid email");
-    msg.show();
-    return false;
-  }
+
   if (pass.length < 8 || pass.length > 16) {
     msg.html("Password must have 8 - 16 characters");
     msg.show();
@@ -74,6 +75,12 @@ function validate() {
   }
   if (repass !== pass) {
     msg.html("Password is not match");
+    msg.show();
+    return false;
+  }
+
+  if (grecaptcha.getResponse() == "") {
+    msg.html("Please check the captcha");
     msg.show();
     return false;
   }

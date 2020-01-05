@@ -208,8 +208,40 @@ const actOnListCategory = categoryList => {
   };
 };
 
-export const actSaveCategory = category => {
+export const actOnEditCategory = user => {
+  return {
+    type: ActionType.EDIT_CATEGORY,
+    user
+  };
+};
+
+export const actSaveCategory = (category,act) => {
   return dispatch => {
+    if(act==="add")
+    delete category.id;
+    let token = JSON.parse(sessionStorage.getItem("user")).token;
+    axios({
+      headers: {
+        Authorization: `Bearer ${token}`
+      },
+      method: "POST",
+      url: `http://localhost:3000/admin/category/${act}`,
+      data: category
+    })
+      .then(result => {
+        dispatch(actOnListCategoryAPI());
+      })
+      .catch(err => {
+        if (err.response) {
+          Swal.fire({
+            title: "Error",
+            text: err.response.data.message,
+            icon: "error",
+            confirmButtonText: "OK"
+          });
+        }
+        console.log(err.response);
+      });
   };
 };
 

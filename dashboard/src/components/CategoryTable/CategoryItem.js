@@ -43,12 +43,6 @@ const mapDispatchToProps = dispatch => {
     },
     onEdit: category => {
       dispatch(action.actOnEdit(category));
-    },
-    onConfirmRequest: id => {
-      dispatch(action.actOnConfirmRequest(id));
-    },
-    onCancelRequest: id => {
-      dispatch(action.actOnCancelRequest(id));
     }
   };
 };

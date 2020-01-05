@@ -80,7 +80,7 @@ class Modal extends Component {
                   />
                 </div>
                 <button type="submit" className="mt-3 btn btn-success">
-                  Submit
+                  {this.props.categoryEdit?'Save':'Add'}
                 </button>
               </form>
             </div>

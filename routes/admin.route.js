@@ -133,4 +133,19 @@ router.get("/category/delete", requireToken, async (req, res, next) => {
   }
 });
 
+router.post("/category/add", requireToken, async (req, res, next) => {
+  checkExist = await categoryModel.singleByName(req.body.name);
+  if (checkExist !== null) {
+    return res.status(403).send({ message: "Category name exists" });
+  }
+
+  const entity=req.body;
+  try {
+    await categoryModel.add(entity);
+    return res.status(200).send({ message: "Add success" });
+  } catch (err) {
+    return res.status(403).send({ message: "Add failed" });
+  }
+});
+
 module.exports = router;

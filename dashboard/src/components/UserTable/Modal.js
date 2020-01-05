@@ -164,7 +164,7 @@ class Modal extends Component {
                   </select>
                 </div>
                 <button type="submit" className="mt-3 btn btn-success">
-                  Submit
+                  {this.props.userEdit?'Save':'Add'}
                 </button>
               </form>
             </div>

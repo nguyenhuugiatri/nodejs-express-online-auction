@@ -121,12 +121,13 @@
             <div class="qty-label">
               PLACE YOUR BID
               <div class="input-number">
-                <input type="number" />
-                <span class="qty-up">+</span>
-                <span class="qty-down">-</span>
+                <input type="text" value="{{this.product.bidStep}}" id="bidStepp" hidden>
+                <input type="number" id="input-bidding" value ="{{this.product.currentPrice}}"/>
+                <span onclick="upInputBidding({{this.product.bidStep}})"  class="qty-up">+</span>
+                <span onclick="downInputBidding({{this.product.bidStep}},{{this.product.currentPrice}})" class="qty-down">-</span>
               </div>
             </div>
-            <button class="add-to-cart-btn">
+            <button onclick = "placeBid({{this.product.id}})" class="add-to-cart-btn">
               <i class="fa fa-shopping-cart"></i> PLACE BID
             </button>
           </div>
@@ -633,3 +634,7 @@
   <!-- /container -->
 </div>
 <!-- /Section -->
+<script src="https://code.jquery.com/jquery-3.4.1.slim.js"
+		integrity="sha256-BTlTdQO9/fascB1drekrDVkaKd9PkwBymMlHOiG+qLI=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+<script src="/js/bidding.js"></script>

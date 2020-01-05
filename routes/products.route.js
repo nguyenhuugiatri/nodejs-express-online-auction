@@ -115,8 +115,11 @@ router.get("/detail/:id", async (req, res) => {
     listHistory[i].fullname = helper.maskNameString(listHistory[i].fullname);
   }
   // mask name
- rows[0].fullname = helper.maskNameString(rows[0].fullname);
-
+ if (rows[0].fullname!==null)
+ {
+  rows[0].fullname = helper.maskNameString(rows[0].fullname);
+ }
+ else rows[0].fullname = "Chưa có người đấu giá";
 
 
   var endDate = moment(rows[0].endDate);

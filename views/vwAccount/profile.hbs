@@ -237,14 +237,7 @@
                                             </div>
                                             <!-- store review rating block -->
                                             <!-- store like block -->
-                                            <div class="mp-mrgn-btm-5" id="wk-store-like-block">
-                                                <button class="btn button-primary" id="wk-like-btn"><span
-                                                        class="fa fa-thumbs-up"></button>
-                                                <button class="btn button-primary" id="wk-like-btn"><span
-                                                        class="fa fa-thumbs-down"></button>
-                                                {{!-- <input type="hidden" id="wk-like-label" data-label-like="Like Shop">
-                              <input type="hidden" id="wk-liked-label" data-label-liked="Liked"> --}}
-                                            </div>
+
                                         </div>
                                     </div>
                                     {{/each}}
@@ -307,9 +300,8 @@
                                                                     <div class="product-img">
                                                                         <img src="/img/product01.png" alt="">
                                                                         <div class="product-label">
-                                                                            {{#if this.new}}
-                                                                            <span class="new">New</span>
-                                                                            {{/if}}
+                                                                            <span class="sale">-30%</span>
+
                                                                         </div>
                                                                     </div>
                                                                     <div class="product-body">
@@ -377,9 +369,8 @@
                                                                     <div class="product-img">
                                                                         <img src="/img/product01.png" alt="">
                                                                         <div class="product-label">
-                                                                            {{#if this.new}}
-                                                                            <span class="new">New</span>
-                                                                            {{/if}}
+                                                                            <span class="sale">-30%</span>
+
                                                                         </div>
                                                                     </div>
                                                                     <div class="product-body">
@@ -441,12 +432,7 @@
                                                                     <div class="product-img">
                                                                         <img src="/img/product01.png" alt="">
                                                                         <div class="product-label">
-                                                                            {{#if this.new}}
-                                                                            <span class="new">New</span>
-                                                                            {{/if}}
-                                                                            {{#if this.now}}
-                                                                            <span class="sale">Now Highest</span>
-                                                                            {{/if}}
+                                                                            <span class="sale">-30%</span>
 
                                                                         </div>
                                                                     </div>
@@ -537,7 +523,11 @@
                                                                                     href="/products/detail/{{id}}">Winner:
                                                                                     {{winner}}</a>
                                                                             </h3>
-
+                                                                            {{!-- {{#if isReview}}
+                                                                            <div>Review rồi</div>
+                                                                            {{else}}
+                                                                            <div>Chưa Review</div>
+                                                                            {{/if}} --}}
 
                                                                         </div>
                                                                     </div>
@@ -581,6 +571,30 @@
                                                                                 {{winner}}</a>
                                                                         </h3>
 
+                                                                        {{#when Reviewable 'eq' 1}}
+                                                                        <div class="mp-mrgn-btm-5"
+                                                                            id="wk-store-like-block"
+                                                                            label="Cho mày review á">
+                                                                            <button class="btn button-primary"
+                                                                                id="wk-like-btn" onclick="likeByWinner({{id}})"><span
+                                                                                    class="fa fa-thumbs-up"></button>
+                                                                            <button class="btn button-primary"
+                                                                                id="wk-dislike-btn" onclick="dislikeByWinner({{id}})"><span
+                                                                                    class="fa fa-thumbs-down"></button>
+                                                                        </div>
+                                                                        {{/when}}
+                                                                        {{#when Reviewable 'eq' 0}}
+                                                                        <div>Not reviewed yet</div>
+                                                                        {{/when}}
+
+                                                                        {{#when Reviewable 'eq' -1}}
+                                                                        <div>You have reviewed this product</div>
+                                                                        {{/when}}
+
+                                                                        {{#when Reviewable 'eq' -2}}
+                                                                        <div>Reviewed</div>
+                                                                        {{/when}}
+
 
                                                                     </div>
                                                                 </div>
@@ -610,36 +624,54 @@
                                                             <!-- product listing block -->
                                                             <!-- not subscription product -->
                                                             <!-- product grid for medium and large device 4*3 and small device 12*1 -->
+                                                            {{#if this.listAuctionedForYou }}
+                                                            <div id="products-won-from-you" class="row">
+                                                                <h1>Products auctioned for you</h1>
+                                                                {{#each this.listAuctionedForYou}}
+                                                                <!-- product -->
+                                                                <div class="col-md-4 col-xs-6" style="width: 25%">
+                                                                    <div class="product">
+                                                                        <div class="product-img">
+                                                                            <img src="/img/product01.png" alt="">
+                                                                            <div class="product-label">
+                                                                                <span class="auctionedLabel">Auction
+                                                                                    ended</span>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="product-body">
+                                                                            <!-- <p class="product-category">Category</p> -->
+                                                                            {{!-- <p class="product-time-left">{{startDate}}</p> --}}
+                                                                            <h3 class="product-name"><a
+                                                                                    href="/products/detail/{{id}}">{{name}}</a>
+                                                                            </h3>
+                                                                            </h3>
+                                                                            <h4 class="product-price">Highest bid:
+                                                                                {{currentPrice}}
+                                                                            </h4>
+                                                                            <h3 class="product-name"><a
+                                                                                    href="/products/detail/{{id}}">Seller:
+                                                                                    {{seller}}</a>
+                                                                            </h3>
+                                                                            <h3 class="product-name"><a
+                                                                                    href="/products/detail/{{id}}">Winner:
+                                                                                    {{winner}}</a>
+                                                                            </h3>
+                                                                            {{!-- {{#if isReview}}
+                                                                            <div>Review rồi</div>
+                                                                            {{else}}
+                                                                            <div>Chưa Review</div>
+                                                                            {{/if}} --}}
 
-                                                            {{#each this.listAuctionedForYou}}
-                                                            <!-- product -->
-                                                            <div class="col-md-4 col-xs-6" style="width: 25%">
-                                                                <div class="product">
-                                                                    <div class="product-img">
-                                                                        <img src="/img/product01.png" alt="">
-                                                                        <div class="product-label">
-                                                                            <span class="auctionedLabel">Auction
-                                                                                ended</span>
                                                                         </div>
                                                                     </div>
-                                                                    <div class="product-body">
-                                                                        <!-- <p class="product-category">Category</p> -->
-                                                                        {{!-- <p class="product-time-left">{{startDate}}</p> --}}
-                                                                        <h3 class="product-name"><a
-                                                                                href="/products/detail/{{id}}">{{name}}</a>
-                                                                        </h3>
-                                                                        </h3>
-                                                                        <h4 class="product-price">Highest bid:
-                                                                            {{currentPrice}}
-                                                                        </h4>
-
-
-
-                                                                    </div>
                                                                 </div>
+                                                                <!-- /product -->
+                                                                {{/each}}
                                                             </div>
-                                                            <!-- /product -->
-                                                            {{/each}}
+                                                            <div id="other-won-products" class="row">
+                                                                <h1>All auctioned products</h1>
+                                                            </div>
+                                                            {{/if}}
 
 
                                                             {{#each this.productAutioned}}
@@ -671,6 +703,31 @@
                                                                                 href="/products/detail/{{id}}">Winner:
                                                                                 {{winner}}</a>
                                                                         </h3>
+
+                                                                        {{#when Reviewable 'eq' 1}}
+                                                                        <div class="mp-mrgn-btm-5"
+                                                                            id="wk-store-like-block"
+                                                                            label="Cho mày review á">
+                                                                            <button class="btn button-primary"
+                                                                                id="wk-like-btn" onclick="likeBySeller({{id}})"><span
+                                                                                    class="fa fa-thumbs-up"></button>
+                                                                            <button class="btn button-primary"
+                                                                                id="wk-like-btn" onclick="dislikeBySeller({{id}})"><span
+                                                                                    class="fa fa-thumbs-down"></button>
+                                                                        </div>
+                                                                        {{/when}}
+                                                                        {{#when Reviewable 'eq' 0}}
+                                                                        <div>Not reviewed yet</div>
+                                                                        {{/when}}
+
+                                                                        {{#when Reviewable 'eq' -1}}
+                                                                        <div>You have reviewed this product</div>
+                                                                        {{/when}}
+
+                                                                        {{#when Reviewable 'eq' -2}}
+                                                                        <div>Reviewed</div>
+                                                                        {{/when}}
+
 
                                                                     </div>
                                                                 </div>
@@ -711,7 +768,7 @@
     </div>
     <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
-    <script src="/js/searchprofile.js"></script>
+    <script src="/js/profile.js"></script>
 </body>
 
 </html>

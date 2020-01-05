@@ -253,7 +253,7 @@ CREATE TABLE `user` (
   `fullname` varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `phone` varchar(11) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `email` varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `dob` datetime DEFAULT NULL,
+  `joindate` datetime DEFAULT NULL,
   `username` varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `password` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `gender` bit(1) NOT NULL,

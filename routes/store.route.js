@@ -32,7 +32,11 @@ router.get("/", async (req, res) => {
              rows[i].like = true;
            }
     }
-    
+    rows[i].fullname = helper.maskNameString(rows[i].fullname);
+    var endDate = moment(rows[i].endDate);
+    var timeleft = moment(endDate.diff(today));
+    var stringTime = helper.convertTimeLeft(timeleft);
+    rows[i].timeLeft = stringTime;
   }
 
   rows.reverse();
@@ -105,7 +109,6 @@ router.get("/search", async (req, res) => {
             rows[i].like = true;
           }
    }
-   
  }
   res.render("store", {
     products: rows,

@@ -160,45 +160,4 @@ router.post("/category/update", requireToken, async (req, res, next) => {
   }
 });
 
-const nodemailer = require("nodemailer");
-router.post("/send-mail", function(req, res) {
-  var transporter = nodemailer.createTransport({
-    host: "smtp.gmail.com",
-    port: 465,
-    secure: true,
-    auth: {
-      user: "vutuan3719@gmail.com",
-      pass: "cnpm2019"
-    },
-    tls: {
-      rejectUnauthorized: false
-    }
-  });
-
-  const content = `
-        <div style="padding: 10px; background-color: #003375">
-            <div style="padding: 10px; background-color: white;">
-                <h4 style="color: #0085ff">Online Auction</h4>
-                <span style="color: black">This is email confirm you bid success</span>
-            </div>
-        </div>
-    `;
-  var mainOptions = {
-    from: "Online Auction",
-    to: req.body.email,
-    subject: "Auto Confirm Email",
-    text: "This is auto email",
-    html: content
-  };
-  transporter.sendMail(mainOptions, function(err, info) {
-    if (err) {
-      console.log(err);
-      return res.send("Lỗi gửi mail: " + err);
-    } else {
-      console.log("Message sent: " + info.response);
-      req.send("Một email đã được gửi đến tài khoản của bạn");
-    }
-  });
-});
-
 module.exports = router;

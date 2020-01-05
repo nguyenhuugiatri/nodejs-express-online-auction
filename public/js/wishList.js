@@ -1,13 +1,12 @@
-
 function addWistList(id) {
   // var heart = $(`#${id}-heart`);
   const hearts = document.getElementsByName(`${id}-heart`);
 
-  for (const heart of hearts)
-  {
-    console.log( heart);
-    if (heart.style.color === "rgb(221, 221, 221)") heart.style.color="#D10024";
-  else heart.style.color="#ddd";
+  for (const heart of hearts) {
+    console.log(heart);
+    if (heart.style.color === "rgb(221, 221, 221)")
+      heart.style.color = "#D10024";
+    else heart.style.color = "#ddd";
   }
   // console.log(heart.css("color"));
   // if (heart.css("color") === "rgb(221, 221, 221)") heart.css("color", "#D10024");
@@ -19,14 +18,15 @@ function addWistList(id) {
     url: urlSend,
     type: "GET"
   }).done(function(result) {
-    if(result!=='Add Success'||result!=='Delete Success')
-    window.location.replace('/account/signin');
+    if (result !== "Add Success" || result !== "Delete Success")
+      window.location.replace("/account/signin");
   });
 }
 function addWistListAndLoadUrl(id) {
   var heart = $(`#${id}-heart`);
   console.log(heart.css("color"));
-  if (heart.css("color") === "rgb(221, 221, 221)") heart.css("color", "#D10024");
+  if (heart.css("color") === "rgb(221, 221, 221)")
+    heart.css("color", "#D10024");
   else heart.css("color", "#ddd");
   var idUser = document.getElementById("userID");
   var urlSend =
@@ -38,13 +38,13 @@ function addWistListAndLoadUrl(id) {
     console.log(result);
     window.location.replace(window.location.href);
   });
-  
 }
 
 function addWistListClosing(id) {
   var heart = $(`#${id}-closingheart`);
   console.log(heart.css("color"));
-  if (heart.css("color") === "rgb(221, 221, 221)") heart.css("color", "#D10024");
+  if (heart.css("color") === "rgb(221, 221, 221)")
+    heart.css("color", "#D10024");
   else heart.css("color", "#ddd");
   var idUser = document.getElementById("userID");
   var urlSend =
@@ -59,7 +59,8 @@ function addWistListClosing(id) {
 function addWistListTurn(id) {
   var heart = $(`#${id}-turnheart`);
   console.log(heart.css("color"));
-  if (heart.css("color") === "rgb(221, 221, 221)") heart.css("color", "#D10024");
+  if (heart.css("color") === "rgb(221, 221, 221)")
+    heart.css("color", "#D10024");
   else heart.css("color", "#ddd");
   var idUser = document.getElementById("userID");
   var urlSend =
@@ -126,7 +127,7 @@ var loadSelect = sessionStorage.getItem("selected");
 if (loadSelect) document.getElementById("mySelect").value = loadSelect;
 
 if (urlCurrent.indexOf("/search") !== -1) {
-  if (sessionStorage.getItem("draft")!==null) {
+  if (sessionStorage.getItem("draft") !== null) {
     searchInput.value = sessionStorage.getItem("draft");
   }
 } else {

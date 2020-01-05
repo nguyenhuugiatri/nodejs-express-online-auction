@@ -97,6 +97,18 @@ router.get("/profile/:id", async (req, res) => {
   const listWon = await userModel.getListProductOfWon(userId);
   const listAuctioned  = await userModel.getListProductAuctioned(userId);
 
+  var listWonFromYou = null;
+  var listAuctionedForYou =null;
+
+  const your = req.session.user;
+  if (your)
+  {
+    yourID = your.id;
+    listWonFromYou = await userModel.getListProductOfWonFromYou(userId, yourID);
+    listAuctionedForYou  = await userModel.getListProductAuctionedForYou(userId, yourID);
+  }
+
+
   // lấy điểm review từ database
   const number_of_reviews = (await userModel.getNumberOfReviews(userId)).number_of_reviews;
   const positive_reviews = (await userModel.getNumberOfPositiveReviews(userId)).positive_reviews;
@@ -121,7 +133,10 @@ router.get("/profile/:id", async (req, res) => {
     products: rows,
     empty: rows.length === 0,
     allCategories: category,
-    idUSer: userId
+    idUSer: userId,
+
+    listWonFromYou: listWonFromYou,
+    listAuctionedForYou: listAuctionedForYou
   });
 });
 

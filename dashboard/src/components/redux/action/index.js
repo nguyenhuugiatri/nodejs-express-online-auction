@@ -17,13 +17,15 @@ export const actOnDelete = id => {
         dispatch(actOnListUserAPI());
       })
       .catch(err => {
-        Swal.fire({
-          title: "Error",
-          text: err.message,
-          icon: "error",
-          confirmButtonText: "OK"
-        });
-        console.log(err.message);
+      if (err.response) {
+          Swal.fire({
+            title: "Error",
+            text: err.response.data.message,
+            icon: "error",
+            confirmButtonText: "OK"
+          });
+        }
+        console.log(err.response);
       });
   };
 };
@@ -42,13 +44,15 @@ export const actOnConfirmRequest = id => {
         dispatch(actOnListUserAPI());
       })
       .catch(err => {
-        Swal.fire({
-          title: "Error",
-          text: err.message,
-          icon: "error",
-          confirmButtonText: "OK"
-        });
-        console.log(err.message);
+     if (err.response) {
+          Swal.fire({
+            title: "Error",
+            text: err.response.data.message,
+            icon: "error",
+            confirmButtonText: "OK"
+          });
+        }
+        console.log(err.response);
       });
   };
 };
@@ -67,13 +71,15 @@ export const actOnCancelRequest = id => {
         dispatch(actOnListUserAPI());
       })
       .catch(err => {
-        Swal.fire({
-          title: "Error",
-          text: err.message,
-          icon: "error",
-          confirmButtonText: "OK"
-        });
-        console.log(err.message);
+        if (err.response) {
+          Swal.fire({
+            title: "Error",
+            text: err.response.data.message,
+            icon: "error",
+            confirmButtonText: "OK"
+          });
+        }
+        console.log(err.response);
       });
   };
 };
@@ -81,13 +87,6 @@ export const actOnCancelRequest = id => {
 export const actOnEdit = user => {
   return {
     type: ActionType.EDIT_USER,
-    user
-  };
-};
-
-export const actSaveUser = user => {
-  return {
-    type: ActionType.SAVE_USER,
     user
   };
 };
@@ -128,13 +127,15 @@ export const actOnListUserAPI = () => {
         dispatch(actOnListUser(result.data));
       })
       .catch(err => {
-        Swal.fire({
-          title: "Error",
-          text: err.message,
-          icon: "error",
-          confirmButtonText: "OK"
-        });
-        console.log(err.message);
+        if (err.response) {
+          Swal.fire({
+            title: "Error",
+            text: err.response.data.message,
+            icon: "error",
+            confirmButtonText: "OK"
+          });
+        }
+        console.log(err.response);
       });
   };
 };
@@ -154,13 +155,45 @@ export const actLogin = user => {
         }
       })
       .catch(err => {
-        Swal.fire({
-          title: "Error",
-          text: "Invalid account or password",
-          icon: "error",
-          confirmButtonText: "OK"
-        });
-        console.log(err.message);
+        if (err.response) {
+          Swal.fire({
+            title: "Error",
+            text: err.response.data.message,
+            icon: "error",
+            confirmButtonText: "OK"
+          });
+        }
+        console.log(err.response);
+      });
+  };
+};
+
+export const actSaveUser = user => {
+  return dispatch => {
+    user.gender = parseInt(user.gender);
+    user.permission = parseInt(user.permission);
+    let token = JSON.parse(sessionStorage.getItem("user")).token;
+    axios({
+      headers: {
+        Authorization: `Bearer ${token}`
+      },
+      method: "POST",
+      url: "http://localhost:3000/admin/user/add",
+      data: user
+    })
+      .then(result => {
+        dispatch(actOnListUserAPI());
+      })
+      .catch(err => {
+        if (err.response) {
+          Swal.fire({
+            title: "Error",
+            text: err.response.data.message,
+            icon: "error",
+            confirmButtonText: "OK"
+          });
+        }
+        console.log(err.response);
       });
   };
 };

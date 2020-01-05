@@ -6,12 +6,13 @@ class Modal extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      id: "",
       username: "",
-      name: "",
+      fullname: "",
+      password:"",
       email: "",
-      phoneNumber: "",
-      type: "USER"
+      phone: "",
+      gender: "1",
+      permission: "0"
     };
   }
 
@@ -19,31 +20,30 @@ class Modal extends Component {
     if (nextProps && nextProps.userEdit) {
       //Edit
       this.setState({
-        id: nextProps.userEdit.id,
         username: nextProps.userEdit.username,
-        name: nextProps.userEdit.name,
+        password: nextProps.userEdit.password,
+        fullname: nextProps.userEdit.fullname,
         email: nextProps.userEdit.email,
-        phoneNumber: nextProps.userEdit.phoneNumber,
-        type: nextProps.userEdit.type
+        phone: nextProps.userEdit.phone,
+        gender: nextProps.userEdit.gender,
+        permission: nextProps.userEdit.permission
       });
     } else {
       //Add
       this.setState({
-        id: "",
         username: "",
-        name: "",
+        fullname: "",
+        password:"",
         email: "",
-        phoneNumber: "",
-        type: "USER"
+        phone: "",
+        gender: "1",
+        permission: "0"
       });
     }
   }
 
   handleOnChange = event => {
-    let target = event.target;
-    let name = target.name;
-    let value = target.value;
-
+    let { name, value } = event.target;
     this.setState({
       [name]: value
     });
@@ -92,14 +92,36 @@ class Modal extends Component {
                   />
                 </div>
                 <div className="form-group">
+                  <label>Password</label>
+                  <input
+                    type="password"
+                    className="form-control"
+                    name="password"
+                    onChange={this.handleOnChange}
+                    value={this.state.password}
+                  />
+                </div>
+                <div className="form-group">
                   <label>Full Name</label>
                   <input
                     type="text"
                     className="form-control"
-                    name="name"
+                    name="fullname"
                     onChange={this.handleOnChange}
-                    value={this.state.name}
+                    value={this.state.fullname}
                   />
+                </div>
+                <div className="form-group">
+                  <label>Gender</label>
+                  <select
+                    className="form-control"
+                    name="gender"
+                    onChange={this.handleOnChange}
+                    value={this.state.gender}
+                  >
+                    <option value="1">Male</option>
+                    <option value="0">Female</option>
+                  </select>
                 </div>
                 <div className="form-group">
                   <label>Email</label>
@@ -116,24 +138,24 @@ class Modal extends Component {
                   <input
                     type="text"
                     className="form-control"
-                    name="phoneNumber"
+                    name="phone"
                     onChange={this.handleOnChange}
-                    value={this.state.phoneNumber}
+                    value={this.state.phone}
                   />
                 </div>
                 <div className="form-group">
                   <label>Type</label>
                   <select
                     className="form-control"
-                    name="type"
+                    name="permission"
                     onChange={this.handleOnChange}
-                    value={this.state.type}
+                    value={this.state.permission}
                   >
-                    <option>USER</option>
-                    <option>VIP</option>
+                    <option value="0">Bidder</option>
+                    <option value="1">Seller</option>
                   </select>
                 </div>
-                <button type="submit" className="btn btn-success">
+                <button type="submit" className="mt-3 btn btn-success">
                   Submit
                 </button>
               </form>
@@ -153,14 +175,10 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    //key: value
     onSubmit: user => {
       dispatch(action.actSaveUser(user));
     }
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Modal);
+export default connect(mapStateToProps, mapDispatchToProps)(Modal);

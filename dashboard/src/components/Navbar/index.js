@@ -16,7 +16,7 @@ class Navbar extends Component {
               </a>
             </li>
             <li className="nav-item">
-              <button type="button" class="nav-link btn btn-light btn-sm" onClick={logout}>Logout</button>
+              <button type="button" className="nav-link btn btn-light btn-sm" onClick={logout}>Logout</button>
             </li>
           </ul>
         </div>

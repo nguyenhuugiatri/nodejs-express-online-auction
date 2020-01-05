@@ -15,7 +15,11 @@ module.exports = {
   getProductBiddDESC:() => db.load(`SELECT p.id as idproduct,p.name,p.currentPrice , p.endDate, u.fullname ,count(b.id_product) as count from product as p LEFT JOIN user as u ON p.id_bidder = u.id LEFT JOIN biddinglist as b ON p.id = b.id_product GROUP BY p.id ORDER BY count DESC LIMIT 5`),
   getProductPriceBuyDESC: id => db.load(`SELECT * FROM product ORDER BY buynowPrice DESC LIMIT 5`),
   getCategories:() => db.load(`select * from category`),
-  getCountOfBidding: idProduct => db.load(`select * from biddinglist where id_product = ${idProduct}`)
+  getCountOfBidding: idProduct => db.load(`select * from biddinglist where id_product = ${idProduct}`),
+
+  upProductBidding:(idProduct , idUser , bidPrice) => db.load(`update product set id_bidder=${idUser} , currentPrice=${bidPrice} where id = ${idProduct}`),
+  upBiddingList:(idProduct,time,bidPrice,idUser)=> db.load(`INSERT INTO biddinglist values(${idProduct},'${time}',${bidPrice},${idUser})`),
+  getProductCurrent : id => db.load(`select * from product where id = ${id}`)
 //   add: entity => db.add('products', entity),
 //   del: id => db.del('products', { ProID: id }),
 //   patch: entity => {

@@ -56,3 +56,38 @@ function placeBid(idProduct) {
     }
   });
 }
+
+
+function denyBidder(idProduct,idUser)
+{
+  Swal.fire({
+    title: 'Are you sure?',
+    text: "You won't be able to revert this!",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Yes, deny it!'
+  }).then((result) => {
+    if (result.value) {
+      $.ajax({
+        url: "/bidding/deny?idproduct="+idProduct+"&userid="+idUser,
+        type: "GET"
+      }).done(function(result){
+        console.log(result);
+        if (result==="Success")
+        {
+            Swal.fire(
+              'Denied!',
+              'This has been banned from your product.',
+              'success'
+            ).then(result=>{
+              window.location.replace(window.location.href);
+            })
+        }
+      });
+      
+    }
+  })
+
+}

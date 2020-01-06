@@ -39,6 +39,20 @@ module.exports = {
   getProductCurrent: id => db.load(`select * from product where id = ${id}`),
   upgradeUser: id => db.load(`update user set request = 1 where id = ${id}`),
   getInforUser: id => db.load(`select * from user where id = ${id}`),
+  deleteBiddingUser: (idProduct, idUser) =>
+    db.load(
+      `DELETE FROM biddinglist WHERE id_product = ${idProduct}  and id_user=${idUser}`
+    ),
+  banBidder: (idProduct, idUser) =>
+    db.load(`INSERT into ban values (${idProduct},${idUser})`),
+  getBidPriceMax: idProduct =>
+    db.load(
+      `select * from biddinglist where id_product = ${idProduct} order by bidPrice DESC`
+    ),
+  UpdateProduct: (idProduct, idUser, bidPrice) =>
+    db.load(
+      `UPDATE product SET id_bidder = ${idUser}, currentPrice=${bidPrice} where id = ${idProduct}`
+    ),
   //   add: entity => db.add('products', entity),
   //   del: id => db.del('products', { ProID: id }),
   //   patch: entity => {
@@ -46,12 +60,11 @@ module.exports = {
   //     delete entity.ProID;
   //     return db.patch('products', entity, condition);
   //   }
-
   getThumbnailByID: async id_product => {
     const rows = await db.load(
       `select src
-    from image
-    where image.id_product = ${id_product};`
+  from image
+  where image.id_product = ${id_product};`
     );
     if (rows.length === 0) return null;
     return rows[0];

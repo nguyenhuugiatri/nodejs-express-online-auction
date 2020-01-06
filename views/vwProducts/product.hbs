@@ -178,6 +178,7 @@
                       <td></td>
                       <td>Chưa có người</td>
                       <td></td>
+                      <td></td>
                     </tr>
                     {{else}}
                         {{#each this.history}}
@@ -186,7 +187,7 @@
                       <td>{{fullname}}</td>
                       <td>{{bidPrice}}</td>
                       <td>
-                        <button class="btn btn-danger" onlick ="denyBidder()">Deny</button>
+                        <button class="btn btn-danger" onclick ="denyBidder({{id_product}},{{id_user}})">Deny</button>
                       </td>
                     </tr>
                         {{/each}}

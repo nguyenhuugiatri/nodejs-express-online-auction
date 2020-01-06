@@ -43,9 +43,24 @@ router.get("/permission", async (req, res) => {
   return res.send("Send Success");
 });
 router.get("/check", async (req, res) => {
-  idUser = req.query.userid;
+  var idUser = req.query.userid;
   console.log(idUser);
   const user = await homeModel.getInforUser(idUser);
   return res.send({permission : user[0].permission, request :user[0].request});
+});
+
+router.get("/deny", async (req, res) => {
+  var idUser = req.query.userid;
+  var idProduct = req.query.idproduct;
+  await homeModel.deleteBiddingUser(idProduct,idUser);
+  await homeModel.banBidder(idProduct,idUser);
+  const maxBidPrice = await homeModel.getBidPriceMax(idProduct);
+  const productCurrent = await homeModel.getProductCurrent(idProduct);
+  if (maxBidPrice.length===0)
+  {
+    await homeModel.UpdateProduct(idProduct,null,productCurrent[0].startPrice);
+  }
+  else await homeModel.UpdateProduct(idProduct,maxBidPrice[0].id_user,maxBidPrice[0].bidPrice);
+  return res.send("Success");
 });
 module.exports = router;

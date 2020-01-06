@@ -57,12 +57,15 @@ router.get("/search", async (req, res) => {
   console.log(req.query);
   var jsonGet = {};
   jsonGet = req.query;
-  var sql = "SELECT p.id as idproduct,p.name,p.currentPrice ,p.startDate, p.endDate, u.fullname ,count(b.id_product) as count from product as p LEFT JOIN user as u ON p.id_bidder = u.id LEFT JOIN biddinglist as b ON p.id = b.id_product where ";
+  var sql =
+    "SELECT p.id as idproduct,p.name,p.currentPrice ,p.startDate, p.endDate, u.fullname ,count(b.id_product) as count from product as p LEFT JOIN user as u ON p.id_bidder = u.id LEFT JOIN biddinglist as b ON p.id = b.id_product where ";
   var flagCate = 0;
   var flagCheck = 0;
+  var flagCheckSort = 0;
   for (const key in jsonGet) {
     if (key !== "searchInput" && key !== "priceASC" && key != "endDate")
       flagCheck = 1;
+    if (key === "priceASC" || key === "endDate") flagCheckSort = 1;
   }
   console.log(flagCheck);
   for (const key in jsonGet) {
@@ -70,10 +73,19 @@ router.get("/search", async (req, res) => {
       continue;
     }
     if (key === "searchInput") {
-      if (flagCheck === 0) {
-        sql += ` name like '%${jsonGet[key]}%' GROUP BY p.id `;
-      } else {
-        sql += `) and name like '%${jsonGet[key]}%' GROUP BY p.id `;
+      if (flagCheckSort === 1) {
+        if (flagCheck === 0) {
+          sql += ` name like '%${jsonGet[key]}%' `;
+        } else {
+          sql += `) and name like '%${jsonGet[key]}%'`;
+        }
+      }
+      else {
+        if (flagCheck === 0) {
+          sql += ` name like '%${jsonGet[key]}%' GROUP BY p.id`;
+        } else {
+          sql += `) and name like '%${jsonGet[key]}%' GROUP BY p.id`;
+        }
       }
     } else if (key === "endDate" && jsonGet[key] === "true") {
       sql += " GROUP BY p.id ORDER BY endDate DESC";

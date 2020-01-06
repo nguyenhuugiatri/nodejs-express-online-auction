@@ -47,4 +47,36 @@ router.post("/bidding-confirm", function(req, res) {
   });
 });
 
+router.post("/deny", function(req, res) {
+  const { email, productName, denyTime } = req.body;
+  const content = `
+        <div style="padding: 10px; background-color: #003375">
+            <div style="padding: 25px; background-color: white;">
+                <h4 style="color: #D10024; margin-top:0;margin-bottom:0px; font-size:30px">Online Auction</h4>
+                <span style="margin:10px;display:block;color: black">We notify that you have been blocked from ${productName} by seller at ${denyTime}.</span>
+                <span style="margin-left:10px;display:block;color: black">Sorry for inconvenience,</span>
+                <span style="margin-left:10px;display:block;color: black">Online Auction</span>
+            </div>
+        </div>
+    `;
+
+  var mainOptions = {
+    from: "Online Auction",
+    to: email,
+    subject: "Notify Email",
+    text: "Please no-reply",
+    html: content
+  };
+
+  transporter.sendMail(mainOptions, function(err, info) {
+    if (err) {
+      console.log(err);
+      return res.send("Error: " + err);
+    } else {
+      console.log("Sent: " + info.response);
+      return res.send("Success: " + info.response);
+    }
+  });
+});
+
 module.exports = router;

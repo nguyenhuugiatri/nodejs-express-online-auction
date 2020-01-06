@@ -9,6 +9,7 @@ const homeModel = require("../models/home.model");
 const restrict = require("../middlewares/auth.mdw");
 const requireLogin = require("./../middlewares/auth.mdw");
 const router = express.Router();
+const request = require("request-promise");
 
 router.get("/signin", (req, res) => {
   res.render("vwAccount/signin", {
@@ -55,35 +56,60 @@ router.get("/signup", async (req, res) => {
 });
 
 router.post("/signup", async (req, res) => {
-  checkExist = await userModel.singleByEmailUsername(
-    req.body.username,
-    req.body.email
-  );
-  if (checkExist !== null) {
+  if (!req.body["g-recaptcha-response"]) {
     return res.render("vwAccount/signup", {
       layout: false,
-      message: "account exist"
+      message: "captcha fail"
     });
   }
+  const secretKey = "6LcmiswUAAAAAKfTXQ270RmW8ddLDJbtg_cxMx79";
+  let options = {
+    method: "POST",
+    uri: "https://www.google.com/recaptcha/api/siteverify",
+    form: {
+      secret: secretKey,
+      response: req.body["g-recaptcha-response"]
+    },
+    json: true
+  };
+  request(options)
+    .then(async response => {
+      checkExist = await userModel.singleByEmailUsername(
+        req.body.username,
+        req.body.email
+      );
+      if (checkExist !== null) {
+        return res.render("vwAccount/signup", {
+          layout: false,
+          message: "account exist"
+        });
+      } else {
+        const N = 10;
+        const hash = bcrypt.hashSync(req.body.password, N);
+        const entity = req.body;
+        entity.password = hash;
+        entity.fullname = entity.firstName + " " + entity.lastName;
+        entity.gender = parseInt(entity.gender);
+        entity.joindate = moment().format(moment.HTML5_FMT.DATE);
 
-  const N = 10;
-  const hash = bcrypt.hashSync(req.body.password, N);
-  const entity = req.body;
-  entity.password = hash;
-  entity.fullname = entity.firstName + " " + entity.lastName;
-  entity.gender = parseInt(entity.gender);
-  entity.joindate = moment().format(moment.HTML5_FMT.DATE);
+        delete entity.repassword;
+        delete entity.lastName;
+        delete entity.firstName;
+        delete entity["g-recaptcha-response"];
+        const result = await userModel.add(entity);
 
-  delete entity.repassword;
-  delete entity.lastName;
-  delete entity.firstName;
-  delete entity["g-recaptcha-response"];
-  const result = await userModel.add(entity);
-
-  return res.render("vwAccount/signup", {
-    layout: false,
-    message: "success"
-  });
+        return res.render("vwAccount/signup", {
+          layout: false,
+          message: "success"
+        });
+      }
+    })
+    .catch(err => {
+      return res.render("vwAccount/signup", {
+        layout: false,
+        message: "captcha authentication failed"
+      });
+    });
 });
 
 router.get("/profile", requireLogin, async (req, res) => {

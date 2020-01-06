@@ -115,3 +115,19 @@ if (message === "account exist") {
     footer: `<a href='#'>Forgot password ?</a>`
   });
 }
+
+if (message === "captcha fail") {
+  Swal.fire({
+    icon: "error",
+    title: "Error",
+    text: "Please check the captcha again"
+  });
+}
+
+if (message === "captcha authentication failed") {
+  Swal.fire({
+    icon: "error",
+    title: "Error",
+    text: "Captcha authentication failed"
+  });
+}

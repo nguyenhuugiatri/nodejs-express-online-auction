@@ -112,7 +112,7 @@ router.get("/detail/:id", async (req, res) => {
 
   for (let i=0;i<listHistory.length;i++)
   {
-    listHistory[i].time = moment(listHistory[i].time).format("YYYY-MM-DD hh:mm:ss");
+    listHistory[i].time = moment(listHistory[i].time).format("YYYY-MM-DD HH:mm:ss");
     listHistory[i].fullname = helper.maskNameString(listHistory[i].fullname);
   }
   // mask name
@@ -127,9 +127,12 @@ router.get("/detail/:id", async (req, res) => {
   // var timeleft = moment(endDate.diff(today));
   // var stringTime = helper.convertTimeLeft(timeleft);
   rows[0].timeLeft = endDate;
+  rows[0].startDate = moment(rows[0].startDate).format("YYYY-MM-DD");
+  rows[0].endDate = moment(rows[0].endDate).format("YYYY-MM-DD");
   
   res.render("vwProducts/product", {
     product: rows[0],
+    images: rows,
     idProduct: proId,
     history : listHistory,
     emptyHistory : listHistory.length===0,

@@ -6,7 +6,7 @@
   "scripts": {
     "start": "nodemon app",
     "dashboard": "cd dashboard/ && npm start",
-    "dev": "npm start & npm run dashboard "
+    "dev": "npm run dashboard & npm start"
   },
   "author": "",
   "license": "ISC",

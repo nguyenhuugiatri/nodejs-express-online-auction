@@ -30,10 +30,14 @@ function addWistList(id) {
 }
 function addWistListAndLoadUrl(id) {
   var heart = $(`#${id}-heart`);
-  console.log(heart.css("color"));
+  var idUser = document.getElementById("userID");
+  if (!idUser.value)
+  {
+    window.location.replace("/account/signin");
+    return;
+  }
   if (heart.css("color") === "rgb(221, 221, 221)") heart.css("color", "#D10024");
   else heart.css("color", "#ddd");
-  var idUser = document.getElementById("userID");
   var urlSend =
     "/account/addWishList?userid=" + idUser.value + "&idproduct=" + id;
   $.ajax({

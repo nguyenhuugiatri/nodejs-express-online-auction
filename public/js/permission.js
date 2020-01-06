@@ -3,12 +3,26 @@
 function checkSeller()
 {
   var permission = document.getElementById("permission");
-  console.log("A"+idUser.value+"A"+ permission.value)
+  var request = document.getElementById("request");
+  console.log("AAAA" + permission);
   var idUser = document.getElementById("userID");
   if (!idUser.value)
   {
     window.location.replace("/account/signin");
     return;
+  }
+  if (request.value==="1")
+  {
+    Swal.fire({
+        title: 'Bạn đã gửi đăng kí . Chờ duyệt',
+        showClass: {
+          popup: 'animated fadeInDown faster'
+        },
+        hideClass: {
+          popup: 'animated fadeOutUp faster'
+        }
+      })
+      return;
   }
   if (permission.value==="0")
   {
@@ -38,5 +52,8 @@ function checkSeller()
         });
       }
     });
+  }
+  else {
+    window.location.replace("/products/add");
   }
 }

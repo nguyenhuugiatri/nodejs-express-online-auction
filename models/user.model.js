@@ -202,7 +202,7 @@ module.exports = {
   },
 
   addReview: (productID, userID, reviewerID, content, point, timeNow) =>
-  db.load(`INSERT INTO review (id_user, review, reviewer, id_product, marks, time)
+    db.load(`INSERT INTO review (id_user, review, reviewer, id_product, marks, time)
   VALUES (${userID}, "${content}", ${reviewerID}, ${productID}, ${point}, "${timeNow}");`),
 
   del: id => db.load(`update user set status = 0 where id = ${id}`),

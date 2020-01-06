@@ -184,11 +184,37 @@ router.get("/profile/:id", async (req, res) => {
     var productID = listWon[i].id; // lấy id product
     const thumbnailSrc = (await userModel.getThumbnailByID(productID)).src;
     listWon[i].thumbnailSrc = thumbnailSrc;
+
+    // lấy điểm đánh giá của seller
+    const sellerPoint = (
+      await userModel.getReviewPointByUser(productID, listWon[i].id_seller)
+    );
+    if (sellerPoint!=null) listWon[i].sellerPoint = sellerPoint.marks;
+    else listWon[i].sellerPoint = -2;
+    // lấy điểm đánh giá của winner
+    const winnerPoint = (
+      await userModel.getReviewPointByUser(productID, listWon[i].id_bidder)
+    );
+    if (winnerPoint!=null) listWon[i].winnerPoint = winnerPoint.marks;
+    else listWon[i].winnerPoint = -2;
   }
   for (let i = 0; i < listAuctioned.length; i++) {
     var productID = listAuctioned[i].id; // lấy id product
     const thumbnailSrc = (await userModel.getThumbnailByID(productID)).src;
     listAuctioned[i].thumbnailSrc = thumbnailSrc;
+
+     // lấy điểm đánh giá của seller
+     const sellerPoint = (
+      await userModel.getReviewPointByUser(productID, listAuctioned[i].id_seller)
+    );
+    if (sellerPoint!=null) listAuctioned[i].sellerPoint = sellerPoint.marks;
+    else listAuctioned[i].sellerPoint = -2;
+    // lấy điểm đánh giá của winner
+    const winnerPoint = (
+      await userModel.getReviewPointByUser(productID, listAuctioned[i].id_bidder)
+    );
+    if (winnerPoint!=null) listAuctioned[i].winnerPoint = winnerPoint.marks;
+    else listAuctioned[i].winnerPoint = -2;
   }
 
   //format lại ngày
@@ -261,7 +287,7 @@ router.get("/profile/:id", async (req, res) => {
     // cho biết bạn đã review sản phẩm bạn đã mua này chưa
     for (let i = 0; i < listAuctioned.length; i++) {
       var id_product_auctioned = listAuctioned[i].id;
-      const isReview2 = await userModel.isReviewedByWinner(
+      const isReview2 = await userModel.isReviewedBySeller(
         id_product_auctioned
       );
       if (isReview2) listAuctioned[i].isReview = 1;

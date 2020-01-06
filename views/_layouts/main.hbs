@@ -51,9 +51,10 @@
 				<ul class="header-links pull-right">
 
 					{{#if session.user}}
-					<li><a href="/account/profile"><i class="fa fa-user-o"></i> {{session.user.username}}</a></li>
+					<li><a href="/account/profile"><i class="fa fa-user"></i> {{session.user.username}}</a></li>
 					{{else}}
-					<li><a href="/account/signin"><i class="fa fa-user-o"></i> Sign In</a></li>
+					<li><a href="/account/signup"><i class="fa fa fa-user-plus"></i> Sign Up</a></li>
+					<li><a href="/account/signin"><i class="fa fa-user"></i> Sign In</a></li>
 					{{/if}}
 					{{#if session.user}}
 					<li><a href="/account/logout"><i class="fa fa-sign-out"></i> Sign Out</a></li>
@@ -96,7 +97,7 @@
 							<!-- Wishlist -->
 							<div>
 								<a href="/account/profile/{{session.user.id}}">
-									<i class="fa fa-heart-o"></i>
+									<i class="fa fa-heart"></i>
 									<span>Your Wishlist</span>
 								</a>
 							</div>
@@ -251,7 +252,7 @@
 							Copyright &copy;
 							<script>document.write(new Date().getFullYear());</script> All rights reserved | This
 							template is made
-							with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com"
+							with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com"
 								target="_blank">Colorlib</a>
 							<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
 						</span> --}}

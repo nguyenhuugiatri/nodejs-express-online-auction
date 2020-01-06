@@ -891,4 +891,14 @@ label.wk-checkbox {
     }
 }
 
+
+.reviewed{
+    cursor: pointer; 
+    color:blue;
+}
+.reviewed:hover {
+    color:red;
+    font-weight: bold;
+  }
+
 /** your custom css */

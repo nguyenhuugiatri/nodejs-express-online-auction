@@ -225,4 +225,13 @@ module.exports = {
     if (rows.length === 0) return null;
     return rows[0];
   },
+  getReviewPointByUser: async (id_product, id_reviewer) => {
+    const rows = await db.load(
+      `SELECT * FROM review
+      where id_product = ${id_product}
+      and reviewer = ${id_reviewer};`
+    );
+    if (rows.length === 0) return null;
+    return rows[0];
+  },
 };

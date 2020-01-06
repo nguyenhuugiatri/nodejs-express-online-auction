@@ -2209,9 +2209,14 @@ textarea.input {
 }
 
 .product .product-body .product-name{
-  height: 33px;
+  height: 28px;
   overflow-y: hidden;
 }
+
+.product .product-body .product-price{
+  overflow: hidden;
+}
+
 .product .product-body .product-price::before{
 content:'$';
 margin-right: 3px;

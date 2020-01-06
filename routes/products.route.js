@@ -11,7 +11,7 @@ var storeModel = require("../models/store.model");
 const requireLogin = require("./../middlewares/auth.mdw");
 const helper = require("./../utils/helper");
 const path = require("path");
-const nodemailer =  require('nodemailer');
+const nodemailer = require("nodemailer");
 
 let imageArr = [];
 
@@ -63,7 +63,7 @@ router.post(
   requireLogin,
   uploadImage.array("file"),
   async (req, res, next) => {
-    const id=req.session.user.id;
+    const id = req.session.user.id;
     const entity = req.body;
     entity.id_seller = id;
     entity.startDate = moment().format("YYYY-MM-DD HH:mm:ss");
@@ -125,9 +125,10 @@ router.get("/detail/:id", async (req, res) => {
     }
   }
 
-  for (let i=0;i<listHistory.length;i++)
-  {
-    listHistory[i].time = moment(listHistory[i].time).format("YYYY-MM-DD HH:mm:ss");
+  for (let i = 0; i < listHistory.length; i++) {
+    listHistory[i].time = moment(listHistory[i].time).format(
+      "YYYY-MM-DD HH:mm:ss"
+    );
     listHistory[i].fullname = helper.maskNameString(listHistory[i].fullname);
   }
   listHistory.reverse();
@@ -193,14 +194,39 @@ router.get("/detail/:id", async (req, res) => {
     related: relatedproduct,
     images: rows,
     idProduct: proId,
-    history : listHistory,
-    emptyHistory : listHistory.length===0,
+    history: listHistory,
+    emptyHistory: listHistory.length === 0,
     sellerName: nameSeller[0],
     bidderName,
     isSellerProduct,
     isOwnProduct,
     allCategories: category
   });
+});
+
+router.get("/showReview", async (req, res) => {
+  try {
+    const productID = req.query.productID;
+    const review = await productModel.getFullReview(productID);
+    const imgSrc = (await productModel.getThumbnailByID(productID)).src; // lấy source ảnh product
+    console.log("log nee: " + review);
+    var reviewFull = "";
+
+    // lấy nội dung review
+    for (let i = 0; i < review.length; i++) {
+      var reviewerName = review[i].reviewerName;
+      var reviewPoint = "0";
+      if (review[i].marks == 1) reviewPoint = "+1";
+      else reviewPoint = "-1";
+      var reviewContent = "";
+      if (review[i].review!="undefined") reviewContent += review[i].review;
+      reviewFull += `<h3>${reviewerName}</h3><div> reviewed <span style="color: #D10024; font-weight: bold;">(${reviewPoint})</span></div>
+      <p style="font-style:italic;">${reviewContent}</p>`;
+    }
+    return res.send({ reviewFull, imgSrc });
+  } catch (err) {
+    console.log(err);
+  }
 });
 
 module.exports = router;

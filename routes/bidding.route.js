@@ -36,4 +36,16 @@ router.get("/", async (req, res) => {
     return res.send("Bid Fail");
   }
 });
+router.get("/permission", async (req, res) => {
+  idUser = req.query.userid;
+  console.log(idUser);
+  await homeModel.upgradeUser(idUser);
+  return res.send("Send Success");
+});
+router.get("/check", async (req, res) => {
+  idUser = req.query.userid;
+  console.log(idUser);
+  const user = await homeModel.getInforUser(idUser);
+  return res.send({permission : user[0].permission, request :user[0].request});
+});
 module.exports = router;

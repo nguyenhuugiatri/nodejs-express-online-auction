@@ -18,7 +18,8 @@ router.get("/", async (req, res, next) => {
   const today = moment();
   for (let i = 0; i < rowsPrice.length; i++) {
     var timeStart = moment(rowsPrice[i].startDate);
-    var s = today.diff(timeStart, "seconds");
+    var s = moment().diff(timeStart, "seconds");
+    console.log(timeStart + " " + today + "a");
     if (s <= 600) {
       rowsPrice[i].new = true;
     }

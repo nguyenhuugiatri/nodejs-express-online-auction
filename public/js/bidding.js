@@ -16,6 +16,12 @@ function downInputBidding(bidStep, currenPrice) {
 }
 
 function placeBid(idProduct) {
+  var idUser = document.getElementById("userID");
+  if (!idUser.value)
+  {
+    window.location.replace("/account/signin");
+    return;
+  }
   Swal.fire({
     title: "Are you sure?",
     text: `Bạn đặt giá cho sản phẩm là : ${input.value}`,
@@ -26,7 +32,7 @@ function placeBid(idProduct) {
     confirmButtonText: "Sure!"
   }).then(result => {
     if (result.value) {
-      var idUser = document.getElementById("userID");
+      idUser = document.getElementById("userID");
       var bidPrice = document.getElementById("input-bidding").value;
       var urlSend =
         "/bidding?userid=" +

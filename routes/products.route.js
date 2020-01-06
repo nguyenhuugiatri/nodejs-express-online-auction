@@ -112,7 +112,7 @@ router.get("/detail/:id", async (req, res) => {
 
   for (let i=0;i<listHistory.length;i++)
   {
-    listHistory[i].time = moment(listHistory[i].time).format("YYYY-MM-DD hh:mm:ss");
+    listHistory[i].time = moment(listHistory[i].time).format("YYYY-MM-DD HH:mm:ss");
     listHistory[i].fullname = helper.maskNameString(listHistory[i].fullname);
   }
   // mask name

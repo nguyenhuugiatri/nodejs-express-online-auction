@@ -61,7 +61,7 @@ router.get("/search", async (req, res) => {
   console.log(req.query);
   var jsonGet = {};
   jsonGet = req.query;
-  var sql = "SELECT p.id as idproduct,p.name,p.currentPrice , p.endDate, u.fullname ,count(b.id_product) as count from product as p LEFT JOIN user as u ON p.id_bidder = u.id LEFT JOIN biddinglist as b ON p.id = b.id_product where ";
+  var sql = "SELECT p.id as idproduct,p.name,p.currentPrice ,p.startDate, p.endDate, u.fullname ,count(b.id_product) as count from product as p LEFT JOIN user as u ON p.id_bidder = u.id LEFT JOIN biddinglist as b ON p.id = b.id_product where ";
   var flagCate = 0;
   var flagCheck = 0;
   for (const key in jsonGet) {

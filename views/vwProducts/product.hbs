@@ -170,6 +170,8 @@
                       <th>Thời điểm</th>
                       <th>Người đấu giá</th>
                       <th>Giá</th>
+                      {{!-- OK --}}
+                      <th>Từ chối</th>
                     </tr>
                     {{#if this.emptyHistory}}
                     <tr>
@@ -183,6 +185,9 @@
                       <td>{{time}}</td>
                       <td>{{fullname}}</td>
                       <td>{{bidPrice}}</td>
+                      <td>
+                        <button class="btn btn-danger" onlick ="denyBidder()">Deny</button>
+                      </td>
                     </tr>
                         {{/each}}
                         {{/if}}

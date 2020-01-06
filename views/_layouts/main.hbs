@@ -49,7 +49,7 @@
 					<li><a href="#"><i class="fa fa-map-marker"></i> 1 Ta Quang Buu</a></li>
 				</ul>
 				<ul class="header-links pull-right">
-					
+
 					{{#if session.user}}
 					<li><a href="/account/profile"><i class="fa fa-user-o"></i> {{session.user.username}}</a></li>
 					{{else}}
@@ -83,8 +83,7 @@
 					<div class="col-md-6">
 						<div class="header-search">
 							<form method="get" action="/store/search" onsubmit="return clearBoxes()">
-								<input type="text" class="input" placeholder="Search here" id="searchInput"
-									name="searchInput">
+								<input type="text" class="input" placeholder="Search here" id="searchInput" name="searchInput">
 								<button type="submit" class="search-btn" onclick="searchChange()">Search</button>
 							</form>
 						</div>
@@ -106,7 +105,7 @@
 							<!-- Cart -->
 							<div>
 								<a href="#" onclick="checkSeller()">
-									<i class="fa fa-shopping-cart"></i>
+									<i class="fa fa-upload" aria-hidden="true"></i>
 									<span>Post Product</span>
 								</a>
 							</div>
@@ -143,12 +142,11 @@
 					<li class="active"><a href="/">Home</a></li>
 					{{!-- <li><a href="#">Categories</a></li> --}}
 					<li class="dropdown" id="Categories-dropdown">
-						<a href="#" class="dropdown-toggle" id="dropdownMenu1"
-							data-toggle="dropdown">
+						<a href="#" class="dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown">
 							Categories
 						</a>
 						<ul class="dropdown-menu">
-							{{#each this.allCategories}}			
+							{{#each this.allCategories}}
 							<li><a href="/store/search?searchInput=&{{id}}=true" onclick="clearBoxes()">{{name}}</a></li>
 							{{/each}}
 						</ul>
@@ -265,9 +263,9 @@
 		<!-- /bottom footer -->
 	</footer>
 	<!-- /FOOTER -->
-<input type="text" value="{{session.user.id}}" id="userID" hidden>
-<input type="text" value="{{session.user.permission}}" id="permission" hidden>
-<input type="text" value="{{session.user.request}}" id="request" hidden>
+	<input type="text" value="{{session.user.id}}" id="userID" hidden>
+	<input type="text" value="{{session.user.permission}}" id="permission" hidden>
+	<input type="text" value="{{session.user.request}}" id="request" hidden>
 
 	<!-- jQuery Plugins -->
 	<script src="/vendor/jquery.min.js"></script>
@@ -280,8 +278,8 @@
 	<script src="/js/wishList.js"></script>
 	<script src="/js/permission.js"></script>
 
-    {{{_sections.js}}}
-    {{{_sections.css}}}
+	{{{_sections.js}}}
+	{{{_sections.css}}}
 
 </body>
 

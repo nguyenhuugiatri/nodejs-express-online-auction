@@ -34,9 +34,30 @@ formAddProuct.submit(function() {
 function validate() {
   const imageWrapper = document.getElementsByClassName("spartan_item_wrapper");
   const countImage = imageWrapper.length - 1;
+  const startPrice = document.getElementById("startPrice").value;
+  const buynowPrice = document.getElementById("buynowPrice").value;
+  const bidStep = document.getElementById("bidStep").value;
+
+  if (buynowPrice <= startPrice) {
+    Swal.fire({
+      icon: "info",
+      title: "Info",
+      text: "You must set By Now Price > Start Price"
+    });
+    return false;
+  }
+
+  if (bidStep > buynowPrice) {
+    Swal.fire({
+      icon: "info",
+      title: "Info",
+      text: "You must set Bid Step < By Now Price"
+    });
+    return false;
+  }
 
   const enDate = moment(document.getElementById("endDate").value);
-  if (enDate < moment()){
+  if (enDate < moment()) {
     Swal.fire({
       icon: "info",
       title: "Info",
@@ -45,13 +66,13 @@ function validate() {
     return false;
   }
 
-  if(countImage<3){
+  if (countImage < 3) {
     Swal.fire({
-    icon: "info",
-    title: "Info",
-    text: "Please upload at least 3 images"
-  });
-  return false;
+      icon: "info",
+      title: "Info",
+      text: "Please upload at least 3 images"
+    });
+    return false;
   }
 
   return true;

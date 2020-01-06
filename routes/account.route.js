@@ -77,7 +77,7 @@ router.post("/signup", async (req, res) => {
   delete entity.repassword;
   delete entity.lastName;
   delete entity.firstName;
-  delete entity['g-recaptcha-response'];
+  delete entity["g-recaptcha-response"];
   const result = await userModel.add(entity);
 
   return res.render("vwAccount/signup", {
@@ -100,6 +100,9 @@ router.get("/profile/:id", async (req, res) => {
   const listNowTake = await userModel.getUserTakeNowProduct(userId);
   const listWon = await userModel.getListProductOfWon(userId);
   const listAuctioned = await userModel.getListProductAuctioned(userId);
+
+  //format lại ngày
+  row_user[0].joindate = moment(row_user[0].joindate).format("YYYY-MM-DD");
 
   var listWonFromYou = null;
   var listAuctionedForYou = null;
@@ -208,15 +211,25 @@ router.get("/profile/:id", async (req, res) => {
       rows[i].new = true;
     }
   }
+  for (let i = 0; i < rows.length; i++) {
+    var timeStart = moment(rows[i].startDate);
+    var s = today.diff(timeStart, "seconds");
+    rows[i].timeLeft = moment(rows[i].endDate).format("YYYY-MM-DD HH:mm:ss");
+    if (s <= 600) {
+      rows[i].new = true;
+    }
+  }
   for (let i = 0; i < listSeller.length; i++) {
     var timeStart = moment(listSeller[i].startDate);
     var s = today.diff(timeStart, "seconds");
+    listSeller[i].timeLeft = moment(listSeller[i].endDate).format("YYYY-MM-DD HH:mm:ss");
     if (s <= 600) {
       listSeller[i].new = true;
     }
   }
   for (let i = 0; i < listBidding.length; i++) {
     var timeStart = moment(listBidding[i].startDate);
+    listBidding[i].timeLeft = moment(listBidding[i].endDate).format("YYYY-MM-DD HH:mm:ss");
     var s = today.diff(timeStart, "seconds");
     if (s <= 600) {
       listBidding[i].new = true;
@@ -225,10 +238,12 @@ router.get("/profile/:id", async (req, res) => {
   for (let i = 0; i < listWon.length; i++) {
     var timeStart = moment(listWon[i].startDate);
     var s = today.diff(timeStart, "seconds");
+    // listWon[i].timeLeft = moment(listWon[i].endDate).format("YYYY-MM-DD HH:mm:ss");
     if (s <= 600) {
       listWon[i].new = true;
     }
   }
+
 
   res.render("vwAccount/profile", {
     profile: row_user,
@@ -242,7 +257,6 @@ router.get("/profile/:id", async (req, res) => {
     empty: rows.length === 0,
     allCategories: category,
     idUSer: userId,
-
     listWonFromYou: listWonFromYou,
     listAuctionedForYou: listAuctionedForYou
   });
@@ -256,6 +270,8 @@ router.get("/profile/:id/edit", requireLogin, async (req, res) => {
     });
   }
   const row_user = await userModel.singleByID(userId);
+  //format lại ngày
+  row_user[0].joindate = moment(row_user[0].joindate).format("YYYY-MM-DD");
   res.render("vwAccount/edit", {
     editProfile: row_user
   });
@@ -319,7 +335,7 @@ router.post(
   }
 );
 
-router.get("/addWishList",requireLogin, async (req, res) => {
+router.get("/addWishList", requireLogin, async (req, res) => {
   var jsonGet = {};
   jsonGet = req.query;
   var idUser, idProduct;
@@ -428,9 +444,22 @@ router.get("/sendReviewByWinner", async (req, res) => {
     const userID = (await userModel.getIDSeller(productID)).id_seller;
     const timeNow = moment().format("YYYY-MM-DD hh:mm:ss");
 
-    const addReview = await userModel.addReview(productID, userID, reviewerID, content, point, timeNow);
+    const addReview = await userModel.addReview(
+      productID,
+      userID,
+      reviewerID,
+      content,
+      point,
+      timeNow
+    );
 
-    const daXuli = "You +" + point + " point for this auction (" + productID + ") with description: " + content;
+    const daXuli =
+      "You +" +
+      point +
+      " point for this auction (" +
+      productID +
+      ") with description: " +
+      content;
     return res.send(daXuli);
   } catch (err) {
     console.log(err);
@@ -446,15 +475,27 @@ router.get("/sendReviewBySeller", async (req, res) => {
     const userID = (await userModel.getIDWinner(productID)).id_bidder;
     const timeNow = moment().format("YYYY-MM-DD hh:mm:ss");
 
-    const addReview = await userModel.addReview(productID, userID, reviewerID, content, point, timeNow);
+    const addReview = await userModel.addReview(
+      productID,
+      userID,
+      reviewerID,
+      content,
+      point,
+      timeNow
+    );
 
-    const daXuli = "You +" + point + " point for this auction (" + productID + ") with description: " + content;
+    const daXuli =
+      "You +" +
+      point +
+      " point for this auction (" +
+      productID +
+      ") with description: " +
+      content;
     return res.send(daXuli);
   } catch (err) {
     console.log(err);
   }
 });
-
 
 router.get("/sendUpgradeRequest", async (req, res) => {
   try {

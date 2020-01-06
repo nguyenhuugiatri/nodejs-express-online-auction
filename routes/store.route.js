@@ -69,6 +69,9 @@ router.get("/search", async (req, res) => {
   }
   console.log(flagCheck);
   for (const key in jsonGet) {
+    if (key === "page") {
+      continue;
+    }
     if (key === "searchInput") {
       if (flagCheckSort === 1) {
         if (flagCheck === 0) {
@@ -128,12 +131,21 @@ router.get("/search", async (req, res) => {
     // var stringTime = helper.convertTimeLeft(timeleft);
     rows[i].timeLeft = endDate;
   }
+
+  const page = parseInt(req.query.page) || 1;
+  const perPage = 6;
+  const start = (page - 1) * perPage;
+  const end = page * perPage;
+  const numbers=Math.ceil(rows.length/perPage);
+
   res.render("store", {
-    products: rows,
+    products: rows.slice(start, end),
     categories: rowsCategory,
     empty: rows.length === 0,
     input: searchInput,
-    allCategories: category
+    allCategories: category,
+    page,
+    numbers
   });
 });
 

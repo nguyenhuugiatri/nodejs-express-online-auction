@@ -38,7 +38,7 @@
                     </div>
                     <!-- /aside Widget -->
 
-                   
+
 
 
                     <!-- <div class="aside">
@@ -88,18 +88,10 @@
                             <label>
                                 Sort By:
                                 <select class="input-select " id="mySelect" onchange="selectedSort()">
-                                    <option value="" style = "display:none" disabled selected>Sắp theo</option>
+                                    <option value="" style="display:none" disabled selected>Sắp theo</option>
                                     <option value="endDate">Sắp hết</option>
                                     <option value="priceASC">Giá tăng</option>
                                     <option value="priceDESC">Giá giảm</option>
-                                </select>
-                            </label>
-
-                            <label>
-                                Show:
-                                <select class="input-select">
-                                    <option value="0">20</option>
-                                    <option value="1">50</option>
                                 </select>
                             </label>
                         </div>
@@ -140,8 +132,13 @@
                                     <h4 class="product-price">{{currentPrice}} </h4>
                                     <p>{{fullname}}</p>
                                     <div class="product-btns">
-                                        <button onclick="addWistList({{idproduct}})" id="{{idproduct}}" class="add-to-wishlist">{{#if like}}<i style= "color:#D10024" name="{{idproduct}}-heart" class="fa fa-heart" aria-hidden="true"></i>{{else}}<i style= "color:#ddd"name="{{idproduct}}-heart" class="fa fa-heart" aria-hidden="true"></i>{{/if}}<span
-                                                class="tooltipp">add to wishlist</span></button>
+                                        <button onclick="addWistList({{idproduct}})" id="{{idproduct}}"
+                                            class="add-to-wishlist">{{#if like}}<i style="color:#D10024"
+                                                name="{{idproduct}}-heart" class="fa fa-heart"
+                                                aria-hidden="true"></i>{{else}}<i style="color:#ddd"
+                                                name="{{idproduct}}-heart" class="fa fa-heart"
+                                                aria-hidden="true"></i>{{/if}}<span class="tooltipp">add to
+                                                wishlist</span></button>
                                     </div>
                                 </div>
                                 <div class="add-to-cart">
@@ -159,13 +156,22 @@
 
                     <!-- store bottom filter -->
                     <div class="store-filter clearfix">
-                        <span class="store-qty">Showing 20-100 products</span>
+
                         <ul class="store-pagination">
-                            <li class="active">1</li>
-                            <li><a href="#">2</a></li>
-                            <li><a href="#">3</a></li>
-                            <li><a href="#">4</a></li>
-                            <li><a href="#"><i class="fa fa-angle-right"></i></a></li>
+                            <li onclick="backPage()" style="cursor:pointer"><span style="cursor:pointer"><i
+                                        class="fa fa-angle-left"></i></span></li>
+                            {{#times numbers}}
+                            {{#when this 'eq' ../page}}
+                            <li onclick="goToPage({{this}})" style="cursor:pointer" class="active"><span
+                                    style="cursor:pointer">{{this}}</span></li>
+                            {{/when}}
+                            {{#when this 'noteq' ../page}}
+                            <li onclick="goToPage({{this}})" style="cursor:pointer"><span
+                                    style="cursor:pointer">{{this}}</span></li>
+                            {{/when}}
+                            {{/times}}
+                            <li onclick="nextPage({{numbers}})" style="cursor:pointer"><span style="cursor:pointer"><i
+                                        class="fa fa-angle-right"></i></span></li>
                         </ul>
                     </div>
                     <!-- /store bottom filter -->

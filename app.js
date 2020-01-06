@@ -5,21 +5,21 @@ const session = require("express-session");
 const morgan = require("morgan");
 const numeral = require("numeral");
 require("express-async-errors");
-const cors = require('cors');
-var flash = require('express-flash');
+const cors = require("cors");
+var flash = require("express-flash");
 
 const app = express();
 
-app.use(cors())
+app.use(cors());
 app.use(
   session({
     secret: "anhem1nha",
     resave: false,
     saveUninitialized: true,
     cookie: {
-    httpOnly: true,
-    maxAge: 1000 * 60 * 15
-  }
+      httpOnly: true,
+      maxAge: 1000 * 60 * 15
+    }
   })
 );
 
@@ -47,21 +47,37 @@ app.engine(
     helpers: {
       section: hbs_sections(),
       format: val => numeral(val).format("0,0"),
-      when: function (operand_1, operator, operand_2, options) {
+      when: function(operand_1, operator, operand_2, options) {
         var operators = {
-            'eq': function (l, r) { return l == r; },
-            'noteq': function (l, r) { return l != r; },
-            'gt': function (l, r) { return Number(l) > Number(r); },
-            'or': function (l, r) { return l || r; },
-            'and': function (l, r) { return l && r; },
-            '%': function (l, r) { return (l % r) === 0; }
-        }
-            , result = operators[operator](operand_1, operand_2);
-      
+            eq: function(l, r) {
+              return l == r;
+            },
+            noteq: function(l, r) {
+              return l != r;
+            },
+            gt: function(l, r) {
+              return Number(l) > Number(r);
+            },
+            or: function(l, r) {
+              return l || r;
+            },
+            and: function(l, r) {
+              return l && r;
+            },
+            "%": function(l, r) {
+              return l % r === 0;
+            }
+          },
+          result = operators[operator](operand_1, operand_2);
+
         if (result) return options.fn(this);
         else return options.inverse(this);
+      },
+      times: function(n, block) {
+        var accum = "";
+        for (var i = 1; i < n+1; ++i) accum += block.fn(i);
+        return accum;
       }
-
     }
   })
 );

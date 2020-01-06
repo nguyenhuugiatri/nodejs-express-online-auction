@@ -2,6 +2,7 @@ var input = document.getElementById("input-bidding");
 var bidStep = document.getElementById("bidStepp");
 input.value = parseInt(input.value) + parseInt(bidStep.value);
 input.disabled = true;
+
 function upInputBidding(bidStep) {
   var input = document.getElementById("input-bidding");
   input.value = parseInt(input.value) + parseInt(bidStep);
@@ -61,9 +62,21 @@ function placeBid(idProduct) {
               window.location.replace(window.location.href);
             }
           );
-
-          //   Swal.fire("Thành công!", "Bạn đã đặt giá sản phẩm", "success");
-        } else Swal.fire("Fail!", "Có người đặt giá cao hơn", "success");
+        } else {
+          if (result === "Banned") {
+            Swal.fire("Fail!", "Banned", "warning");
+          } else {
+            if (result === "Enough") {
+              Swal.fire(
+                "Fail!",
+                "You don't have enough reputation to bid",
+                "warning"
+              );
+            } else {
+              Swal.fire("Fail!", "Có người đặt giá cao hơn", "warning");
+            }
+          }
+        }
       });
     }
   });

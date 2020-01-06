@@ -90,8 +90,10 @@ router.get("/detail/:id", async (req, res) => {
   const proId = req.params.id;
   const rows = await productModel.getProductByID(proId);
   const nameSeller = await productModel.getSellerProductByID(proId);
+  const nameBidder = await productModel.getBidderProductByID(proId);
   const listHistory = await productModel.getListHistoryProduct(proId);
   const category = await homeModel.getCategories();
+  const relatedproduct = await productModel.getRelatedProduct(rows[0].category);
   const today = moment();
   var idUser = -1;
   if (req.session.user) {
@@ -99,10 +101,22 @@ router.get("/detail/:id", async (req, res) => {
   }
   const wishList = await storeModel.getWishListbyId(idUser);
   // console.log(helper(2,wishList));
-
+  const checkSeller = await productModel.checkIsSeller(idUser);
+  const checkIsProduct = await productModel.checkIsMyProduct(idUser,proId);
+  var isSeller =0;
+  if (checkSeller.length!==0)
+  {
+    isSeller = checkSeller[0].permission;
+  }
+  var isMyProduct =0;
+  if (checkIsProduct.length!==0)
+  {
+    isMyProduct=1;
+  }
+  console.log("AAAAAAAA" + isSeller);
   var timeStart = moment(rows[0].startDate);
   var s = today.diff(timeStart, "seconds");
-  if (s <= 600) {
+  if (s <= 86400) {
     rows[0].new = true;
   }
   for (let j = 0; j < wishList.length; j++) {
@@ -117,10 +131,18 @@ router.get("/detail/:id", async (req, res) => {
     );
     listHistory[i].fullname = helper.maskNameString(listHistory[i].fullname);
   }
+  listHistory.reverse();
   // mask name
-  if (rows[0].fullname !== null) {
-    rows[0].fullname = helper.maskNameString(rows[0].fullname);
-  } else rows[0].fullname = "Chưa có người đấu giá";
+ if (rows[0].fullname!==null)
+ {
+  rows[0].fullname = helper.maskNameString(rows[0].fullname);
+ }
+ else rows[0].fullname = "Chưa có người đấu giá";
+
+ if (nameBidder.length!==0)
+ {
+  nameBidder[0].fullname = helper.maskNameString(nameBidder[0].fullname);
+ }
 
   var endDate = moment(rows[0].endDate).format("YYYY-MM-DD HH:mm:ss");
   // var timeleft = moment(endDate.diff(today));
@@ -129,13 +151,55 @@ router.get("/detail/:id", async (req, res) => {
   rows[0].startDate = moment(rows[0].startDate).format("YYYY-MM-DD");
   rows[0].endDate = moment(rows[0].endDate).format("YYYY-MM-DD");
 
+  // related product 
+  for (let i = 0; i < relatedproduct.length; i++) {
+    var productID = relatedproduct[i].idproduct; // lấy id product
+    const thumbnailSrc = (await homeModel.getThumbnailByID(productID)).src;
+    relatedproduct[i].thumbnailSrc = thumbnailSrc;
+  }
+  for (let i = 0; i < relatedproduct.length; i++) {
+    var timeStart = moment(relatedproduct[i].startDate);
+    var s = moment().diff(timeStart, "seconds");
+    console.log(timeStart + " " + today + "a");
+    if (s <= 86400) {
+      relatedproduct[i].new = true;
+    }
+    for (let j = 0; j < wishList.length; j++) {
+      if (helper.check(relatedproduct[i].id, wishList)) {
+        relatedproduct[i].like = true;
+      }
+    }
+    if (relatedproduct[i].fullname !== null) {
+      relatedproduct[i].fullname = helper.maskNameString(relatedproduct[i].fullname);
+    } else relatedproduct[i].fullname = "Chưa có người đấu giá";
+    var endDate = moment(relatedproduct[i].endDate).format("YYYY-MM-DD HH:mm:ss");
+    // var timeleft = moment(endDate.diff(today));
+    // var stringTime = helper.convertTimeLeft(timeleft);
+    relatedproduct[i].timeLeft = endDate;
+  }
+  const bidderName=nameBidder[0]?nameBidder[0].fullname:'No Bidder';
+  var isSellerProduct;
+  if (isSeller===1)
+    isSellerProduct=true;
+    else
+    isSellerProduct=false;
+    var isOwnProduct;
+    if (isMyProduct===1)
+    isOwnProduct=true;
+      else
+      isOwnProduct=false;
+  console.log(isSellerProduct + "BBBBBBBBBBBBBBBBBBBBBBBB");
   res.render("vwProducts/product", {
     product: rows[0],
+    related: relatedproduct,
     images: rows,
     idProduct: proId,
     history: listHistory,
     emptyHistory: listHistory.length === 0,
     sellerName: nameSeller[0],
+    bidderName,
+    isSellerProduct,
+    isOwnProduct,
     allCategories: category
   });
 });

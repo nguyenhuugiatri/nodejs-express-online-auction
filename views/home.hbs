@@ -92,30 +92,36 @@
 									<div class="product-img">
 										<img src="{{thumbnailSrc}}" alt="">
 										<div class="product-label">
-											<span class="sale">Bidding: {{count}}</span>
+											<span class="sale">Bid: {{count}}</span>
 											{{#if this.new}}
 											<span class="new">New</span>
+											{{/if}}
+											{{#if this.now}}
+											<span class="new">Now</span>
 											{{/if}}
 										</div>
 									</div>
 									<div class="product-body">
 										<p class="product-time-left">{{timeLeft}}</p>
-										<h3 class="product-name"><a href="/products/detail/{{idproduct}}">{{name}}</a></h3>
+										<h3 class="product-name"><a href="/products/detail/{{idproduct}}">{{name}}</a>
+										</h3>
 										<h4 class="product-price">{{currentPrice}} </h4>
 										<p class="product-winner">{{fullname}}</p>
 										<div class="product-btns">
 											<button onclick="addWistList({{idproduct}})" id="{{idproduct}}"
-												class="add-to-wishlist">{{#if like}}<i style="color:#D10024" name="{{idproduct}}-heart"
-													class="fa fa-heart" aria-hidden="true"></i>{{else}}<i style="color:#ddd"
-													name="{{idproduct}}-heart" class="fa fa-heart" aria-hidden="true"></i>{{/if}}<span
-													class="tooltipp">add to
+												class="add-to-wishlist">{{#if like}}<i style="color:#D10024"
+													name="{{idproduct}}-heart" class="fa fa-heart"
+													aria-hidden="true"></i>{{else}}<i style="color:#ddd"
+													name="{{idproduct}}-heart" class="fa fa-heart"
+													aria-hidden="true"></i>{{/if}}<span class="tooltipp">add to
 													wishlist</span></button>
 
 										</div>
 									</div>
 									<div class="add-to-cart">
-										<button class="add-to-cart-btn"><i class="fa fa-upload" aria-hidden="true"></i><a
-												href="/products/detail/{{idproduct}}">BID NOW</a></button>
+										<button class="add-to-cart-btn"><i class="fa fa-upload"
+												aria-hidden="true"></i><a href="/products/detail/{{idproduct}}">BID
+												NOW</a></button>
 									</div>
 								</div>
 								<!-- /product -->
@@ -218,29 +224,35 @@
 									<div class="product-img">
 										<img src="{{thumbnailSrc}}" alt="">
 										<div class="product-label">
-											<span class="sale">Bidding: {{count}}</span>
+											<span class="sale">Bid: {{count}}</span>
 											{{#if this.new}}
 											<span class="new">New</span>
+											{{/if}}
+											{{#if this.now}}
+											<span class="new">Now</span>
 											{{/if}}
 										</div>
 									</div>
 									<div class="product-body">
 										<p class="product-time-left">{{timeLeft}}</p>
-										<h3 class="product-name"><a href="/products/detail/{{idproduct}}">{{name}}</a></h3>
+										<h3 class="product-name"><a href="/products/detail/{{idproduct}}">{{name}}</a>
+										</h3>
 										<h4 class="product-price">{{currentPrice}}</h4>
 										<p class="product-winner">{{fullname}}</p>
 										<div class="product-btns">
 											<button onclick="addWistList({{idproduct}})" id="{{idproduct}}"
-												class="add-to-wishlist">{{#if like}}<i style="color:#D10024" name="{{idproduct}}-heart"
-													class="fa fa-heart" aria-hidden="true"></i>{{else}}<i style="color:#ddd"
-													name="{{idproduct}}-heart" class="fa fa-heart" aria-hidden="true"></i>{{/if}}<span
-													class="tooltipp">add to
+												class="add-to-wishlist">{{#if like}}<i style="color:#D10024"
+													name="{{idproduct}}-heart" class="fa fa-heart"
+													aria-hidden="true"></i>{{else}}<i style="color:#ddd"
+													name="{{idproduct}}-heart" class="fa fa-heart"
+													aria-hidden="true"></i>{{/if}}<span class="tooltipp">add to
 													wishlist</span></button>
 										</div>
 									</div>
 									<div class="add-to-cart">
-										<button class="add-to-cart-btn"><i class="fa fa-upload" aria-hidden="true"></i><a
-												href="/products/detail/{{idproduct}}">BID NOW</a></button>
+										<button class="add-to-cart-btn"><i class="fa fa-upload"
+												aria-hidden="true"></i><a href="/products/detail/{{idproduct}}">BID
+												NOW</a></button>
 									</div>
 								</div>
 								<!-- /product -->
@@ -297,31 +309,37 @@
 									<div class="product-img">
 										<img src="{{thumbnailSrc}}" alt="">
 										<div class="product-label">
-											<span class="sale">Bidding: {{count}}</span>
+											<span class="sale">Bid: {{count}}</span>
 
 											{{#if this.new}}
 											<span class="new">New</span>
+											{{/if}}
+											{{#if this.now}}
+											<span class="new">Now</span>
 											{{/if}}
 										</div>
 									</div>
 									<div class="product-body">
 										<p class="product-time-left">{{timeLeft}}</p>
-										<h3 class="product-name"><a href="/products/detail/{{idproduct}}">{{name}}</a></h3>
+										<h3 class="product-name"><a href="/products/detail/{{idproduct}}">{{name}}</a>
+										</h3>
 										<h4 class="product-price">{{currentPrice}}</h4>
 										<p class="product-winner">{{fullname}}</p>
 										<div class="product-btns">
 											<button onclick="addWistList({{idproduct}})" id="{{idproduct}}"
-												class="add-to-wishlist">{{#if like}}<i style="color:#D10024" name="{{idproduct}}-heart"
-													class="fa fa-heart" aria-hidden="true"></i>{{else}}<i style="color:#ddd"
-													name="{{idproduct}}-heart" class="fa fa-heart" aria-hidden="true"></i>{{/if}}<span
-													class="tooltipp">add to
+												class="add-to-wishlist">{{#if like}}<i style="color:#D10024"
+													name="{{idproduct}}-heart" class="fa fa-heart"
+													aria-hidden="true"></i>{{else}}<i style="color:#ddd"
+													name="{{idproduct}}-heart" class="fa fa-heart"
+													aria-hidden="true"></i>{{/if}}<span class="tooltipp">add to
 													wishlist</span></button>
 
 										</div>
 									</div>
 									<div class="add-to-cart">
-										<button class="add-to-cart-btn"><i class="fa fa-upload" aria-hidden="true"></i><a
-												href="/products/detail/{{idproduct}}">BID NOW</a></button>
+										<button class="add-to-cart-btn"><i class="fa fa-upload"
+												aria-hidden="true"></i><a href="/products/detail/{{idproduct}}">BID
+												NOW</a></button>
 									</div>
 								</div>
 								<!-- /product -->

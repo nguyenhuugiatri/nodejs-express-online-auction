@@ -53,6 +53,7 @@ module.exports = {
     db.load(
       `UPDATE product SET id_bidder = ${idUser}, currentPrice=${bidPrice} where id = ${idProduct}`
     ),
+  CheckBanUser : (idUser,idProduct) => db.load(`select * from ban where id_user =${idUser} and id_product =${idProduct}`),
   //   add: entity => db.add('products', entity),
   //   del: id => db.del('products', { ProID: id }),
   //   patch: entity => {

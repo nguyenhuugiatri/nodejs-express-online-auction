@@ -42,7 +42,7 @@ function validate() {
     Swal.fire({
       icon: "info",
       title: "Info",
-      text: "You must set By Now Price > Start Price"
+      text: "You must set Buy Now Price > Start Price"
     });
     return false;
   }
@@ -51,7 +51,7 @@ function validate() {
     Swal.fire({
       icon: "info",
       title: "Info",
-      text: "You must set Bid Step < By Now Price"
+      text: "You must set Bid Step < Buy Now Price"
     });
     return false;
   }

@@ -5,6 +5,7 @@ var moment = require("moment");
 const db = require("./../utils/db");
 const helper = require("./../utils/helper");
 const homeModel = require("../models/home.model");
+const userModel = require("../models/user.model");
 
 const router = express.Router();
 
@@ -22,7 +23,7 @@ router.get("/", async (req, res) => {
   for (let i = 0; i < rows.length; i++) {
     var timeStart = moment(rows[i].startDate);
     var s = today.diff(timeStart, "seconds");
-    if (s <= 600) {
+    if (s <= 86400) {
       rows[i].new = true;
     }
     for (let j = 0; j < wishList.length; j++) {
@@ -88,7 +89,7 @@ router.get("/search", async (req, res) => {
         }
       }
     } else if (key === "endDate" && jsonGet[key] === "true") {
-      sql += " GROUP BY p.id ORDER BY endDate DESC";
+      sql += " GROUP BY p.id ORDER BY endDate ASC";
     } else if (key === "priceASC" && jsonGet[key] === "true") {
       sql += " GROUP BY p.id ORDER BY currentPrice ASC";
     } else if (key === "priceASC" && jsonGet[key] === "false") {
@@ -110,12 +111,26 @@ router.get("/search", async (req, res) => {
   if (req.session.user) {
     idUser = req.session.user.id;
   }
+  const listNowTake = await userModel.getUserTakeNowProduct(idUser);
+  // check dang giu gia
+  for (let i = 0; i < rows.length; i++) {
+    for (let j = 0; j < listNowTake.length; j++) {
+      if (helper.checkCurrentPrice(rows[i].idproduct, listNowTake)) {
+        rows[i].now = true;
+      }
+    }
+  }
   const wishList = await storeModel.getWishListbyId(idUser);
+  for (let i = 0; i < rows.length; i++) {
+    var productID = rows[i].idproduct; // lấy id product
+    const thumbnailSrc = (await homeModel.getThumbnailByID(productID)).src;
+    rows[i].thumbnailSrc = thumbnailSrc;
+  }
   // console.log(helper(2,wishList));
   for (let i = 0; i < rows.length; i++) {
     var timeStart = moment(rows[i].startDate);
     var s = today.diff(timeStart, "seconds");
-    if (s <= 600) {
+    if (s <= 86400) {
       rows[i].new = true;
     }
     for (let j = 0; j < wishList.length; j++) {

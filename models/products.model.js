@@ -73,5 +73,12 @@ module.exports = {
     );
     if (rows.length === 0) return null;
     return rows[0];
-  }
+  },
+  isRequireReputation: async productID => {
+    const rows = await db.load(`SELECT requireReputation FROM product WHERE id=${productID};`);
+    if (rows.length === 0) return null;
+    return rows[0];
+  },
+
+
 };

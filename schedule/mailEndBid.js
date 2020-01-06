@@ -1,11 +1,11 @@
 const productModel = require("./../models/products.model");
+const homeModel = require("./../models/home.model");
 const userModel = require("./../models/user.model");
 const axios = require("axios");
 const CronJob = require("cron").CronJob;
 
 const job = new CronJob({
-  //Thực hiện mỗi 5s
-  cronTime: "*/5 * * * *",
+  cronTime: "* * * * *",
   onTick: async () => {
     console.log("Cron job runing...");
     const products = await productModel.getProductsEndBid();
@@ -52,6 +52,44 @@ const job = new CronJob({
 
       await productModel.updateIsSentEmail(p.id);
       await productModel.updateAuctionedStatus(p.id);
+    }
+
+    const autoBidTable = await homeModel.getAutoBidTable();
+    for (const autoBid of autoBidTable) {
+      const currentWinner = await homeModel.getCurrentWinner(
+        autoBid.id_product
+      );
+      if (currentWinner.id_bidder === null) {
+        const currentPrice = await homeModel.getCurrentPrice(
+          autoBid.id_product
+        );
+        await axios({
+          method: "get",
+          url: `http://localhost:3000/bidding?userid=${
+            autoBid.id_user
+          }&idproduct=${
+            autoBid.id_product
+          }&bidprice=${currentPrice.currentPrice + autoBid.bidStep}`
+        });
+      } else {
+        if (currentWinner.id_bidder !== autoBid.id_user) {
+          const currentPrice = await homeModel.getCurrentPrice(
+            autoBid.id_product
+          );
+          if (currentPrice.currentPrice + autoBid.bidStep <= autoBid.price) {
+            await axios({
+              method: "get",
+              url: `http://localhost:3000/bidding?userid=${
+                autoBid.id_user
+              }&idproduct=${
+                autoBid.id_product
+              }&bidprice=${currentPrice.currentPrice + autoBid.bidStep}`
+            });
+          }else{
+            console.log("Stop");
+          }
+        }
+      }
     }
   },
   start: true,

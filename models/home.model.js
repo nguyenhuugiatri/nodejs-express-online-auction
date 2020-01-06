@@ -68,5 +68,33 @@ module.exports = {
     );
     if (rows.length === 0) return null;
     return rows[0];
+  },
+  addToAutoBid: (id_user, id_product, price) => {
+    db.load(
+      `insert into autobid set id_user = ${id_user} ,id_product = ${id_product}, price = ${price}`
+    );
+  },
+  getAutoBidTable: async () => {
+    const rows = await db.load(
+      "select * from autobid a, product p where a.id_product = p.id and p.auctioned = 0"
+    );
+    if (rows.length === 0) {
+      return null;
+    }
+    return rows;
+  },
+  getCurrentPrice: async id => {
+    const rows = await db.load(
+      `select currentPrice from product where id = ${id}`
+    );
+    if (rows.length === 0) return null;
+    return rows[0];
+  },
+  getCurrentWinner: async id => {
+    const rows = await db.load(
+      `select id_bidder from product where id = ${id}`
+    );
+    if (rows.length === 0) return null;
+    return rows[0];
   }
 };

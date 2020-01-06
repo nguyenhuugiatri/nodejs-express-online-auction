@@ -29,7 +29,7 @@
       <!-- Product main img -->
       <div class="col-md-5 col-md-push-2">
         <div id="product-main-img">
-           {{#each images}}
+          {{#each images}}
           <div class="product-preview">
             <img src={{src}} alt="" />
           </div>
@@ -102,13 +102,29 @@
               PLACE YOUR BID
               <div class="input-number">
                 <input type="text" value="{{this.product.bidStep}}" id="bidStepp" hidden>
-                <input type="number" id="input-bidding" value ="{{this.product.currentPrice}}"/>
-                <span onclick="upInputBidding({{this.product.bidStep}})"  class="qty-up">+</span>
-                <span onclick="downInputBidding({{this.product.bidStep}},{{this.product.currentPrice}})" class="qty-down">-</span>
+                <input type="number" id="input-bidding" value="{{this.product.currentPrice}}" />
+                <span onclick="upInputBidding({{this.product.bidStep}})" class="qty-up">+</span>
+                <span onclick="downInputBidding({{this.product.bidStep}},{{this.product.currentPrice}})"
+                  class="qty-down">-</span>
               </div>
             </div>
-            <button onclick = "placeBid({{this.product.id}})" class="add-to-cart-btn">
+            <button onclick="placeBid({{this.product.id}})" class="add-to-cart-btn">
               <i class="fa fa-shopping-cart"></i> PLACE BID
+            </button>
+          </div>
+
+          <div class="add-to-cart">
+            <div class="qty-label">
+              PLACE YOUR BID
+              <div class="input-number">
+                <input type="number" id="input-auto-bidding" value="{{this.product.currentPrice}}" />
+                <span onclick="upInputAutoBidding({{this.product.bidStep}})" class="qty-up">+</span>
+                <span onclick="downInputAutoBidding({{this.product.bidStep}},{{this.product.currentPrice}})"
+                  class="qty-down">-</span>
+              </div>
+            </div>
+            <button onclick="placeAutoBid({{this.product.id}})" class="add-to-cart-btn">
+              <i class="fa fa-shopping-cart"></i> SET AUTO BID
             </button>
           </div>
 
@@ -167,32 +183,32 @@
                     <!-- Table -->
                     <table class="table">
                       <tr>
-                      <th>Thời điểm</th>
-                      <th>Người đấu giá</th>
-                      <th>Giá</th>
-                      {{!-- OK --}}
-                      <th>Từ chối</th>
-                    </tr>
-                    {{#if this.emptyHistory}}
-                    <tr>
-                      <td></td>
-                      <td>Chưa có người</td>
-                      <td></td>
-                      <td></td>
-                    </tr>
-                    {{else}}
-                        {{#each this.history}}
-                        <tr>
-                      <td>{{time}}</td>
-                      <td>{{fullname}}</td>
-                      <td>{{bidPrice}}</td>
-                      <td>
-                        <button class="btn btn-danger" onclick ="denyBidder({{id_product}},{{id_user}})">Deny</button>
-                      </td>
-                    </tr>
-                        {{/each}}
-                        {{/if}}
-                    
+                        <th>Thời điểm</th>
+                        <th>Người đấu giá</th>
+                        <th>Giá</th>
+                        {{!-- OK --}}
+                        <th>Từ chối</th>
+                      </tr>
+                      {{#if this.emptyHistory}}
+                      <tr>
+                        <td></td>
+                        <td>Chưa có người</td>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                      {{else}}
+                      {{#each this.history}}
+                      <tr>
+                        <td>{{time}}</td>
+                        <td>{{fullname}}</td>
+                        <td>{{bidPrice}}</td>
+                        <td>
+                          <button class="btn btn-danger" onclick="denyBidder({{id_product}},{{id_user}})">Deny</button>
+                        </td>
+                      </tr>
+                      {{/each}}
+                      {{/if}}
+
                     </table>
                   </div>
                 </div>
@@ -621,6 +637,6 @@
 </div>
 <!-- /Section -->
 <script src="https://code.jquery.com/jquery-3.4.1.slim.js"
-		integrity="sha256-BTlTdQO9/fascB1drekrDVkaKd9PkwBymMlHOiG+qLI=" crossorigin="anonymous"></script>
+  integrity="sha256-BTlTdQO9/fascB1drekrDVkaKd9PkwBymMlHOiG+qLI=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <script src="/js/bidding.js"></script>

@@ -51,5 +51,20 @@ module.exports = {
   },
   updateAuctionedStatus: id => {
     db.load(`update product set auctioned = 1 where id = ${id}`);
+  },
+
+  getFullReview: productID =>
+    db.load(`SELECT review.*, user.username as reviewerName
+    FROM review, user
+    where review.reviewer = user.id and review.id_product = ${productID};`),
+    
+  getThumbnailByID: async id_product => {
+    const rows = await db.load(
+      `select src
+        from image
+        where image.id_product = ${id_product};`
+    );
+    if (rows.length === 0) return null;
+    return rows[0];
   }
 };

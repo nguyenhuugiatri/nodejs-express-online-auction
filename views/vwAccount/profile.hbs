@@ -531,17 +531,17 @@
                                                                                     href="/products/detail/{{id}}">{{name}}</a>
                                                                             </h3>
                                                                             </h3>
-                                                                            <h4 class="product-price">Highest bid:
+                                                                            <h4 class="product-price">Final:
                                                                                 {{currentPrice}}
                                                                             </h4>
-                                                                            <h3 class="product-name"><a
-                                                                                    href="/products/detail/{{id}}">Seller:
+                                                                            <h5><a
+                                                                                    href="/account/profile/{{id_seller}}">Seller:
                                                                                     {{seller}}</a>
-                                                                            </h3>
-                                                                            <h3 class="product-name"><a
-                                                                                    href="/products/detail/{{id}}">Winner:
+                                                                            </h5>
+                                                                            <h5><a
+                                                                                    href="/account/profile/{{id_bidder}}">Winner:
                                                                                     {{winner}}</a>
-                                                                            </h3>
+                                                                            </h5>
                                                                             {{!-- {{#if isReview}}
                                                                             <div>Review rồi</div>
                                                                             {{else}}
@@ -578,27 +578,27 @@
                                                                                 href="/products/detail/{{id}}">{{name}}</a>
                                                                         </h3>
                                                                         </h3>
-                                                                        <h4 class="product-price">Highest bid:
+                                                                        <h4 class="product-price">Final:
                                                                             {{currentPrice}}
                                                                         </h4>
-                                                                        <h3 class="product-name"><a
-                                                                                href="/products/detail/{{id}}">Seller:
+                                                                        <h5><a
+                                                                                href="/account/profile/{{id_seller}}">Seller:
                                                                                 {{seller}}
                                                                                 {{#when sellerPoint 'eq' 1}}
-                                                                                (+1){{/when}}
+                                                                                <span style="color: #D10024; font-weight: bold;">(+1)</span>{{/when}}
                                                                                 {{#when sellerPoint 'eq' 0}}
-                                                                                (-1){{/when}}
+                                                                                <span style="color: #D10024; font-weight: bold;">(-1)</span>{{/when}}
                                                                             </a>
-                                                                        </h3>
-                                                                        <h3 class="product-name"><a
-                                                                                href="/products/detail/{{id}}">Winner:
+                                                                        </h5>
+                                                                        <h5><a
+                                                                                href="/account/profile/{{id_bidder}}">Winner:
                                                                                 {{winner}}
                                                                                 {{#when winnerPoint 'eq' 1}}
-                                                                                (+1){{/when}}
+                                                                                <span style="color: #D10024; font-weight: bold;">(+1)</span>{{/when}}
                                                                                 {{#when winnerPoint 'eq' 0}}
-                                                                                (-1){{/when}}
+                                                                                <span style="color: #D10024; font-weight: bold;">(-1)</span>{{/when}}
                                                                             </a>
-                                                                        </h3>
+                                                                        </h5>
 
                                                                         {{#when Reviewable 'eq' 1}}
                                                                         <div class="mp-mrgn-btm-5"
@@ -619,11 +619,11 @@
                                                                         {{/when}}
 
                                                                         {{#when Reviewable 'eq' -1}}
-                                                                        <div>You have reviewed this product</div>
+                                                                        <div class="reviewed" onclick="showReview({{id}})">You have reviewed this product</div>
                                                                         {{/when}}
 
                                                                         {{#when Reviewable 'eq' -2}}
-                                                                        <div>Reviewed</div>
+                                                                        <div class="reviewed" onclick="showReview({{id}})">Reviewed</div>
                                                                         {{/when}}
 
 
@@ -676,17 +676,17 @@
                                                                                     href="/products/detail/{{id}}">{{name}}</a>
                                                                             </h3>
                                                                             </h3>
-                                                                            <h4 class="product-price">Highest bid:
+                                                                            <h4 class="product-price">Final:
                                                                                 {{currentPrice}}
                                                                             </h4>
-                                                                            <h3 class="product-name"><a
-                                                                                    href="/products/detail/{{id}}">Seller:
+                                                                            <h5><a
+                                                                                    href="/account/profile/{{id_seller}}">Seller:
                                                                                     {{seller}}</a>
-                                                                            </h3>
-                                                                            <h3 class="product-name"><a
-                                                                                    href="/products/detail/{{id}}">Winner:
+                                                                            </h5>
+                                                                            <h5><a
+                                                                                    href="/account/profile/{{id_bidder}}">Winner:
                                                                                     {{winner}}</a>
-                                                                            </h3>
+                                                                            </h5>
                                                                             {{!-- {{#if isReview}}
                                                                             <div>Review rồi</div>
                                                                             {{else}}
@@ -723,27 +723,27 @@
                                                                                 href="/products/detail/{{id}}">{{name}}</a>
                                                                         </h3>
                                                                         </h3>
-                                                                        <h4 class="product-price">Highest bid:
+                                                                        <h4 class="product-price">Final:
                                                                             {{currentPrice}}
                                                                         </h4>
-                                                                        <h3 class="product-name"><a
-                                                                                href="/products/detail/{{id}}">Seller:
+                                                                        <h5><a
+                                                                                href="/account/profile/{{id_seller}}">Seller:
                                                                                 {{seller}}
                                                                                 {{#when sellerPoint 'eq' 1}}
-                                                                                (+1){{/when}}
+                                                                                <span style="color: #D10024; font-weight: bold;">(+1)</span>{{/when}}
                                                                                 {{#when sellerPoint 'eq' 0}}
-                                                                                (-1){{/when}}
+                                                                                <span style="color: #D10024; font-weight: bold;">(-1)</span>{{/when}}
                                                                             </a>
-                                                                        </h3>
-                                                                        <h3 class="product-name"><a
-                                                                                href="/products/detail/{{id}}">Winner:
+                                                                        </h5>
+                                                                        <h5><a
+                                                                                href="/account/profile/{{id_bidder}}">Winner:
                                                                                 {{winner}}
                                                                                 {{#when winnerPoint 'eq' 1}}
-                                                                                (+1){{/when}}
+                                                                                <span style="color: #D10024; font-weight: bold;">(+1)</span>{{/when}}
                                                                                 {{#when winnerPoint 'eq' 0}}
-                                                                                (-1){{/when}}
+                                                                                <span style="color: #D10024; font-weight: bold;">(-1)</span>{{/when}}
                                                                             </a>
-                                                                        </h3>
+                                                                        </h5>
 
                                                                         {{#when Reviewable 'eq' 1}}
                                                                         <div class="mp-mrgn-btm-5"
@@ -764,11 +764,11 @@
                                                                         {{/when}}
 
                                                                         {{#when Reviewable 'eq' -1}}
-                                                                        <div>You have reviewed this product</div>
+                                                                        <div class="reviewed" onclick="showReview({{id}})">You have reviewed this product</div>
                                                                         {{/when}}
 
                                                                         {{#when Reviewable 'eq' -2}}
-                                                                        <div>Reviewed</div>
+                                                                        <div class="reviewed" onclick="showReview({{id}})">Reviewed</div>
                                                                         {{/when}}
 
 

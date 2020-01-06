@@ -137,3 +137,19 @@ function sendUpgradeRequest(userID) {
     }
   });
 }
+
+
+function showReview(productID) {
+  $.ajax({
+    url: `/products/showReview?productID=${productID}`,
+    type: "GET"
+  }).done(function(result) {
+    Swal.fire({
+      title: 'Review',
+      // text: result,
+      html: result.reviewFull,
+      imageUrl: `${result.imgSrc}`,
+      imageAlt: 'Custom image',
+    });
+  });
+}

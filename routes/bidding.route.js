@@ -2,6 +2,7 @@ const express = require("express");
 const homeModel = require("../models/home.model");
 const helper = require("./../utils/helper");
 var storeModel = require("../models/store.model");
+var userModel = require("../models/user.model");
 var moment = require("moment");
 const router = express.Router();
 const axios = require("axios");
@@ -18,6 +19,22 @@ router.get("/", async (req, res) => {
   var now = moment().format("YYYY-MM-DD hh:mm:ss");
   const productCurrent = await homeModel.getProductCurrent(idProduct);
   const checkIsBan = await homeModel.CheckBanUser(idUser,idProduct);
+
+  const number_of_reviews = (await userModel.getNumberOfReviews(idUser)).number_of_reviews;
+  const positive_reviews = (await userModel.getNumberOfPositiveReviews(idUser)).positive_reviews;
+
+    var ratingPoint = 0;
+    // console.log("number_of_reviews" + number_of_reviews);////////
+    // console.log("positive_reviews" + positive_reviews);////////
+    if (number_of_reviews === 0) {
+      ratingPoint = 0;
+    } else ratingPoint = (positive_reviews / number_of_reviews) * 100;
+    // check uy tin
+  if (ratingPoint<80)
+  {
+    return res.send("Enough");
+  }
+  // check banned
   if (checkIsBan.length>0)
   {
     return res.send("Banned");

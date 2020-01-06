@@ -55,7 +55,15 @@ function placeBid(idProduct) {
           {
             Swal.fire("Fail!", "Banned", "warning");
           }
-          else Swal.fire("Fail!", "Có người đặt giá cao hơn", "success");
+          else {
+            if (result ==="Enough")
+            {
+              Swal.fire("Fail!", "You don't have enough reputation to bid", "warning");
+            }
+            else{
+              Swal.fire("Fail!", "Có người đặt giá cao hơn", "warning");
+            }
+          }
         }
         
       });

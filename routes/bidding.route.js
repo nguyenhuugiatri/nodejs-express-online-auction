@@ -46,21 +46,41 @@ router.get("/check", async (req, res) => {
   var idUser = req.query.userid;
   console.log(idUser);
   const user = await homeModel.getInforUser(idUser);
-  return res.send({permission : user[0].permission, request :user[0].request});
+  return res.send({ permission: user[0].permission, request: user[0].request });
 });
 
 router.get("/deny", async (req, res) => {
-  var idUser = req.query.userid;
-  var idProduct = req.query.idproduct;
-  await homeModel.deleteBiddingUser(idProduct,idUser);
-  await homeModel.banBidder(idProduct,idUser);
-  const maxBidPrice = await homeModel.getBidPriceMax(idProduct);
-  const productCurrent = await homeModel.getProductCurrent(idProduct);
-  if (maxBidPrice.length===0)
-  {
-    await homeModel.UpdateProduct(idProduct,null,productCurrent[0].startPrice);
+  try {
+    var idUser = req.query.userid;
+    var idProduct = req.query.idproduct;
+    await homeModel.deleteBiddingUser(idProduct, idUser);
+    await homeModel.banBidder(idProduct, idUser);
+    const maxBidPrice = await homeModel.getBidPriceMax(idProduct);
+    const productCurrent = await homeModel.getProductCurrent(idProduct);
+    if (maxBidPrice.length === 0)
+      await homeModel.UpdateProduct(
+        idProduct,
+        null,
+        productCurrent[0].startPrice
+      );
+    else
+      await homeModel.UpdateProduct(
+        idProduct,
+        maxBidPrice[0].id_user,
+        maxBidPrice[0].bidPrice
+      );
+    axios({
+      method: "post",
+      url: "http://localhost:3000/email/deny",
+      data: {
+        email: req.session.user.email,
+        productName: productCurrent[0].name,
+        denyTime: moment().format("YYYY-MM-DD HH:mm:ss")
+      }
+    });
+    return res.send("Success");
+  } catch (err) {
+    console.log(err);
   }
-  else await homeModel.UpdateProduct(idProduct,maxBidPrice[0].id_user,maxBidPrice[0].bidPrice);
-  return res.send("Success");
 });
 module.exports = router;

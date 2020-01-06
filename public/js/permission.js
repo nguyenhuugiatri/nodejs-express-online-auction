@@ -3,7 +3,6 @@
 function checkSeller()
 {
   var permission = document.getElementById("permission");
-  console.log("A"+idUser.value+"A"+ permission.value)
   var idUser = document.getElementById("userID");
   if (!idUser.value)
   {

@@ -169,7 +169,8 @@
                                                 {{#when ../session.user.id 'eq' id }}
                                                 {{#when  request 'eq' 0}}
                                                 <span class="label label-danger" id="upgradeBadge"
-                                                    onclick="sendUpgradeRequest({{../session.user.id}})" style="cursor: pointer;">Upgrade to
+                                                    onclick="sendUpgradeRequest({{../session.user.id}})"
+                                                    style="cursor: pointer;">Upgrade to
                                                     SELLER</span>
                                                 {{/when}}
                                                 {{/when}}
@@ -177,7 +178,8 @@
 
                                                 {{#when ../session.user.id 'eq' id }}
                                                 {{#when  request 'eq' 1}}
-                                                <span class="label label-success" id="waitingBadge">Waiting confirmation...</span>
+                                                <span class="label label-success" id="waitingBadge">Waiting
+                                                    confirmation...</span>
                                                 {{/when}}
                                                 {{/when}}
 
@@ -585,11 +587,21 @@
                                                                         </h4>
                                                                         <h3 class="product-name"><a
                                                                                 href="/products/detail/{{id}}">Seller:
-                                                                                {{seller}}</a>
+                                                                                {{seller}}
+                                                                                {{#when sellerPoint 'eq' 1}}
+                                                                                (+1){{/when}}
+                                                                                {{#when sellerPoint 'eq' 0}}
+                                                                                (-1){{/when}}
+                                                                            </a>
                                                                         </h3>
                                                                         <h3 class="product-name"><a
                                                                                 href="/products/detail/{{id}}">Winner:
-                                                                                {{winner}}</a>
+                                                                                {{winner}}
+                                                                                {{#when winnerPoint 'eq' 1}}
+                                                                                (+1){{/when}}
+                                                                                {{#when winnerPoint 'eq' 0}}
+                                                                                (-1){{/when}}
+                                                                            </a>
                                                                         </h3>
 
                                                                         {{#when Reviewable 'eq' 1}}
@@ -720,11 +732,21 @@
                                                                         </h4>
                                                                         <h3 class="product-name"><a
                                                                                 href="/products/detail/{{id}}">Seller:
-                                                                                {{seller}}</a>
+                                                                                {{seller}}
+                                                                                {{#when sellerPoint 'eq' 1}}
+                                                                                (+1){{/when}}
+                                                                                {{#when sellerPoint 'eq' 0}}
+                                                                                (-1){{/when}}
+                                                                            </a>
                                                                         </h3>
                                                                         <h3 class="product-name"><a
                                                                                 href="/products/detail/{{id}}">Winner:
-                                                                                {{winner}}</a>
+                                                                                {{winner}}
+                                                                                {{#when winnerPoint 'eq' 1}}
+                                                                                (+1){{/when}}
+                                                                                {{#when winnerPoint 'eq' 0}}
+                                                                                (-1){{/when}}
+                                                                            </a>
                                                                         </h3>
 
                                                                         {{#when Reviewable 'eq' 1}}

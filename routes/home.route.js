@@ -9,6 +9,26 @@ router.get("/", async (req, res, next) => {
   const rowsPrice = await homeModel.getProductPriceDESC();
   const rowsEndate = await homeModel.getProductEndateDESC();
   const rowsBidd = await homeModel.getProductBiddDESC();
+
+  
+  // lấy thumbnail source cho products
+  for (let i = 0; i < rowsPrice.length; i++) {
+    var productID = rowsPrice[i].idproduct; // lấy id product
+    const thumbnailSrc = (await homeModel.getThumbnailByID(productID)).src;
+    rowsPrice[i].thumbnailSrc = thumbnailSrc;
+  }
+  for (let i = 0; i < rowsEndate.length; i++) {
+    var productID = rowsEndate[i].idproduct; // lấy id product
+    const thumbnailSrc = (await homeModel.getThumbnailByID(productID)).src;
+    rowsEndate[i].thumbnailSrc = thumbnailSrc;
+  }
+  for (let i = 0; i < rowsBidd.length; i++) {
+    var productID = rowsBidd[i].idproduct; // lấy id product
+    const thumbnailSrc = (await homeModel.getThumbnailByID(productID)).src;
+    rowsBidd[i].thumbnailSrc = thumbnailSrc;
+  }
+
+
   const category = await homeModel.getCategories();
   var idUser = -1;
   if (req.session.user) {
@@ -28,11 +48,9 @@ router.get("/", async (req, res, next) => {
         rowsPrice[i].like = true;
       }
     }
-    if (rowsPrice[i].fullname!==null)
-    {
+    if (rowsPrice[i].fullname !== null) {
       rowsPrice[i].fullname = helper.maskNameString(rowsPrice[i].fullname);
-    }
-    else rowsPrice[i].fullname = "Chưa có người đấu giá";
+    } else rowsPrice[i].fullname = "Chưa có người đấu giá";
     var endDate = moment(rowsPrice[i].endDate).format("YYYY-MM-DD HH:mm:ss");
     // var timeleft = moment(endDate.diff(today));
     // var stringTime = helper.convertTimeLeft(timeleft);
@@ -49,11 +67,9 @@ router.get("/", async (req, res, next) => {
         rowsEndate[i].like = true;
       }
     }
-    if (rowsEndate[i].fullname!==null)
-    {
+    if (rowsEndate[i].fullname !== null) {
       rowsEndate[i].fullname = helper.maskNameString(rowsEndate[i].fullname);
-    }
-    else rowsEndate[i].fullname = "Chưa có người đấu giá";
+    } else rowsEndate[i].fullname = "Chưa có người đấu giá";
     var endDate = moment(rowsEndate[i].endDate).format("YYYY-MM-DD HH:mm:ss");
     // var timeleft = moment(endDate.diff(today));
     // var stringTime = helper.convertTimeLeft(timeleft);
@@ -71,12 +87,10 @@ router.get("/", async (req, res, next) => {
         rowsBidd[i].like = true;
       }
     }
-    if (rowsBidd[i].fullname!==null)
-    {
+    if (rowsBidd[i].fullname !== null) {
       rowsBidd[i].fullname = helper.maskNameString(rowsBidd[i].fullname);
-    }
-    else rowsBidd[i].fullname = "Chưa có người đấu giá";
-    
+    } else rowsBidd[i].fullname = "Chưa có người đấu giá";
+
     var endDate = moment(rowsBidd[i].endDate).format("YYYY-MM-DD HH:mm:ss");
     // var timeleft = moment(endDate.diff(today));
     // var stringTime = helper.convertTimeLeft(timeleft);

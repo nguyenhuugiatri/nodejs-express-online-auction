@@ -211,5 +211,17 @@ module.exports = {
   cancelRequest: id => db.load(`update user set request = 0 where id = ${id}`),
   confirmRequest: id =>
     db.load(`update user set request = 0 , permission = 1 where id = ${id}`),
-  update: (entity, id) => db.patch("user", entity, { id: id })
+  update: (entity, id) => db.patch("user", entity, { id: id }),
+
+
+
+  getThumbnailByID: async id_product => {
+    const rows = await db.load(
+      `select src
+      from image
+      where image.id_product = ${id_product};`
+    );
+    if (rows.length === 0) return null;
+    return rows[0];
+  },
 };

@@ -11,9 +11,10 @@
 				<ul class="header-links pull-right">
 					
 					{{#if session.user}}
-					<li><a href="/account/profile"><i class="fa fa-user-o"></i> {{session.user.username}}</a></li>
+					<li><a href="/account/profile"><i class="fa fa-user"></i> {{session.user.username}}</a></li>
 					{{else}}
-					<li><a href="/account/signin"><i class="fa fa-user-o"></i> Sign In</a></li>
+					<li><a href="/account/signup"><i class="fa fa fa-user-plus"></i> Sign Up</a></li>
+					<li><a href="/account/signin"><i class="fa fa-user"></i> Sign In</a></li>
 					{{/if}}
 					{{#if session.user}}
 					<li><a href="/account/logout"><i class="fa fa-sign-out"></i> Sign Out</a></li>
@@ -61,7 +62,7 @@
                         <!-- Wishlist -->
                         <div>
                             <a href="#">
-                                <i class="fa fa-heart-o"></i>
+                                <i class="fa fa-heart"></i>
                                 <span>Your Wishlist</span>
                                 <div class="qty">2</div>
                             </a>
@@ -141,11 +142,11 @@
             <ul class="main-nav nav navbar-nav">
                 <li class="active"><a href="/">Home</a></li>
                 <li><a href="#">Hot Deals</a></li>
-                <li><a href="./store.html">Categories</a></li>
-                <li><a href="./store.html">Laptops</a></li>
-                <li><a href="./store.html">Smartphones</a></li>
-                <!-- <li><a href="./store.html">Cameras</a></li> -->
-                <li><a href="./store.html">Accessories</a></li>
+                <li><a href="/store/search?searchInput=">Categories</a></li>
+                <li><a href="/store/search?searchInput=">Laptops</a></li>
+                <li><a href="/store/search?searchInput=">Smartphones</a></li>
+                <!-- <li><a href="/store/search?searchInput=">Cameras</a></li> -->
+                <li><a href="/store/search?searchInput=">Accessories</a></li>
             </ul>
             <!-- /NAV -->
         </div>

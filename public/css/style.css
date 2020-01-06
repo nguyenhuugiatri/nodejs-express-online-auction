@@ -2203,6 +2203,28 @@ textarea.input {
   margin: 15px 0px;
 }
 
+
+.product .product-img{
+  height: 200px;
+}
+
+.product .product-body .product-name{
+  height: 33px;
+  overflow-y: hidden;
+}
+.product .product-body .product-price::before{
+content:'$';
+margin-right: 3px;
+}
+
+.product .product-body .product-winner{
+  font-size: 12px;
+  font-style: italic;
+}
+
+.shop .shop-img{
+  height:230px;
+}
 /*=========================================================
 	13 -> RESPONSIVE
 ===========================================================*/

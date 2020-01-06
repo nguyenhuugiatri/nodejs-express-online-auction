@@ -127,6 +127,34 @@ router.get("/profile/:id", async (req, res) => {
   const listWon = await userModel.getListProductOfWon(userId);
   const listAuctioned = await userModel.getListProductAuctioned(userId);
 
+  // lấy thumbnail source cho product
+  for (let i = 0; i < rows.length; i++) {
+    // rows là danh sách sản phẩm wishlist
+    var productID = rows[i].id; // lấy id product
+    const thumbnailSrc = (await userModel.getThumbnailByID(productID)).src;
+    rows[i].thumbnailSrc = thumbnailSrc;
+  }
+  for (let i = 0; i < listSeller.length; i++) {
+    var productID = listSeller[i].id; // lấy id product
+    const thumbnailSrc = (await userModel.getThumbnailByID(productID)).src;
+    listSeller[i].thumbnailSrc = thumbnailSrc;
+  }
+  for (let i = 0; i < listBidding.length; i++) {
+    var productID = listBidding[i].id; // lấy id product
+    const thumbnailSrc = (await userModel.getThumbnailByID(productID)).src;
+    listBidding[i].thumbnailSrc = thumbnailSrc;
+  }
+  for (let i = 0; i < listWon.length; i++) {
+    var productID = listWon[i].id; // lấy id product
+    const thumbnailSrc = (await userModel.getThumbnailByID(productID)).src;
+    listWon[i].thumbnailSrc = thumbnailSrc;
+  }
+  for (let i = 0; i < listAuctioned.length; i++) {
+    var productID = listAuctioned[i].id; // lấy id product
+    const thumbnailSrc = (await userModel.getThumbnailByID(productID)).src;
+    listAuctioned[i].thumbnailSrc = thumbnailSrc;
+  }
+
   //format lại ngày
   row_user[0].joindate = moment(row_user[0].joindate).format("YYYY-MM-DD");
 
@@ -137,6 +165,12 @@ router.get("/profile/:id", async (req, res) => {
   if (your) {
     yourID = your.id;
     listWonFromYou = await userModel.getListProductOfWonFromYou(userId, yourID);
+    // lấy thumbnail source cho product
+    for (let i = 0; i < listWonFromYou.length; i++) {
+      var productID = listWonFromYou[i].id; // lấy id product
+      const thumbnailSrc = (await userModel.getThumbnailByID(productID)).src;
+      listWonFromYou[i].thumbnailSrc = thumbnailSrc;
+    }
 
     // cho biết bạn đã review sản phẩm mà người đó đã won chưa
     for (let i = 0; i < listWonFromYou.length; i++) {
@@ -171,6 +205,12 @@ router.get("/profile/:id", async (req, res) => {
       userId,
       yourID
     );
+    // lấy thumbnail source cho product
+    for (let i = 0; i < listAuctionedForYou.length; i++) {
+      var productID = listAuctionedForYou[i].id; // lấy id product
+      const thumbnailSrc = (await userModel.getThumbnailByID(productID)).src;
+      listAuctionedForYou[i].thumbnailSrc = thumbnailSrc;
+    }
 
     // cho biết bạn đã review sản phẩm mà người đó đã mua chưa
     for (let i = 0; i < listAuctionedForYou.length; i++) {

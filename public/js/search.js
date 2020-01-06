@@ -100,8 +100,13 @@ const nextPage = max => {
   let currentURL = window.location.href;
   const pos = currentURL.indexOf("&page=");
   if (pos === -1) {
-    const URL = `${currentURL}&page=2`;
-    window.location.replace(URL);
+    if(max>1){
+      const URL = `${currentURL}&page=2`;
+      window.location.replace(URL);
+    }else{
+      Swal.fire("Info", "You are at tail", "info");
+      return;
+    }
   } else {
     currentPage = parseInt(currentURL.substring(pos + "&page=".length));
     if (currentPage + 1 > max) {

@@ -118,6 +118,10 @@ router.get("/profile", requireLogin, async (req, res) => {
 
 router.get("/profile/:id", async (req, res) => {
   const userId = req.params.id;
+  var idLogin;
+  if (req.session && req.session.user && req.session.user.id)
+    idLogin = req.session.user.id;
+  else idLogin=-1;
   const row_user = await userModel.singleByID(userId);
   const rows = await userModel.getWishListbyID(userId);
   const category = await homeModel.getCategories();
@@ -126,33 +130,91 @@ router.get("/profile/:id", async (req, res) => {
   const listNowTake = await userModel.getUserTakeNowProduct(userId);
   const listWon = await userModel.getListProductOfWon(userId);
   const listAuctioned = await userModel.getListProductAuctioned(userId);
-
+  const wishList = await storeModel.getWishListbyId(idLogin);
+  const countBidding = await userModel.getBiddingCount();
   // lấy thumbnail source cho product
   for (let i = 0; i < rows.length; i++) {
     // rows là danh sách sản phẩm wishlist
-    var productID = rows[i].id; // lấy id product
+    var productID = rows[i].idproduct; // lấy id product
     const thumbnailSrc = (await userModel.getThumbnailByID(productID)).src;
     rows[i].thumbnailSrc = thumbnailSrc;
+    for (let j = 0; j < wishList.length; j++) {
+      if (helper.check(rows[i].idproduct, wishList)) {
+        rows[i].like = true;
+      }
+    }
+    if (rows[i].fullname !== null) {
+      rows[i].fullname = helper.maskNameString(rows[i].fullname);
+    } else rows[i].fullname = "Chưa có người đấu giá";
   }
   for (let i = 0; i < listSeller.length; i++) {
-    var productID = listSeller[i].id; // lấy id product
+    var productID = listSeller[i].idproduct; // lấy id product
     const thumbnailSrc = (await userModel.getThumbnailByID(productID)).src;
     listSeller[i].thumbnailSrc = thumbnailSrc;
+    for (let j = 0; j < wishList.length; j++) {
+      if (helper.check(listSeller[i].idproduct, wishList)) {
+        listSeller[i].like = true;
+      }
+    }
+    if (listSeller[i].fullname !== null) {
+      listSeller[i].fullname = helper.maskNameString(listSeller[i].fullname);
+    } else listSeller[i].fullname = "Chưa có người đấu giá";
   }
   for (let i = 0; i < listBidding.length; i++) {
-    var productID = listBidding[i].id; // lấy id product
+    var productID = listBidding[i].idproduct; // lấy id product
     const thumbnailSrc = (await userModel.getThumbnailByID(productID)).src;
     listBidding[i].thumbnailSrc = thumbnailSrc;
+    for (let k =0;k<countBidding.length;k++)
+    {
+      if (listBidding[i].idproduct === countBidding[k].id_product)
+      {
+        listBidding[i].count = countBidding[k].count;
+      }
+    }
+    for (let j = 0; j < wishList.length; j++) {
+      if (helper.check(listBidding[i].idproduct, wishList)) {
+        listBidding[i].like = true;
+      }
+    }
+    if (listBidding[i].fullname !== null) {
+      listBidding[i].fullname = helper.maskNameString(listBidding[i].fullname);
+    } else listBidding[i].fullname = "Chưa có người đấu giá";
   }
   for (let i = 0; i < listWon.length; i++) {
     var productID = listWon[i].id; // lấy id product
     const thumbnailSrc = (await userModel.getThumbnailByID(productID)).src;
     listWon[i].thumbnailSrc = thumbnailSrc;
+
+    // lấy điểm đánh giá của seller
+    const sellerPoint = (
+      await userModel.getReviewPointByUser(productID, listWon[i].id_seller)
+    );
+    if (sellerPoint!=null) listWon[i].sellerPoint = sellerPoint.marks;
+    else listWon[i].sellerPoint = -2;
+    // lấy điểm đánh giá của winner
+    const winnerPoint = (
+      await userModel.getReviewPointByUser(productID, listWon[i].id_bidder)
+    );
+    if (winnerPoint!=null) listWon[i].winnerPoint = winnerPoint.marks;
+    else listWon[i].winnerPoint = -2;
   }
   for (let i = 0; i < listAuctioned.length; i++) {
     var productID = listAuctioned[i].id; // lấy id product
     const thumbnailSrc = (await userModel.getThumbnailByID(productID)).src;
     listAuctioned[i].thumbnailSrc = thumbnailSrc;
+
+     // lấy điểm đánh giá của seller
+     const sellerPoint = (
+      await userModel.getReviewPointByUser(productID, listAuctioned[i].id_seller)
+    );
+    if (sellerPoint!=null) listAuctioned[i].sellerPoint = sellerPoint.marks;
+    else listAuctioned[i].sellerPoint = -2;
+    // lấy điểm đánh giá của winner
+    const winnerPoint = (
+      await userModel.getReviewPointByUser(productID, listAuctioned[i].id_bidder)
+    );
+    if (winnerPoint!=null) listAuctioned[i].winnerPoint = winnerPoint.marks;
+    else listAuctioned[i].winnerPoint = -2;
   }
 
   //format lại ngày
@@ -225,7 +287,7 @@ router.get("/profile/:id", async (req, res) => {
     // cho biết bạn đã review sản phẩm bạn đã mua này chưa
     for (let i = 0; i < listAuctioned.length; i++) {
       var id_product_auctioned = listAuctioned[i].id;
-      const isReview2 = await userModel.isReviewedByWinner(
+      const isReview2 = await userModel.isReviewedBySeller(
         id_product_auctioned
       );
       if (isReview2) listAuctioned[i].isReview = 1;
@@ -424,6 +486,10 @@ router.get("/addWishList", requireLogin, async (req, res) => {
 
 router.get("/profile/:id/search", async (req, res) => {
   const userId = req.params.id;
+  var idLogin;
+  if (req.session && req.session.user && req.session.user.id)
+    idLogin = req.session.user.id;
+  else idLogin=-1;
   console.log(req.query);
   const row_user = await userModel.singleByID(userId);
   const rows = await userModel.getWishListbyID_Name(
@@ -434,8 +500,60 @@ router.get("/profile/:id/search", async (req, res) => {
   const listBidding = await userModel.getListProductOfBidding(userId);
   const listNowTake = await userModel.getUserTakeNowProduct(userId);
   const listWon = await userModel.getListProductOfWon(userId);
-
   const category = await homeModel.getCategories();
+
+  const listAuctioned = await userModel.getListProductAuctioned(userId);
+  const wishList = await storeModel.getWishListbyId(idLogin);
+  const countBidding = await userModel.getBiddingCount();
+  // lấy thumbnail source cho product
+  for (let i = 0; i < rows.length; i++) {
+    // rows là danh sách sản phẩm wishlist
+    var productID = rows[i].idproduct; // lấy id product
+    const thumbnailSrc = (await userModel.getThumbnailByID(productID)).src;
+    rows[i].thumbnailSrc = thumbnailSrc;
+    for (let j = 0; j < wishList.length; j++) {
+      if (helper.check(rows[i].idproduct, wishList)) {
+        rows[i].like = true;
+      }
+    }
+    if (rows[i].fullname !== null) {
+      rows[i].fullname = helper.maskNameString(rows[i].fullname);
+    } else rows[i].fullname = "Chưa có người đấu giá";
+  }
+  for (let i = 0; i < listSeller.length; i++) {
+    var productID = listSeller[i].idproduct; // lấy id product
+    const thumbnailSrc = (await userModel.getThumbnailByID(productID)).src;
+    listSeller[i].thumbnailSrc = thumbnailSrc;
+    for (let j = 0; j < wishList.length; j++) {
+      if (helper.check(listSeller[i].idproduct, wishList)) {
+        listSeller[i].like = true;
+      }
+    }
+    if (listSeller[i].fullname !== null) {
+      listSeller[i].fullname = helper.maskNameString(listSeller[i].fullname);
+    } else listSeller[i].fullname = "Chưa có người đấu giá";
+  }
+  for (let i = 0; i < listBidding.length; i++) {
+    var productID = listBidding[i].idproduct; // lấy id product
+    const thumbnailSrc = (await userModel.getThumbnailByID(productID)).src;
+    listBidding[i].thumbnailSrc = thumbnailSrc;
+    for (let k =0;k<countBidding.length;k++)
+    {
+      if (listBidding[i].idproduct === countBidding[k].id_product)
+      {
+        listBidding[i].count = countBidding[k].count;
+      }
+    }
+    for (let j = 0; j < wishList.length; j++) {
+      if (helper.check(listBidding[i].idproduct, wishList)) {
+        listBidding[i].like = true;
+      }
+    }
+    if (listBidding[i].fullname !== null) {
+      listBidding[i].fullname = helper.maskNameString(listBidding[i].fullname);
+    } else listBidding[i].fullname = "Chưa có người đấu giá";
+  }
+
   // lấy điểm review từ database
   const number_of_reviews = (await userModel.getNumberOfReviews(userId))
     .number_of_reviews;

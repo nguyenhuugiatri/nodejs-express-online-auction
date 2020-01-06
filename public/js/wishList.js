@@ -4,6 +4,7 @@ function addWistList(id) {
   // var heart = $(`#${id}-heart`);
   const hearts = document.getElementsByName(`${id}-heart`);
   var idUser = document.getElementById("userID");
+  console.log(idUser.value);
   if (!idUser.value)
   {
     window.location.replace("/account/signin");
@@ -25,28 +26,36 @@ function addWistList(id) {
     url: urlSend,
     type: "GET"
   }).done(function(result) {
-    if (result !== "Add Success" || result !== "Delete Success")
+    if (!result)
       window.location.replace("/account/signin");
   });
 }
 function addWistListAndLoadUrl(id) {
-  var heart = $(`#${id}-heart`);
+  const hearts = document.getElementsByName(`${id}-heart`);
   var idUser = document.getElementById("userID");
+  console.log(idUser.value);
   if (!idUser.value)
   {
     window.location.replace("/account/signin");
     return;
   }
-  if (heart.css("color") === "rgb(221, 221, 221)") heart.css("color", "#D10024");
-  else heart.css("color", "#ddd");
+  for (const heart of hearts)
+  {
+    console.log( heart);
+    if (heart.style.color === "rgb(221, 221, 221)") heart.style.color="#D10024";
+  else heart.style.color="#ddd";
+  }
+  // console.log(heart.css("color"));
+  // if (heart.css("color") === "rgb(221, 221, 221)") heart.css("color", "#D10024");
+  // else heart.css("color", "#ddd");
+  
   var urlSend =
     "/account/addWishList?userid=" + idUser.value + "&idproduct=" + id;
   $.ajax({
     url: urlSend,
     type: "GET"
   }).done(function(result) {
-    console.log(result);
-    window.location.replace(window.location.href);
+      window.location.replace(window.location.href);
   });
 }
 

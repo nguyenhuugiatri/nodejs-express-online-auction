@@ -169,7 +169,8 @@
                                                 {{#when ../session.user.id 'eq' id }}
                                                 {{#when  request 'eq' 0}}
                                                 <span class="label label-danger" id="upgradeBadge"
-                                                    onclick="sendUpgradeRequest({{../session.user.id}})" style="cursor: pointer;">Upgrade to
+                                                    onclick="sendUpgradeRequest({{../session.user.id}})"
+                                                    style="cursor: pointer;">Upgrade to
                                                     SELLER</span>
                                                 {{/when}}
                                                 {{/when}}
@@ -177,7 +178,8 @@
 
                                                 {{#when ../session.user.id 'eq' id }}
                                                 {{#when  request 'eq' 1}}
-                                                <span class="label label-success" id="waitingBadge">Waiting confirmation...</span>
+                                                <span class="label label-success" id="waitingBadge">Waiting
+                                                    confirmation...</span>
                                                 {{/when}}
                                                 {{/when}}
 
@@ -321,42 +323,41 @@
                                                                     <div class="product-img">
                                                                         <img src="{{thumbnailSrc}}" alt="">
                                                                         <div class="product-label">
-                                                                            <span class="sale">-30%</span>
-
+                                                                            <span class="sale">Bidding: {{count}}</span>
+                                                                            {{#if this.new}}
+                                                                            <span class="new">New</span>
+                                                                            {{/if}}
                                                                         </div>
                                                                     </div>
                                                                     <div class="product-body">
                                                                         <!-- <p class="product-category">Category</p> -->
                                                                         <p class="product-time-left">{{timeLeft}}</p>
                                                                         <h3 class="product-name"><a
-                                                                                href="/products/detail/{{id}}">{{name}}</a>
+                                                                                href="/products/detail/{{idproduct}}">{{name}}</a>
                                                                         </h3>
                                                                         </h3>
-                                                                        <h4 class="product-price">{{buynowPrice}} <del
-                                                                                class="product-old-price">{{currentPrice}}</del>
-                                                                        </h4>
-                                                                        <div class="product-rating">
-                                                                            <i class="fa fa-star"></i>
-                                                                            <i class="fa fa-star"></i>
-                                                                            <i class="fa fa-star"></i>
-                                                                            <i class="fa fa-star"></i>
-                                                                            <i class="fa fa-star"></i>
-                                                                        </div>
+                                                                        <h4 class="product-price">{{currentPrice}} </h4>
+                                                                        <p class="product-winner">{{fullname}}</p>
                                                                         <div class="product-btns">
-                                                                            <button
-                                                                                onclick="addWistListAndLoadUrl({{id}})"
-                                                                                id="{{id}}" class="add-to-wishlist"><i
+                                                                            <button onclick="addWistListAndLoadUrl({{idproduct}})"
+                                                                                id="{{idproduct}}"
+                                                                                class="add-to-wishlist">{{#if like}}<i
                                                                                     style="color:#D10024"
-                                                                                    id="{{id}}-heart"
+                                                                                    name="{{idproduct}}-heart"
                                                                                     class="fa fa-heart"
-                                                                                    aria-hidden="true"></i><span
+                                                                                    aria-hidden="true"></i>{{else}}<i
+                                                                                    style="color:#ddd"
+                                                                                    name="{{idproduct}}-heart"
+                                                                                    class="fa fa-heart"
+                                                                                    aria-hidden="true"></i>{{/if}}<span
                                                                                     class="tooltipp">add to
                                                                                     wishlist</span></button>
                                                                         </div>
                                                                     </div>
                                                                     <div class="add-to-cart">
-                                                                        <button class="add-to-cart-btn"><i class="fa fa-upload" aria-hidden="true"></i><a
-                                                                                href="/products/detail/{{id}}">BID
+                                                                        <button class="add-to-cart-btn"><i
+                                                                                class="fa fa-shopping-cart"></i><a
+                                                                                href="/products/detail/{{idproduct}}">BID
                                                                                 NOW</a></button>
                                                                     </div>
                                                                 </div>
@@ -389,7 +390,10 @@
                                                                     <div class="product-img">
                                                                         <img src="{{thumbnailSrc}}" alt="">
                                                                         <div class="product-label">
-                                                                            <span class="sale">-30%</span>
+                                                                           <span class="sale">Bidding: {{count}}</span>
+                                                                            {{#if this.new}}
+                                                                            <span class="new">New</span>
+                                                                            {{/if}}
 
                                                                         </div>
                                                                     </div>
@@ -397,34 +401,31 @@
                                                                         <!-- <p class="product-category">Category</p> -->
                                                                         <p class="product-time-left">{{timeLeft}}</p>
                                                                         <h3 class="product-name"><a
-                                                                                href="/products/detail/{{id}}">{{name}}</a>
+                                                                                href="/products/detail/{{idproduct}}">{{name}}</a>
                                                                         </h3>
                                                                         </h3>
-                                                                        <h4 class="product-price">{{buynowPrice}} <del
-                                                                                class="product-old-price">{{currentPrice}}</del>
-                                                                        </h4>
-                                                                        <div class="product-rating">
-                                                                            <i class="fa fa-star"></i>
-                                                                            <i class="fa fa-star"></i>
-                                                                            <i class="fa fa-star"></i>
-                                                                            <i class="fa fa-star"></i>
-                                                                            <i class="fa fa-star"></i>
-                                                                        </div>
+                                                                        <h4 class="product-price">{{currentPrice}} </h4>
+                                                                        <p class="product-winner">{{fullname}}</p>
                                                                         <div class="product-btns">
-                                                                            <button
-                                                                                onclick="addWistListAndLoadUrl({{id}})"
-                                                                                id="{{id}}" class="add-to-wishlist"><i
+                                                                            <button onclick="addWistListAndLoadUrl({{idproduct}})"
+                                                                                id="{{idproduct}}"
+                                                                                class="add-to-wishlist">{{#if like}}<i
                                                                                     style="color:#D10024"
-                                                                                    id="{{id}}-heart"
+                                                                                    name="{{idproduct}}-heart"
                                                                                     class="fa fa-heart"
-                                                                                    aria-hidden="true"></i><span
+                                                                                    aria-hidden="true"></i>{{else}}<i
+                                                                                    style="color:#ddd"
+                                                                                    name="{{idproduct}}-heart"
+                                                                                    class="fa fa-heart"
+                                                                                    aria-hidden="true"></i>{{/if}}<span
                                                                                     class="tooltipp">add to
                                                                                     wishlist</span></button>
                                                                         </div>
                                                                     </div>
                                                                     <div class="add-to-cart">
-                                                                        <button class="add-to-cart-btn"><i class="fa fa-upload" aria-hidden="true"></i><a
-                                                                                href="/products/detail/{{id}}">BID
+                                                                        <button class="add-to-cart-btn"><i
+                                                                                class="fa fa-shopping-cart"></i><a
+                                                                                href="/products/detail/{{idproduct}}">BID
                                                                                 NOW</a></button>
                                                                     </div>
                                                                 </div>
@@ -451,42 +452,42 @@
                                                                     <div class="product-img">
                                                                         <img src="{{thumbnailSrc}}" alt="">
                                                                         <div class="product-label">
-                                                                            <span class="sale">-30%</span>
-
+                                                                            <span class="sale">Bidding: {{count}}</span>
+                                                                            {{#if this.new}}
+                                                                            <span class="new">New</span>
+                                                                            {{/if}}
                                                                         </div>
                                                                     </div>
                                                                     <div class="product-body">
                                                                         <!-- <p class="product-category">Category</p> -->
                                                                         <p class="product-time-left">{{timeLeft}}</p>
                                                                         <h3 class="product-name"><a
-                                                                                href="/products/detail/{{id}}">{{name}}</a>
+                                                                                href="/products/detail/{{idproduct}}">{{name}}</a>
                                                                         </h3>
                                                                         </h3>
-                                                                        <h4 class="product-price">{{buynowPrice}} <del
-                                                                                class="product-old-price">{{currentPrice}}</del>
-                                                                        </h4>
-                                                                        <div class="product-rating">
-                                                                            <i class="fa fa-star"></i>
-                                                                            <i class="fa fa-star"></i>
-                                                                            <i class="fa fa-star"></i>
-                                                                            <i class="fa fa-star"></i>
-                                                                            <i class="fa fa-star"></i>
-                                                                        </div>
+                                                                        <h4 class="product-price">{{currentPrice}} </h4>
+                                                                        <p class="product-winner">{{fullname}}</p>
                                                                         <div class="product-btns">
                                                                             <button
-                                                                                onclick="addWistListAndLoadUrl({{id}})"
-                                                                                id="{{id}}" class="add-to-wishlist"><i
+                                                                                <button onclick="addWistListAndLoadUrl({{idproduct}})"
+                                                                                id="{{idproduct}}"
+                                                                                class="add-to-wishlist">{{#if like}}<i
                                                                                     style="color:#D10024"
-                                                                                    id="{{id}}-heart"
+                                                                                    name="{{idproduct}}-heart"
                                                                                     class="fa fa-heart"
-                                                                                    aria-hidden="true"></i><span
+                                                                                    aria-hidden="true"></i>{{else}}<i
+                                                                                    style="color:#ddd"
+                                                                                    name="{{idproduct}}-heart"
+                                                                                    class="fa fa-heart"
+                                                                                    aria-hidden="true"></i>{{/if}}<span
                                                                                     class="tooltipp">add to
                                                                                     wishlist</span></button>
                                                                         </div>
                                                                     </div>
                                                                     <div class="add-to-cart">
-                                                                        <button class="add-to-cart-btn"><i class="fa fa-upload" aria-hidden="true"></i><a
-                                                                                href="/products/detail/{{id}}">BID
+                                                                        <button class="add-to-cart-btn"><i
+                                                                                class="fa fa-shopping-cart"></i><a
+                                                                                href="/products/detail/{{idproduct}}">BID
                                                                                 NOW</a></button>
                                                                     </div>
                                                                 </div>
@@ -582,11 +583,21 @@
                                                                         </h4>
                                                                         <h3 class="product-name"><a
                                                                                 href="/products/detail/{{id}}">Seller:
-                                                                                {{seller}}</a>
+                                                                                {{seller}}
+                                                                                {{#when sellerPoint 'eq' 1}}
+                                                                                (+1){{/when}}
+                                                                                {{#when sellerPoint 'eq' 0}}
+                                                                                (-1){{/when}}
+                                                                            </a>
                                                                         </h3>
                                                                         <h3 class="product-name"><a
                                                                                 href="/products/detail/{{id}}">Winner:
-                                                                                {{winner}}</a>
+                                                                                {{winner}}
+                                                                                {{#when winnerPoint 'eq' 1}}
+                                                                                (+1){{/when}}
+                                                                                {{#when winnerPoint 'eq' 0}}
+                                                                                (-1){{/when}}
+                                                                            </a>
                                                                         </h3>
 
                                                                         {{#when Reviewable 'eq' 1}}
@@ -717,11 +728,21 @@
                                                                         </h4>
                                                                         <h3 class="product-name"><a
                                                                                 href="/products/detail/{{id}}">Seller:
-                                                                                {{seller}}</a>
+                                                                                {{seller}}
+                                                                                {{#when sellerPoint 'eq' 1}}
+                                                                                (+1){{/when}}
+                                                                                {{#when sellerPoint 'eq' 0}}
+                                                                                (-1){{/when}}
+                                                                            </a>
                                                                         </h3>
                                                                         <h3 class="product-name"><a
                                                                                 href="/products/detail/{{id}}">Winner:
-                                                                                {{winner}}</a>
+                                                                                {{winner}}
+                                                                                {{#when winnerPoint 'eq' 1}}
+                                                                                (+1){{/when}}
+                                                                                {{#when winnerPoint 'eq' 0}}
+                                                                                (-1){{/when}}
+                                                                            </a>
                                                                         </h3>
 
                                                                         {{#when Reviewable 'eq' 1}}

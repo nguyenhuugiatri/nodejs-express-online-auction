@@ -101,16 +101,78 @@ router.get("/profile/:id", async (req, res) => {
   const listAuctioned = await userModel.getListProductAuctioned(userId);
 
   var listWonFromYou = null;
-  var listAuctionedForYou =null;
+  var listAuctionedForYou = null;
 
   const your = req.session.user;
-  if (your)
-  {
+  if (your) {
     yourID = your.id;
     listWonFromYou = await userModel.getListProductOfWonFromYou(userId, yourID);
-    listAuctionedForYou  = await userModel.getListProductAuctionedForYou(userId, yourID);
-  }
 
+    // cho biết bạn đã review sản phẩm mà người đó đã won chưa
+    for (let i = 0; i < listWonFromYou.length; i++) {
+      var id_product_won_from_you = listWonFromYou[i].id;
+      const isReview = await userModel.isReviewedBySellerYou(
+        id_product_won_from_you,
+        yourID
+      );
+      if (isReview) listWonFromYou[i].isReview = 1;
+      else listWonFromYou[i].isReview = 0;
+    }
+    // cho biết bạn đã review sản phẩm bạn đã won này chưa
+    for (let i = 0; i < listWon.length; i++) {
+      var id_product_won = listWon[i].id;
+      const isReview2 = await userModel.isReviewedByWinner(id_product_won);
+      if (isReview2) listWon[i].isReview = 1;
+      else listWon[i].isReview = 0;
+      // bạn có được phép review hay không
+      if (userId == yourID && listWon[i].isReview === 0)
+        listWon[i].Reviewable = 1;
+      //được review
+      else if (userId != yourID && listWon[i].isReview === 0)
+        listWon[i].Reviewable = 0;
+      //chưa review
+      else if (userId == yourID && listWon[i].isReview === 1)
+        listWon[i].Reviewable = -1;
+      // bạn đã review
+      else listWon[i].Reviewable = -2; // người khác đã review
+    }
+
+    listAuctionedForYou = await userModel.getListProductAuctionedForYou(
+      userId,
+      yourID
+    );
+
+    // cho biết bạn đã review sản phẩm mà người đó đã mua chưa
+    for (let i = 0; i < listAuctionedForYou.length; i++) {
+      var id_product_auctioned_for_you = listAuctionedForYou[i].id;
+      const isReview = await userModel.isReviewedByWinnerYou(
+        id_product_auctioned_for_you,
+        yourID
+      );
+      if (isReview) listAuctionedForYou[i].isReview = 1;
+      else listAuctionedForYou[i].isReview = 0;
+    }
+    // cho biết bạn đã review sản phẩm bạn đã mua này chưa
+    for (let i = 0; i < listAuctioned.length; i++) {
+      var id_product_auctioned = listAuctioned[i].id;
+      const isReview2 = await userModel.isReviewedByWinner(
+        id_product_auctioned
+      );
+      if (isReview2) listAuctioned[i].isReview = 1;
+      else listAuctioned[i].isReview = 0;
+      // bạn có được phép review hay không
+      if (userId == yourID && listAuctioned[i].isReview === 0)
+        listAuctioned[i].Reviewable = 1;
+      //được review
+      else if (userId != yourID && listAuctioned[i].isReview === 0)
+        listAuctioned[i].Reviewable = 0;
+      //chưa review
+      else if (userId == yourID && listAuctioned[i].isReview === 1)
+        listAuctioned[i].Reviewable = -1;
+      // bạn đã review
+      else listAuctioned[i].Reviewable = -2; // người khác đã review
+    }
+  }
 
   // lấy điểm review từ database
   const number_of_reviews = (await userModel.getNumberOfReviews(userId))
@@ -125,51 +187,47 @@ router.get("/profile/:id", async (req, res) => {
   if (number_of_reviews === 0) {
     ratingPoint = 0;
     ratingDescription = "There are no reviews yet";
-   } 
-   else ratingPoint = (positive_reviews / number_of_reviews) * 100;
-//console.log(ratingPoint);/////////////////////////////////////////////////////////////
+  } else ratingPoint = (positive_reviews / number_of_reviews) * 100;
+  //console.log(ratingPoint);/////////////////////////////////////////////////////////////
 
-//Check product co dang giu gia khong?
-for (let i=0;i<listBidding.length;i++)
-{
-  for (let j=0;j<listNowTake.length;j++)
-  {
-    if (helper.checkCurrentPrice(listBidding[i].id_product,listNowTake))
-    {
-      listBidding[i].now = true;
+  //Check product co dang giu gia khong?
+  for (let i = 0; i < listBidding.length; i++) {
+    for (let j = 0; j < listNowTake.length; j++) {
+      if (helper.checkCurrentPrice(listBidding[i].id_product, listNowTake)) {
+        listBidding[i].now = true;
+      }
     }
   }
-}
-// check NEW
-const today = moment();
-for (let i = 0; i < rows.length; i++) {
- var timeStart = moment(rows[i].startDate);
- var s = today.diff(timeStart, "seconds");
- if (s <= 600) {
-   rows[i].new = true;
- }
-}
-for (let i = 0; i < listSeller.length; i++) {
-var timeStart = moment(listSeller[i].startDate);
-var s = today.diff(timeStart, "seconds");
-if (s <= 600) {
-  listSeller[i].new = true;
-}
-}
-for (let i = 0; i < listBidding.length; i++) {
-var timeStart = moment(listBidding[i].startDate);
-var s = today.diff(timeStart, "seconds");
-if (s <= 600) {
-  listBidding[i].new = true;
-}
-}
-for (let i = 0; i < listWon.length; i++) {
-var timeStart = moment(listWon[i].startDate);
-var s = today.diff(timeStart, "seconds");
-if (s <= 600) {
-  listWon[i].new = true;
-}
-}
+  // check NEW
+  const today = moment();
+  for (let i = 0; i < rows.length; i++) {
+    var timeStart = moment(rows[i].startDate);
+    var s = today.diff(timeStart, "seconds");
+    if (s <= 600) {
+      rows[i].new = true;
+    }
+  }
+  for (let i = 0; i < listSeller.length; i++) {
+    var timeStart = moment(listSeller[i].startDate);
+    var s = today.diff(timeStart, "seconds");
+    if (s <= 600) {
+      listSeller[i].new = true;
+    }
+  }
+  for (let i = 0; i < listBidding.length; i++) {
+    var timeStart = moment(listBidding[i].startDate);
+    var s = today.diff(timeStart, "seconds");
+    if (s <= 600) {
+      listBidding[i].new = true;
+    }
+  }
+  for (let i = 0; i < listWon.length; i++) {
+    var timeStart = moment(listWon[i].startDate);
+    var s = today.diff(timeStart, "seconds");
+    if (s <= 600) {
+      listWon[i].new = true;
+    }
+  }
 
   res.render("vwAccount/profile", {
     profile: row_user,
@@ -290,6 +348,7 @@ router.get("/profile/:id/search", async (req, res) => {
   const listBidding = await userModel.getListProductOfBidding(userId);
   const listNowTake = await userModel.getUserTakeNowProduct(userId);
   const listWon = await userModel.getListProductOfWon(userId);
+
   const category = await homeModel.getCategories();
   // lấy điểm review từ database
   const number_of_reviews = (await userModel.getNumberOfReviews(userId))
@@ -308,46 +367,43 @@ router.get("/profile/:id/search", async (req, res) => {
   //console.log(ratingPoint);/////////////////////////////////////////////////////////////
 
   //Check product co dang giu gia khong?
-  for (let i=0;i<listBidding.length;i++)
-  {
-    for (let j=0;j<listNowTake.length;j++)
-    {
-      if (helper.checkCurrentPrice(listBidding[i].id_product,listNowTake))
-      {
+  for (let i = 0; i < listBidding.length; i++) {
+    for (let j = 0; j < listNowTake.length; j++) {
+      if (helper.checkCurrentPrice(listBidding[i].id_product, listNowTake)) {
         listBidding[i].now = true;
       }
     }
   }
   // check NEW
   const today = moment();
- for (let i = 0; i < rows.length; i++) {
-   var timeStart = moment(rows[i].startDate);
-   var s = today.diff(timeStart, "seconds");
-   if (s <= 600) {
-     rows[i].new = true;
-   }
- }
- for (let i = 0; i < listSeller.length; i++) {
-  var timeStart = moment(listSeller[i].startDate);
-  var s = today.diff(timeStart, "seconds");
-  if (s <= 600) {
-    listSeller[i].new = true;
+  for (let i = 0; i < rows.length; i++) {
+    var timeStart = moment(rows[i].startDate);
+    var s = today.diff(timeStart, "seconds");
+    if (s <= 600) {
+      rows[i].new = true;
+    }
   }
-}
-for (let i = 0; i < listBidding.length; i++) {
-  var timeStart = moment(listBidding[i].startDate);
-  var s = today.diff(timeStart, "seconds");
-  if (s <= 600) {
-    listBidding[i].new = true;
+  for (let i = 0; i < listSeller.length; i++) {
+    var timeStart = moment(listSeller[i].startDate);
+    var s = today.diff(timeStart, "seconds");
+    if (s <= 600) {
+      listSeller[i].new = true;
+    }
   }
-}
-for (let i = 0; i < listWon.length; i++) {
-  var timeStart = moment(listWon[i].startDate);
-  var s = today.diff(timeStart, "seconds");
-  if (s <= 600) {
-    listWon[i].new = true;
+  for (let i = 0; i < listBidding.length; i++) {
+    var timeStart = moment(listBidding[i].startDate);
+    var s = today.diff(timeStart, "seconds");
+    if (s <= 600) {
+      listBidding[i].new = true;
+    }
   }
-}
+  for (let i = 0; i < listWon.length; i++) {
+    var timeStart = moment(listWon[i].startDate);
+    var s = today.diff(timeStart, "seconds");
+    if (s <= 600) {
+      listWon[i].new = true;
+    }
+  }
   res.render("vwAccount/profile", {
     profile: row_user,
     ratingPoint: ratingPoint,
@@ -360,6 +416,56 @@ for (let i = 0; i < listWon.length; i++) {
     allCategories: category,
     idUSer: userId
   });
+});
+
+router.get("/sendReviewByWinner", async (req, res) => {
+  try {
+    const productID = req.query.idProduct;
+    const content = req.query.content;
+    const point = req.query.point;
+    const reviewerID = req.session.user.id;
+    const userID = (await userModel.getIDSeller(productID)).id_seller;
+    const timeNow = moment().format("YYYY-MM-DD hh:mm:ss");
+
+    const addReview = await userModel.addReview(productID, userID, reviewerID, content, point, timeNow);
+
+    const daXuli = "You +" + point + " point for this auction (" + productID + ") with description: " + content;
+    return res.send(daXuli);
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+router.get("/sendReviewBySeller", async (req, res) => {
+  try {
+    const productID = req.query.idProduct;
+    const content = req.query.content;
+    const point = req.query.point;
+    const reviewerID = req.session.user.id;
+    const userID = (await userModel.getIDWinner(productID)).id_bidder;
+    const timeNow = moment().format("YYYY-MM-DD hh:mm:ss");
+
+    const addReview = await userModel.addReview(productID, userID, reviewerID, content, point, timeNow);
+
+    const daXuli = "You +" + point + " point for this auction (" + productID + ") with description: " + content;
+    return res.send(daXuli);
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+
+router.get("/sendUpgradeRequest", async (req, res) => {
+  try {
+    const userID = req.query.userID;
+
+    const sendUpgradeRequest = await userModel.sendUpgradeRequest(userID);
+
+    const daXuli = "You have sent Upgrade Request successfully!";
+    return res.send(daXuli);
+  } catch (err) {
+    console.log(err);
+  }
 });
 
 module.exports = router;

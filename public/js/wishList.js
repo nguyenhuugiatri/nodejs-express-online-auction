@@ -1,17 +1,24 @@
+
+
 function addWistList(id) {
   // var heart = $(`#${id}-heart`);
   const hearts = document.getElementsByName(`${id}-heart`);
-
-  for (const heart of hearts) {
-    console.log(heart);
-    if (heart.style.color === "rgb(221, 221, 221)")
-      heart.style.color = "#D10024";
-    else heart.style.color = "#ddd";
+  var idUser = document.getElementById("userID");
+  if (!idUser.value)
+  {
+    window.location.replace("/account/signin");
+    return;
+  }
+  for (const heart of hearts)
+  {
+    console.log( heart);
+    if (heart.style.color === "rgb(221, 221, 221)") heart.style.color="#D10024";
+  else heart.style.color="#ddd";
   }
   // console.log(heart.css("color"));
   // if (heart.css("color") === "rgb(221, 221, 221)") heart.css("color", "#D10024");
   // else heart.css("color", "#ddd");
-  var idUser = document.getElementById("userID");
+  
   var urlSend =
     "/account/addWishList?userid=" + idUser.value + "&idproduct=" + id;
   $.ajax({

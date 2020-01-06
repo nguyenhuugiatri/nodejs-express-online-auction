@@ -44,19 +44,19 @@ module.exports = {
     ),
   getWishListbyID: idUser =>
     db.load(
-      `select * from watchlist as w ,product as p where w.id_user = ${idUser} and w.id_product=p.id `
+      `SELECT p.id as idproduct,p.name,p.currentPrice , p.startDate, p.endDate, u.fullname ,count(b.id_product) as count  FROM watchlist as w LEFT JOIN product as p ON w.id_product = p.id LEFT JOIN user as u ON p.id_bidder = u.id LEFT JOIN biddinglist as b ON w.id_product = b.id_product where w.id_user=${idUser} and p.auctioned=0 GROUP BY w.id_product`
     ),
   getWishListbyID_Name: (idUser, name) =>
     db.load(
-      `select * from watchlist as w ,product as p where w.id_user = ${idUser} and w.id_product=p.id and name like '%${name}%'`
+      `SELECT p.id as idproduct,p.name,p.currentPrice , p.startDate, p.endDate, u.fullname ,count(b.id_product) as count  FROM watchlist as w LEFT JOIN product as p ON w.id_product = p.id LEFT JOIN user as u ON p.id_bidder = u.id LEFT JOIN biddinglist as b ON w.id_product = b.id_product where w.id_user=${idUser} and p.auctioned=0 and p.name like '%${name}%' GROUP BY w.id_product`
     ),
   getListProductOfSeller: idSeller =>
     db.load(
-      `select * from product where id_seller= ${idSeller} and auctioned=0`
+      `SELECT p.id as idproduct,p.name,p.currentPrice , p.startDate, p.endDate, u.fullname ,count(b.id_product) as count from product as p LEFT JOIN user as u ON p.id_bidder = u.id LEFT JOIN biddinglist as b ON p.id = b.id_product where p.id_seller=${idSeller} and p.auctioned = 0 GROUP BY p.id`
     ),
   getListProductOfBidding: idBidder =>
     db.load(
-      `select * from biddinglist as b , product as p where b.id_product = p.id and p.auctioned=0 and b.id_user=${idBidder}`
+      `SELECT p.id as idproduct,p.name,p.currentPrice , p.startDate, p.endDate, u.fullname from biddinglist as b LEFT JOIN product as p ON b.id_product = p.id LEFT JOIN user as u ON b.id_user = u.id where p.auctioned=0 and u.id=${idBidder} group by p.id`
     ),
   getUserTakeNowProduct: idUser =>
     db.load(`select * from product where id_bidder=${idUser}`),
@@ -87,6 +87,7 @@ module.exports = {
     if (rows.length === 0) return null;
     return rows[0];
   },
+  getBiddingCount : ()=> db.load(`select * , count(id_product) as count from biddinglist group by id_product`),
 
   getNumberOfPositiveReviews: async idUser => {
     const rows = await db.load(

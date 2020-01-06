@@ -77,6 +77,7 @@ router.post("/signup", async (req, res) => {
   delete entity.repassword;
   delete entity.lastName;
   delete entity.firstName;
+  delete entity['g-recaptcha-response'];
   const result = await userModel.add(entity);
 
   return res.render("vwAccount/signup", {

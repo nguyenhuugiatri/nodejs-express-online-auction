@@ -129,8 +129,9 @@ function sendUpgradeRequest(userID) {
         Swal.fire({
           icon: "success",
           title: "Please wait for the admin to process your request...",
-          showConfirmButton: false,
-          timer: 3500
+          showConfirmButton: true
+        }).then( function (res) {
+            window.location.reload();
         });
       });
     }

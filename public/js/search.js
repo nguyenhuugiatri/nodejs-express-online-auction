@@ -59,6 +59,8 @@ if (urlCurrent.indexOf("/search") !== -1) {
   if (sessionStorage.getItem("draft") !== null) {
     searchInput.value = sessionStorage.getItem("draft");
   }
+  if (sessionStorage.getItem("draft")=="null")
+    searchInput.value ="";
 } else {
   sessionStorage.clear();
 }

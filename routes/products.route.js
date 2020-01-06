@@ -66,8 +66,9 @@ router.post(
     const id=req.session.user.id;
     const entity = req.body;
     entity.id_seller = id;
-    entity.startDate = moment().format("YYYY-MM-DD hh:mm:ss");
-    entity.endDate = moment(entity.endDate).format("YYYY-MM-DD hh:mm:ss");
+    entity.startDate = moment().format("YYYY-MM-DD HH:mm:ss");
+    entity.endDate = moment(entity.endDate).format("YYYY-MM-DD HH:mm:ss");
+    entity.startPrice = entity.currentPrice;
     try {
       await productModel.add(entity);
       const currentProductId = await productModel.getCurrentProductId();

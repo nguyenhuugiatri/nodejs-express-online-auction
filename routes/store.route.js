@@ -63,7 +63,7 @@ router.get("/search", async (req, res) => {
   var flagCheck = 0;
   var flagCheckSort = 0;
   for (const key in jsonGet) {
-    if (key !== "searchInput" && key !== "priceASC" && key != "endDate")
+    if (key !== "searchInput" && key !== "priceASC" && key !== "endDate" && key!== "page")
       flagCheck = 1;
     if (key === "priceASC" || key === "endDate") flagCheckSort = 1;
   }

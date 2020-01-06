@@ -4,6 +4,7 @@ function addWistList(id) {
   // var heart = $(`#${id}-heart`);
   const hearts = document.getElementsByName(`${id}-heart`);
   var idUser = document.getElementById("userID");
+  console.log(idUser.value);
   if (!idUser.value)
   {
     window.location.replace("/account/signin");
@@ -25,7 +26,7 @@ function addWistList(id) {
     url: urlSend,
     type: "GET"
   }).done(function(result) {
-    if (result !== "Add Success" || result !== "Delete Success")
+    if (!result)
       window.location.replace("/account/signin");
   });
 }

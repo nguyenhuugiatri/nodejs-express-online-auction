@@ -13,10 +13,9 @@ router.get("/", async (req, res) => {
   const category = await homeModel.getCategories();
   const rowsCategory = await storeModel.categoryOfSearchName("");
   var idUser = -1;
-   if (req.session.user)
-   {
-     idUser = req.session.user.id;
-   }
+  if (req.session.user) {
+    idUser = req.session.user.id;
+  }
   const wishList = await storeModel.getWishListbyId(idUser);
   // console.log(helper(2,wishList));
   const today = moment();
@@ -27,16 +26,13 @@ router.get("/", async (req, res) => {
       rows[i].new = true;
     }
     for (let j = 0; j < wishList.length; j++) {
-      if (helper.check(rows[i].id, wishList)) 
-           { 
-             rows[i].like = true;
-           }
+      if (helper.check(rows[i].id, wishList)) {
+        rows[i].like = true;
+      }
     }
-    if (rows[i].fullname!==null)
-    {
+    if (rows[i].fullname !== null) {
       rows[i].fullname = helper.maskNameString(rows[i].fullname);
-    }
-    else rows[i].fullname = "Chưa có người đấu giá";
+    } else rows[i].fullname = "Chưa có người đấu giá";
     var endDate = moment(rows[i].endDate).format("YYYY-MM-DD HH:mm:ss");
     // var timeleft = moment(endDate.diff(today));
     // var stringTime = helper.convertTimeLeft(timeleft);
@@ -61,20 +57,32 @@ router.get("/search", async (req, res) => {
   console.log(req.query);
   var jsonGet = {};
   jsonGet = req.query;
-  var sql = "SELECT p.id as idproduct,p.name,p.currentPrice ,p.startDate, p.endDate, u.fullname ,count(b.id_product) as count from product as p LEFT JOIN user as u ON p.id_bidder = u.id LEFT JOIN biddinglist as b ON p.id = b.id_product where ";
+  var sql =
+    "SELECT p.id as idproduct,p.name,p.currentPrice ,p.startDate, p.endDate, u.fullname ,count(b.id_product) as count from product as p LEFT JOIN user as u ON p.id_bidder = u.id LEFT JOIN biddinglist as b ON p.id = b.id_product where ";
   var flagCate = 0;
   var flagCheck = 0;
+  var flagCheckSort = 0;
   for (const key in jsonGet) {
     if (key !== "searchInput" && key !== "priceASC" && key != "endDate")
       flagCheck = 1;
+    if (key === "priceASC" || key === "endDate") flagCheckSort = 1;
   }
   console.log(flagCheck);
   for (const key in jsonGet) {
     if (key === "searchInput") {
-      if (flagCheck === 0) {
-        sql += ` name like '%${jsonGet[key]}%' GROUP BY p.id `;
-      } else {
-        sql += `) and name like '%${jsonGet[key]}%' GROUP BY p.id `;
+      if (flagCheckSort === 1) {
+        if (flagCheck === 0) {
+          sql += ` name like '%${jsonGet[key]}%' `;
+        } else {
+          sql += `) and name like '%${jsonGet[key]}%'`;
+        }
+      }
+      else {
+        if (flagCheck === 0) {
+          sql += ` name like '%${jsonGet[key]}%' GROUP BY p.id`;
+        } else {
+          sql += `) and name like '%${jsonGet[key]}%' GROUP BY p.id`;
+        }
       }
     } else if (key === "endDate" && jsonGet[key] === "true") {
       sql += " GROUP BY p.id ORDER BY endDate DESC";
@@ -96,34 +104,30 @@ router.get("/search", async (req, res) => {
   const rows = await storeModel.searchbyNameCategory(sql);
   const today = moment();
   var idUser = -1;
-  if (req.session.user)
-  {
+  if (req.session.user) {
     idUser = req.session.user.id;
   }
- const wishList = await storeModel.getWishListbyId(idUser);
- // console.log(helper(2,wishList));
- for (let i = 0; i < rows.length; i++) {
-   var timeStart = moment(rows[i].startDate);
-   var s = today.diff(timeStart, "seconds");
-   if (s <= 600) {
-     rows[i].new = true;
-   }
-   for (let j = 0; j < wishList.length; j++) {
-     if (helper.check(rows[i].id, wishList)) 
-          { 
-            rows[i].like = true;
-          }
-   }
-   if (rows[i].fullname!==null)
-    {
-      rows[i].fullname = helper.maskNameString(rows[i].fullname);
+  const wishList = await storeModel.getWishListbyId(idUser);
+  // console.log(helper(2,wishList));
+  for (let i = 0; i < rows.length; i++) {
+    var timeStart = moment(rows[i].startDate);
+    var s = today.diff(timeStart, "seconds");
+    if (s <= 600) {
+      rows[i].new = true;
     }
-    else rows[i].fullname = "Chưa có người đấu giá";
+    for (let j = 0; j < wishList.length; j++) {
+      if (helper.check(rows[i].id, wishList)) {
+        rows[i].like = true;
+      }
+    }
+    if (rows[i].fullname !== null) {
+      rows[i].fullname = helper.maskNameString(rows[i].fullname);
+    } else rows[i].fullname = "Chưa có người đấu giá";
     var endDate = moment(rows[i].endDate).format("YYYY-MM-DD HH:mm:ss");
     // var timeleft = moment(endDate.diff(today));
     // var stringTime = helper.convertTimeLeft(timeleft);
     rows[i].timeLeft = endDate;
- }
+  }
   res.render("store", {
     products: rows,
     categories: rowsCategory,

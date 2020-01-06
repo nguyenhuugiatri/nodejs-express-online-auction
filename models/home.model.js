@@ -53,7 +53,10 @@ module.exports = {
     db.load(
       `UPDATE product SET id_bidder = ${idUser}, currentPrice=${bidPrice} where id = ${idProduct}`
     ),
-  CheckBanUser : (idUser,idProduct) => db.load(`select * from ban where id_user =${idUser} and id_product =${idProduct}`),
+  CheckBanUser: (idUser, idProduct) =>
+    db.load(
+      `select * from ban where id_user =${idUser} and id_product =${idProduct}`
+    ),
   //   add: entity => db.add('products', entity),
   //   del: id => db.del('products', { ProID: id }),
   //   patch: entity => {
@@ -94,6 +97,20 @@ module.exports = {
   getCurrentWinner: async id => {
     const rows = await db.load(
       `select id_bidder from product where id = ${id}`
+    );
+    if (rows.length === 0) return null;
+    return rows[0];
+  },
+  checkAutoBid: async (id_product, id_user) => {
+    const rows = await db.load(
+      `select * from autobid where id_product = ${id_product} and id_user = ${id_user}`
+    );
+    if (rows.length === 0) return null;
+    return rows[0];
+  },
+  updateAutoBid: async (userid, idproduct, bidprice) => {
+    const rows = await db.load(
+      `update autobid set price = ${bidprice} where id_product = ${idproduct} and id_user = ${userid}`
     );
     if (rows.length === 0) return null;
     return rows[0];

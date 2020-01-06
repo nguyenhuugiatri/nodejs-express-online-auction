@@ -12,9 +12,18 @@ router.get("/", async (req, res) => {
   if (req.query.isAuto) {
     const { userid, idproduct, bidprice } = req.query;
     try {
-      await homeModel.addToAutoBid(userid, idproduct, bidprice);
+      const check = await homeModel.checkAutoBid(idproduct, userid);
+      console.log(check);
+      if (check === null) {
+        await homeModel.addToAutoBid(userid, idproduct, bidprice);
+      } else {
+        await homeModel.updateAutoBid(userid, idproduct, bidprice);
+      }
+
+      return res.send("Bid Success");
     } catch (err) {
       console.log(err);
+      return res.send("Bid Fail");
     }
   } else {
     var jsonGet = {};

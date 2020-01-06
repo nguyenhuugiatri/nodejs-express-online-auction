@@ -7,6 +7,8 @@ const numeral = require("numeral");
 require("express-async-errors");
 const cors = require("cors");
 var flash = require("express-flash");
+const job = require("./schedule/mailEndBid");
+job.start();
 
 const app = express();
 

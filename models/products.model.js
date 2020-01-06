@@ -8,7 +8,7 @@ module.exports = {
     ),
   getSellerProductByID: id =>
     db.load(
-      `select  u.fullname from product as p,user as u , image i where u.id = p.id_seller and p.id = i.id_product and p.id = '${id}'`
+      `select  u.fullname, u.id from product as p,user as u , image i where u.id = p.id_seller and p.id = i.id_product and p.id = '${id}'`
     ),
     getBidderProductByID: id =>
     db.load(

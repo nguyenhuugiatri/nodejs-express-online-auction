@@ -153,3 +153,8 @@ function showReview(productID) {
     });
   });
 }
+
+function showTab()
+{
+  $('.nav-tabs a[href="#auction_won_tab"]').tab('show');
+}

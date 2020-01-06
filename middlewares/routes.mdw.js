@@ -10,4 +10,5 @@ module.exports = function(app) {
   // app.use('/admin/categories', restrict, require('../routes/admin/category.route'));
   app.use('/admin', require('../routes/admin.route'));
   app.use('/bidding', require('../routes/bidding.route'));
+  app.use('/email', require('../routes/email.route'));
 };

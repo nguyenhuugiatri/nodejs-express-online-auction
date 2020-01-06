@@ -25,7 +25,8 @@ function addWistList(id) {
     url: urlSend,
     type: "GET"
   }).done(function(result) {
-    // console.log(result);
+    if (result !== "Add Success" || result !== "Delete Success")
+      window.location.replace("/account/signin");
   });
 }
 function addWistListAndLoadUrl(id) {
@@ -47,13 +48,13 @@ function addWistListAndLoadUrl(id) {
     console.log(result);
     window.location.replace(window.location.href);
   });
-  
 }
 
 function addWistListClosing(id) {
   var heart = $(`#${id}-closingheart`);
   console.log(heart.css("color"));
-  if (heart.css("color") === "rgb(221, 221, 221)") heart.css("color", "#D10024");
+  if (heart.css("color") === "rgb(221, 221, 221)")
+    heart.css("color", "#D10024");
   else heart.css("color", "#ddd");
   var idUser = document.getElementById("userID");
   var urlSend =
@@ -68,7 +69,8 @@ function addWistListClosing(id) {
 function addWistListTurn(id) {
   var heart = $(`#${id}-turnheart`);
   console.log(heart.css("color"));
-  if (heart.css("color") === "rgb(221, 221, 221)") heart.css("color", "#D10024");
+  if (heart.css("color") === "rgb(221, 221, 221)")
+    heart.css("color", "#D10024");
   else heart.css("color", "#ddd");
   var idUser = document.getElementById("userID");
   var urlSend =
@@ -135,7 +137,7 @@ var loadSelect = sessionStorage.getItem("selected");
 if (loadSelect) document.getElementById("mySelect").value = loadSelect;
 
 if (urlCurrent.indexOf("/search") !== -1) {
-  if (sessionStorage.getItem("draft")!==null) {
+  if (sessionStorage.getItem("draft") !== null) {
     searchInput.value = sessionStorage.getItem("draft");
   }
 } else {

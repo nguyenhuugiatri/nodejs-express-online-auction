@@ -74,7 +74,7 @@
       <div class="col-md-5">
         <div class="product-details">
           <h2 class="product-name">{{{this.product.name}}}</h2>
-          <h2 class="product-available">{{{this.product.timeLeft}}} left</h2>
+          <h2 class="product-available">{{{this.product.timeLeft}}}</h2>
           <div>
             <div class="product-rating">
               {{!-- gach ngang --}}
@@ -190,6 +190,8 @@
                       <th>Thời điểm</th>
                       <th>Người đấu giá</th>
                       <th>Giá</th>
+                      {{!-- OK --}}
+                      <th>Từ chối</th>
                     </tr>
                     {{#if this.emptyHistory}}
                     <tr>
@@ -203,6 +205,9 @@
                       <td>{{time}}</td>
                       <td>{{fullname}}</td>
                       <td>{{bidPrice}}</td>
+                      <td>
+                        <button class="btn btn-danger" onlick ="denyBidder()">Deny</button>
+                      </td>
                     </tr>
                         {{/each}}
                         {{/if}}

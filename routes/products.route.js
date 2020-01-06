@@ -11,6 +11,7 @@ var storeModel = require("../models/store.model");
 const requireLogin = require("./../middlewares/auth.mdw");
 const helper = require("./../utils/helper");
 const path = require("path");
+const nodemailer =  require('nodemailer');
 
 let imageArr = [];
 
@@ -111,7 +112,7 @@ router.get("/detail/:id", async (req, res) => {
 
   for (let i=0;i<listHistory.length;i++)
   {
-    listHistory[i].time = moment(listHistory[i].time).format("YYYY-MM-DD hh:mm:ss");
+    listHistory[i].time = moment(listHistory[i].time).format("YYYY-MM-DD HH:mm:ss");
     listHistory[i].fullname = helper.maskNameString(listHistory[i].fullname);
   }
   // mask name
@@ -122,10 +123,10 @@ router.get("/detail/:id", async (req, res) => {
  else rows[0].fullname = "Chưa có người đấu giá";
 
 
-  var endDate = moment(rows[0].endDate);
-  var timeleft = moment(endDate.diff(today));
-  var stringTime = helper.convertTimeLeft(timeleft);
-  rows[0].timeLeft = stringTime;
+  var endDate = moment(rows[0].endDate).format("YYYY-MM-DD HH:mm:ss");
+  // var timeleft = moment(endDate.diff(today));
+  // var stringTime = helper.convertTimeLeft(timeleft);
+  rows[0].timeLeft = endDate;
   
   res.render("vwProducts/product", {
     product: rows[0],

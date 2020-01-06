@@ -37,10 +37,10 @@ router.get("/", async (req, res) => {
       rows[i].fullname = helper.maskNameString(rows[i].fullname);
     }
     else rows[i].fullname = "Chưa có người đấu giá";
-    var endDate = moment(rows[i].endDate);
-    var timeleft = moment(endDate.diff(today));
-    var stringTime = helper.convertTimeLeft(timeleft);
-    rows[i].timeLeft = stringTime;
+    var endDate = moment(rows[i].endDate).format("YYYY-MM-DD HH:mm:ss");
+    // var timeleft = moment(endDate.diff(today));
+    // var stringTime = helper.convertTimeLeft(timeleft);
+    rows[i].timeLeft = endDate;
   }
 
   rows.reverse();
@@ -119,10 +119,10 @@ router.get("/search", async (req, res) => {
       rows[i].fullname = helper.maskNameString(rows[i].fullname);
     }
     else rows[i].fullname = "Chưa có người đấu giá";
-    var endDate = moment(rows[i].endDate);
-    var timeleft = moment(endDate.diff(today));
-    var stringTime = helper.convertTimeLeft(timeleft);
-    rows[i].timeLeft = stringTime;
+    var endDate = moment(rows[i].endDate).format("YYYY-MM-DD HH:mm:ss");
+    // var timeleft = moment(endDate.diff(today));
+    // var stringTime = helper.convertTimeLeft(timeleft);
+    rows[i].timeLeft = endDate;
  }
   res.render("store", {
     products: rows,

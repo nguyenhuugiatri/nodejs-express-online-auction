@@ -33,10 +33,10 @@ router.get("/", async (req, res, next) => {
       rowsPrice[i].fullname = helper.maskNameString(rowsPrice[i].fullname);
     }
     else rowsPrice[i].fullname = "Chưa có người đấu giá";
-    var endDate = moment(rowsPrice[i].endDate);
-    var timeleft = moment(endDate.diff(today));
-    var stringTime = helper.convertTimeLeft(timeleft);
-    rowsPrice[i].timeLeft = stringTime;
+    var endDate = moment(rowsPrice[i].endDate).format("YYYY-MM-DD HH:mm:ss");
+    // var timeleft = moment(endDate.diff(today));
+    // var stringTime = helper.convertTimeLeft(timeleft);
+    rowsPrice[i].timeLeft = endDate;
   }
   for (let i = 0; i < rowsEndate.length; i++) {
     var timeStart = moment(rowsEndate[i].startDate);
@@ -54,10 +54,10 @@ router.get("/", async (req, res, next) => {
       rowsEndate[i].fullname = helper.maskNameString(rowsEndate[i].fullname);
     }
     else rowsEndate[i].fullname = "Chưa có người đấu giá";
-    var endDate = moment(rowsEndate[i].endDate);
-    var timeleft = moment(endDate.diff(today));
-    var stringTime = helper.convertTimeLeft(timeleft);
-    rowsEndate[i].timeLeft = stringTime;
+    var endDate = moment(rowsEndate[i].endDate).format("YYYY-MM-DD HH:mm:ss");
+    // var timeleft = moment(endDate.diff(today));
+    // var stringTime = helper.convertTimeLeft(timeleft);
+    rowsEndate[i].timeLeft = endDate;
   }
 
   for (let i = 0; i < rowsBidd.length; i++) {
@@ -77,10 +77,10 @@ router.get("/", async (req, res, next) => {
     }
     else rowsBidd[i].fullname = "Chưa có người đấu giá";
     
-    var endDate = moment(rowsBidd[i].endDate);
-    var timeleft = moment(endDate.diff(today));
-    var stringTime = helper.convertTimeLeft(timeleft);
-    rowsBidd[i].timeLeft = stringTime;
+    var endDate = moment(rowsBidd[i].endDate).format("YYYY-MM-DD HH:mm:ss");
+    // var timeleft = moment(endDate.diff(today));
+    // var stringTime = helper.convertTimeLeft(timeleft);
+    rowsBidd[i].timeLeft = endDate;
   }
 
   res.render("home", {

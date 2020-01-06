@@ -4,7 +4,7 @@ const config = require("../config/default.json");
 module.exports = {
   getProductByID: id =>
     db.load(
-      `select p.name as name ,p.id, p.startDate ,p.bidStep, p.endDate , p.currentPrice , u.fullname , p.buynowPrice, p.details from product as p,user as u , image i where u.id = p.id_bidder and p.id = i.id_product and p.id ='${id}'`
+      `select p.name as name ,i.src,p.id, p.startDate ,p.bidStep, p.endDate , p.currentPrice , u.fullname , p.buynowPrice, p.details from product as p,user as u , image i where u.id = p.id_seller and p.id = i.id_product and p.id ='${id}'`
     ),
   getSellerProductByID: id =>
     db.load(

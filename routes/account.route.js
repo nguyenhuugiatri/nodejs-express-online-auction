@@ -309,7 +309,7 @@ router.get("/profile/:id", async (req, res) => {
   for (let i = 0; i < rows.length; i++) {
     var timeStart = moment(rows[i].startDate);
     var s = today.diff(timeStart, "seconds");
-    if (s <= 600) {
+    if (s <= 86400) {
       rows[i].new = true;
     }
   }
@@ -317,7 +317,7 @@ router.get("/profile/:id", async (req, res) => {
     var timeStart = moment(rows[i].startDate);
     var s = today.diff(timeStart, "seconds");
     rows[i].timeLeft = moment(rows[i].endDate).format("YYYY-MM-DD HH:mm:ss");
-    if (s <= 600) {
+    if (s <= 86400) {
       rows[i].new = true;
     }
   }
@@ -327,7 +327,7 @@ router.get("/profile/:id", async (req, res) => {
     listSeller[i].timeLeft = moment(listSeller[i].endDate).format(
       "YYYY-MM-DD HH:mm:ss"
     );
-    if (s <= 600) {
+    if (s <= 86400) {
       listSeller[i].new = true;
     }
   }
@@ -337,7 +337,7 @@ router.get("/profile/:id", async (req, res) => {
       "YYYY-MM-DD HH:mm:ss"
     );
     var s = today.diff(timeStart, "seconds");
-    if (s <= 600) {
+    if (s <= 86400) {
       listBidding[i].new = true;
     }
   }
@@ -345,7 +345,7 @@ router.get("/profile/:id", async (req, res) => {
     var timeStart = moment(listWon[i].startDate);
     var s = today.diff(timeStart, "seconds");
     // listWon[i].timeLeft = moment(listWon[i].endDate).format("YYYY-MM-DD HH:mm:ss");
-    if (s <= 600) {
+    if (s <= 86400) {
       listWon[i].new = true;
     }
   }
@@ -557,28 +557,28 @@ router.get("/profile/:id/search", async (req, res) => {
   for (let i = 0; i < rows.length; i++) {
     var timeStart = moment(rows[i].startDate);
     var s = today.diff(timeStart, "seconds");
-    if (s <= 600) {
+    if (s <= 86400) {
       rows[i].new = true;
     }
   }
   for (let i = 0; i < listSeller.length; i++) {
     var timeStart = moment(listSeller[i].startDate);
     var s = today.diff(timeStart, "seconds");
-    if (s <= 600) {
+    if (s <= 86400) {
       listSeller[i].new = true;
     }
   }
   for (let i = 0; i < listBidding.length; i++) {
     var timeStart = moment(listBidding[i].startDate);
     var s = today.diff(timeStart, "seconds");
-    if (s <= 600) {
+    if (s <= 86400) {
       listBidding[i].new = true;
     }
   }
   for (let i = 0; i < listWon.length; i++) {
     var timeStart = moment(listWon[i].startDate);
     var s = today.diff(timeStart, "seconds");
-    if (s <= 600) {
+    if (s <= 86400) {
       listWon[i].new = true;
     }
   }

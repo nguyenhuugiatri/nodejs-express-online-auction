@@ -141,14 +141,14 @@
 				<ul class="main-nav nav navbar-nav">
 					<li><a href="/">Home</a></li>
 					{{!-- <li><a href="#">Categories</a></li> --}}
-					<li><a href="/store">Store</a></li>
+					<li><a href="/store/search?searchInput=">Store</a></li>
 					<li class="dropdown" id="Categories-dropdown">
 						<a href="#" class="dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown">
 							Categories
 						</a>
 						<ul class="dropdown-menu">
 							{{#each this.allCategories}}
-							<li><a href="/store/search?searchInput=&{{id}}=true" onclick="clearBoxes()">{{name}}</a></li>
+							<li><a href="/store/search?searchInput=&{{id}}=true" onclick ="clearBoxes()">{{name}}</a></li>
 							{{/each}}
 						</ul>
 					</li>

@@ -17,6 +17,11 @@ router.get("/", async (req, res) => {
   }
   var now = moment().format("YYYY-MM-DD hh:mm:ss");
   const productCurrent = await homeModel.getProductCurrent(idProduct);
+  const checkIsBan = await homeModel.CheckBanUser(idUser,idProduct);
+  if (checkIsBan.length>0)
+  {
+    return res.send("Banned");
+  }
   if (parseInt(bidPrice) > parseInt(productCurrent[0].currentPrice)) {
     await homeModel.upProductBidding(idProduct, idUser, bidPrice);
     await homeModel.upBiddingList(idProduct, now, bidPrice, idUser);

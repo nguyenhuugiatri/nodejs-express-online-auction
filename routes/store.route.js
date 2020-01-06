@@ -22,7 +22,7 @@ router.get("/", async (req, res) => {
   for (let i = 0; i < rows.length; i++) {
     var timeStart = moment(rows[i].startDate);
     var s = today.diff(timeStart, "seconds");
-    if (s <= 600) {
+    if (s <= 86400) {
       rows[i].new = true;
     }
     for (let j = 0; j < wishList.length; j++) {
@@ -88,7 +88,7 @@ router.get("/search", async (req, res) => {
         }
       }
     } else if (key === "endDate" && jsonGet[key] === "true") {
-      sql += " GROUP BY p.id ORDER BY endDate DESC";
+      sql += " GROUP BY p.id ORDER BY endDate ASC";
     } else if (key === "priceASC" && jsonGet[key] === "true") {
       sql += " GROUP BY p.id ORDER BY currentPrice ASC";
     } else if (key === "priceASC" && jsonGet[key] === "false") {
@@ -111,11 +111,16 @@ router.get("/search", async (req, res) => {
     idUser = req.session.user.id;
   }
   const wishList = await storeModel.getWishListbyId(idUser);
+  for (let i = 0; i < rows.length; i++) {
+    var productID = rows[i].idproduct; // lấy id product
+    const thumbnailSrc = (await homeModel.getThumbnailByID(productID)).src;
+    rows[i].thumbnailSrc = thumbnailSrc;
+  }
   // console.log(helper(2,wishList));
   for (let i = 0; i < rows.length; i++) {
     var timeStart = moment(rows[i].startDate);
     var s = today.diff(timeStart, "seconds");
-    if (s <= 600) {
+    if (s <= 86400) {
       rows[i].new = true;
     }
     for (let j = 0; j < wishList.length; j++) {

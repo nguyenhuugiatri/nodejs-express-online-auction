@@ -40,7 +40,7 @@ router.get("/", async (req, res, next) => {
     var timeStart = moment(rowsPrice[i].startDate);
     var s = moment().diff(timeStart, "seconds");
     console.log(timeStart + " " + today + "a");
-    if (s <= 600) {
+    if (s <= 86400) {
       rowsPrice[i].new = true;
     }
     for (let j = 0; j < wishList.length; j++) {
@@ -59,7 +59,7 @@ router.get("/", async (req, res, next) => {
   for (let i = 0; i < rowsEndate.length; i++) {
     var timeStart = moment(rowsEndate[i].startDate);
     var s = today.diff(timeStart, "seconds");
-    if (s <= 600) {
+    if (s <= 86400) {
       rowsEndate[i].new = true;
     }
     for (let j = 0; j < wishList.length; j++) {
@@ -79,7 +79,7 @@ router.get("/", async (req, res, next) => {
   for (let i = 0; i < rowsBidd.length; i++) {
     var timeStart = moment(rowsBidd[i].startDate);
     var s = today.diff(timeStart, "seconds");
-    if (s <= 600) {
+    if (s <= 86400) {
       rowsBidd[i].new = true;
     }
     for (let j = 0; j < wishList.length; j++) {

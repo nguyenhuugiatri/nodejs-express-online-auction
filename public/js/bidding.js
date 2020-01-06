@@ -49,9 +49,15 @@ function placeBid(idProduct) {
             Swal.fire("Thành công!", "Bạn đã đặt giá sản phẩm", "success").then(result => {
             window.location.replace(window.location.href);
           });
-
-          //   Swal.fire("Thành công!", "Bạn đã đặt giá sản phẩm", "success");
-        } else Swal.fire("Fail!", "Có người đặt giá cao hơn", "success");
+        } 
+        else {
+          if (result ==="Banned")
+          {
+            Swal.fire("Fail!", "Banned", "warning");
+          }
+          else Swal.fire("Fail!", "Có người đặt giá cao hơn", "success");
+        }
+        
       });
     }
   });

@@ -89,7 +89,7 @@
                                 Sort By:
                                 <select class="input-select " id="mySelect" onchange="selectedSort()">
                                     <option value="" style="display:none" disabled selected>Sắp theo</option>
-                                    <option value="endDate">Sắp hết</option>
+                                    <option value="endDate">Sắp hết hạn</option>
                                     <option value="priceASC">Giá tăng</option>
                                     <option value="priceDESC">Giá giảm</option>
                                 </select>
@@ -117,7 +117,7 @@
                         <div class="col-md-4 col-xs-6">
                             <div class="product">
                                 <div class="product-img">
-                                    <img src="/img/product01.png" alt="">
+                                    <img src="{{thumbnailSrc}}" alt="">
                                     <div class="product-label">
                                         <span class="sale">Bidding: {{count}}</span>
                                         {{#if this.new}}
@@ -186,8 +186,6 @@
     <script src="https://code.jquery.com/jquery-3.4.1.slim.js"
         integrity="sha256-BTlTdQO9/fascB1drekrDVkaKd9PkwBymMlHOiG+qLI=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
-
-    <script src="/js/wishList.js"></script>
 </body>
 
 </html>

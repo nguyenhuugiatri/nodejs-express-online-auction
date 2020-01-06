@@ -119,10 +119,13 @@
                                 <div class="product-img">
                                     <img src="{{thumbnailSrc}}" alt="">
                                     <div class="product-label">
-                                        <span class="sale">Bidding: {{count}}</span>
+                                        <span class="sale">Bid: {{count}}</span>
                                         {{#if this.new}}
                                         <span class="new">New</span>
                                         {{/if}}
+                                        {{#if this.now}}
+                                                                            <span class="new">Now</span>
+                                                                            {{/if}}
                                     </div>
                                 </div>
                                 <div class="product-body">

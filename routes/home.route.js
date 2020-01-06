@@ -2,6 +2,7 @@ const express = require("express");
 const homeModel = require("../models/home.model");
 const helper = require("./../utils/helper");
 var storeModel = require("../models/store.model");
+const userModel = require("../models/user.model");
 var moment = require("moment");
 const router = express.Router();
 
@@ -9,8 +10,33 @@ router.get("/", async (req, res, next) => {
   const rowsPrice = await homeModel.getProductPriceDESC();
   const rowsEndate = await homeModel.getProductEndateDESC();
   const rowsBidd = await homeModel.getProductBiddDESC();
-
-  
+  var idUser = -1;
+  if (req.session.user) {
+    idUser = req.session.user.id;
+  }
+  const listNowTake = await userModel.getUserTakeNowProduct(idUser);
+  // check dang giu gia
+  for (let i = 0; i < rowsPrice.length; i++) {
+    for (let j = 0; j < listNowTake.length; j++) {
+      if (helper.checkCurrentPrice(rowsPrice[i].idproduct, listNowTake)) {
+        rowsPrice[i].now = true;
+      }
+    }
+  }
+  for (let i = 0; i < rowsEndate.length; i++) {
+    for (let j = 0; j < listNowTake.length; j++) {
+      if (helper.checkCurrentPrice(rowsEndate[i].idproduct, listNowTake)) {
+        rowsEndate[i].now = true;
+      }
+    }
+  }
+  for (let i = 0; i < rowsBidd.length; i++) {
+    for (let j = 0; j < rowsBidd.length; j++) {
+      if (helper.checkCurrentPrice(rowsBidd[i].idproduct, listNowTake)) {
+        rowsBidd[i].now = true;
+      }
+    }
+  }
   // lấy thumbnail source cho products
   for (let i = 0; i < rowsPrice.length; i++) {
     var productID = rowsPrice[i].idproduct; // lấy id product
@@ -30,10 +56,7 @@ router.get("/", async (req, res, next) => {
 
 
   const category = await homeModel.getCategories();
-  var idUser = -1;
-  if (req.session.user) {
-    idUser = req.session.user.id;
-  }
+  
   const wishList = await storeModel.getWishListbyId(idUser);
   const today = moment();
   for (let i = 0; i < rowsPrice.length; i++) {

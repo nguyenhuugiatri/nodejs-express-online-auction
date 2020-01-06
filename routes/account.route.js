@@ -325,8 +325,22 @@ router.get("/profile/:id", async (req, res) => {
   //Check product co dang giu gia khong?
   for (let i = 0; i < listBidding.length; i++) {
     for (let j = 0; j < listNowTake.length; j++) {
-      if (helper.checkCurrentPrice(listBidding[i].id_product, listNowTake)) {
+      if (helper.checkCurrentPrice(listBidding[i].idproduct, listNowTake)) {
         listBidding[i].now = true;
+      }
+    }
+  }
+  for (let i = 0; i < listBidding.length; i++) {
+    for (let j = 0; j < listNowTake.length; j++) {
+      if (helper.checkCurrentPrice(listBidding[i].idproduct, listNowTake)) {
+        listBidding[i].now = true;
+      }
+    }
+  }
+  for (let i = 0; i < rows.length; i++) {
+    for (let j = 0; j < rows.length; j++) {
+      if (helper.checkCurrentPrice(rows[i].idproduct, listNowTake)) {
+        rows[i].now = true;
       }
     }
   }

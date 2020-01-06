@@ -5,6 +5,7 @@ var moment = require("moment");
 const db = require("./../utils/db");
 const helper = require("./../utils/helper");
 const homeModel = require("../models/home.model");
+const userModel = require("../models/user.model");
 
 const router = express.Router();
 
@@ -109,6 +110,15 @@ router.get("/search", async (req, res) => {
   var idUser = -1;
   if (req.session.user) {
     idUser = req.session.user.id;
+  }
+  const listNowTake = await userModel.getUserTakeNowProduct(idUser);
+  // check dang giu gia
+  for (let i = 0; i < rows.length; i++) {
+    for (let j = 0; j < listNowTake.length; j++) {
+      if (helper.checkCurrentPrice(rows[i].idproduct, listNowTake)) {
+        rows[i].now = true;
+      }
+    }
   }
   const wishList = await storeModel.getWishListbyId(idUser);
   for (let i = 0; i < rows.length; i++) {

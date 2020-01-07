@@ -175,7 +175,7 @@ router.get("/detail/:id", async (req, res) => {
       relatedproduct[i].new = true;
     }
     for (let j = 0; j < wishList.length; j++) {
-      if (helper.check(relatedproduct[i].id, wishList)) {
+      if (helper.check(relatedproduct[i].idproduct, wishList)) {
         relatedproduct[i].like = true;
       }
     }

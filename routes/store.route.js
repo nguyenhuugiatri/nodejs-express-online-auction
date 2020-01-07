@@ -27,7 +27,7 @@ router.get("/", async (req, res) => {
       rows[i].new = true;
     }
     for (let j = 0; j < wishList.length; j++) {
-      if (helper.check(rows[i].id, wishList)) {
+      if (helper.check(rows[i].idproduct, wishList)) {
         rows[i].like = true;
       }
     }
@@ -134,7 +134,7 @@ router.get("/search", async (req, res) => {
       rows[i].new = true;
     }
     for (let j = 0; j < wishList.length; j++) {
-      if (helper.check(rows[i].id, wishList)) {
+      if (helper.check(rows[i].idproduct, wishList)) {
         rows[i].like = true;
       }
     }

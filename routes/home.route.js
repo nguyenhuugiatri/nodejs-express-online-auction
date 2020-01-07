@@ -67,7 +67,7 @@ router.get("/", async (req, res, next) => {
       rowsPrice[i].new = true;
     }
     for (let j = 0; j < wishList.length; j++) {
-      if (helper.check(rowsPrice[i].id, wishList)) {
+      if (helper.check(rowsPrice[i].idproduct, wishList)) {
         rowsPrice[i].like = true;
       }
     }
@@ -86,7 +86,7 @@ router.get("/", async (req, res, next) => {
       rowsEndate[i].new = true;
     }
     for (let j = 0; j < wishList.length; j++) {
-      if (helper.check(rowsEndate[i].id, wishList)) {
+      if (helper.check(rowsEndate[i].idproduct, wishList)) {
         rowsEndate[i].like = true;
       }
     }
@@ -106,7 +106,7 @@ router.get("/", async (req, res, next) => {
       rowsBidd[i].new = true;
     }
     for (let j = 0; j < wishList.length; j++) {
-      if (helper.check(rowsBidd[i].id, wishList)) {
+      if (helper.check(rowsBidd[i].idproduct, wishList)) {
         rowsBidd[i].like = true;
       }
     }

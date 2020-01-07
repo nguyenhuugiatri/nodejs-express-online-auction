@@ -1,7 +1,10 @@
 var input = document.getElementById("input-bidding");
+var inputAuto = document.getElementById("input-auto-bidding");
 var bidStep = document.getElementById("bidStepp");
 input.value = parseInt(input.value) + parseInt(bidStep.value);
+inputAuto.value = parseInt(inputAuto.value) + 10*parseInt(bidStep.value);
 input.disabled = true;
+inputAuto.disabled=true;
 
 function upInputBidding(bidStep) {
   var input = document.getElementById("input-bidding");
@@ -90,7 +93,7 @@ function placeAutoBid(idProduct) {
   }
   Swal.fire({
     title: "Are you sure?",
-    text: `Bạn muốn tự động đấu giá tới mức: ${input.value}`,
+    text: `Bạn muốn tự động đấu giá tới mức: ${inputAuto.value}`,
     icon: "warning",
     showCancelButton: true,
     confirmButtonColor: "#3085d6",
@@ -113,12 +116,26 @@ function placeAutoBid(idProduct) {
         type: "GET"
       }).done(function(result) {
         if (result === "Bid Success") {
-          Swal.fire("Thành công!", "Bạn đã đặt giá tự động", "success").then(
+          Swal.fire("Thành công!", "Bạn đã đặt giá sản phẩm", "success").then(
             result => {
               window.location.replace(window.location.href);
             }
           );
-        } else Swal.fire("Fail!", "Có người đặt giá cao hơn", "success");
+        } else {
+          if (result === "Banned") {
+            Swal.fire("Fail!", "Banned", "warning");
+          } else {
+            if (result === "Enough") {
+              Swal.fire(
+                "Fail!",
+                "You don't have enough reputation to bid",
+                "warning"
+              );
+            } else {
+              Swal.fire("Fail!", "Có người đặt giá cao hơn", "warning");
+            }
+          }
+        }
       });
     }
   });

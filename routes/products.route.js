@@ -1,6 +1,7 @@
 const express = require("express");
 const productModel = require("../models/products.model");
 const categoryModel = require("../models/category.model");
+const userModel = require("../models/user.model");
 const imageModel = require("../models/image.model");
 const multer = require("multer");
 const moment = require("moment");
@@ -152,6 +153,15 @@ router.get("/detail/:id", async (req, res) => {
   rows[0].endDate = moment(rows[0].endDate).format("YYYY-MM-DD");
 
   // related product 
+  const listNowTake = await userModel.getUserTakeNowProduct(idUser);
+  // check dang giu gia
+  for (let i = 0; i < relatedproduct.length; i++) {
+    for (let j = 0; j < listNowTake.length; j++) {
+      if (helper.checkCurrentPrice(relatedproduct[i].idproduct, listNowTake)) {
+        relatedproduct[i].now = true;
+      }
+    }
+  }
   for (let i = 0; i < relatedproduct.length; i++) {
     var productID = relatedproduct[i].idproduct; // lấy id product
     const thumbnailSrc = (await homeModel.getThumbnailByID(productID)).src;

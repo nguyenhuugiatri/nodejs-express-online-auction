@@ -12,6 +12,32 @@ router.get("/", async (req, res) => {
   if (req.query.isAuto) {
     const { userid, idproduct, bidprice } = req.query;
     try {
+      const checkIsBan = await homeModel.CheckBanUser(userid, idproduct);
+
+      const number_of_reviews = (await userModel.getNumberOfReviews(userid))
+        .number_of_reviews;
+      const positive_reviews = (
+        await userModel.getNumberOfPositiveReviews(userid)
+      ).positive_reviews;
+
+      const requireReputation = (
+        await productModel.isRequireReputation(idproduct)
+      ).requireReputation;
+
+      var ratingPoint = 0;
+      // console.log("number_of_reviews" + number_of_reviews);////////
+      // console.log("positive_reviews" + positive_reviews);////////
+      if (number_of_reviews === 0) {
+        ratingPoint = 0;
+      } else ratingPoint = (positive_reviews / number_of_reviews) * 100;
+      // check uy tin
+      if (ratingPoint < 80 && requireReputation == 1) {
+        return res.send("Enough");
+      }
+      // check banned
+      if (checkIsBan.length > 0) {
+        return res.send("Banned");
+      }
       const check = await homeModel.checkAutoBid(idproduct, userid);
       console.log(check);
       if (check === null) {
@@ -36,21 +62,47 @@ router.get("/", async (req, res) => {
     }
     var now = moment().format("YYYY-MM-DD hh:mm:ss");
     const productCurrent = await homeModel.getProductCurrent(idProduct);
+    const checkIsBan = await homeModel.CheckBanUser(idUser, idProduct);
+
+    const number_of_reviews = (await userModel.getNumberOfReviews(idUser))
+      .number_of_reviews;
+    const positive_reviews = (
+      await userModel.getNumberOfPositiveReviews(idUser)
+    ).positive_reviews;
+
+    const requireReputation = (
+      await productModel.isRequireReputation(idProduct)
+    ).requireReputation;
+
+    var ratingPoint = 0;
+    // console.log("number_of_reviews" + number_of_reviews);////////
+    // console.log("positive_reviews" + positive_reviews);////////
+    if (number_of_reviews === 0) {
+      ratingPoint = 0;
+    } else ratingPoint = (positive_reviews / number_of_reviews) * 100;
+    // check uy tin
+    if (ratingPoint < 80 && requireReputation == 1) {
+      return res.send("Enough");
+    }
+    // check banned
+    if (checkIsBan.length > 0) {
+      return res.send("Banned");
+    }
     if (parseInt(bidPrice) > parseInt(productCurrent[0].currentPrice)) {
       await homeModel.upProductBidding(idProduct, idUser, bidPrice);
       await homeModel.upBiddingList(idProduct, now, bidPrice, idUser);
       //Send email
       if (req.session && req.session.user && req.session.user.id)
-        axios({
-          method: "post",
-          url: "http://localhost:3000/email/bidding-confirm",
-          data: {
-            email: req.session.user.email,
-            bidPrice,
-            productName: productCurrent[0].name,
-            bidTime: now
-          }
-        });
+      axios({
+        method: "post",
+        url: "http://localhost:3000/email/bidding-confirm",
+        data: {
+          email: req.session.user.email,
+          bidPrice,
+          productName: productCurrent[0].name,
+          bidTime: now
+        }
+      });
       return res.send("Bid Success");
     } else {
       return res.send("Bid Fail");

@@ -56,6 +56,9 @@ const job = new CronJob({
 
     const autoBidTable = await homeModel.getAutoBidTable();
     for (const autoBid of autoBidTable) {
+      const checkBan = await homeModel.CheckBanUser(autoBid.id_user,autoBid.id_product);
+      if (checkBan.length!==0)
+        continue;
       const currentWinner = await homeModel.getCurrentWinner(
         autoBid.id_product
       );
